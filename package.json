@@ -1,5 +1,5 @@
 {
-  "name": "CreativeProject",
+  "name": "creative-project",
   "private": true,
   "scripts": {
     "dev": "next dev",
