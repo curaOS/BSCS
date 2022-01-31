@@ -919,22 +919,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"CreativeProject@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "CreativeProject@workspace:."
-  dependencies:
-    "@types/node": 17.0.1
-    "@types/react": 17.0.37
-    eslint: 8.5.0
-    eslint-config-next: 12.0.7
-    next: 12.0.7
-    react: 17.0.2
-    react-dom: 17.0.2
-    theme-ui: ^0.12.1
-    typescript: 4.5.4
-  languageName: unknown
-  linkType: soft
-
 "abbrev@npm:1":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
@@ -1667,6 +1651,12 @@ __metadata:
   checksum: ba12bb2257b585a0396108c72830e85f882ab659c3320c83584b1037f8ab72415095167ced80dc4ce8e446a8ecc4b2acf36d87befe0707d73b26cf9dc77440ed
   languageName: node
   linkType: hard
+
+"creative-project@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "creative-project@workspace:."
+  languageName: unknown
+  linkType: soft
 
 "cross-spawn@npm:^7.0.2":
   version: 7.0.3
@@ -5010,6 +5000,22 @@ __metadata:
   checksum: c93d8dfe908a0140a4ae9c0ebc87a33805b416a33ee638a605b551523eec94a9632165e54632f6d57a39c5f948c4bab10e0e066525e9a4b87a79f0d04fbca374
   languageName: node
   linkType: hard
+
+"website@workspace:packages/website":
+  version: 0.0.0-use.local
+  resolution: "website@workspace:packages/website"
+  dependencies:
+    "@types/node": 17.0.1
+    "@types/react": 17.0.37
+    eslint: 8.5.0
+    eslint-config-next: 12.0.7
+    next: 12.0.7
+    react: 17.0.2
+    react-dom: 17.0.2
+    theme-ui: ^0.12.1
+    typescript: 4.5.4
+  languageName: unknown
+  linkType: soft
 
 "whatwg-url@npm:^7.0.0":
   version: 7.1.0
