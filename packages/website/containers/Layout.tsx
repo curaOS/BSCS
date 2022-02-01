@@ -7,8 +7,10 @@ import { useRecoilValue } from 'recoil'
 import Header from "./Header";
 import { indexLoaderState } from '../state/recoil'
 
-export default function Layout({ children, requireAuth = false }) {
-  
+import Menu from "./Menu";
+
+export default function Layout({ children, requireAuth = false, page }) {
+
   const { accountId } = useNearHooksContainer();
    
   const indexLoader = useRecoilValue(indexLoaderState)
@@ -16,6 +18,7 @@ export default function Layout({ children, requireAuth = false }) {
   return (
     <>
       <Header />
+      <Menu accountId={accountId} />
       <Container>
       	{indexLoader ? (
             <Box

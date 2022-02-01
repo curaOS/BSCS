@@ -3,10 +3,10 @@ import { Header } from "@cura/components";
 import { useNearHooksContainer } from "@cura/hooks";
 import { Link, useColorMode } from "theme-ui";
 import { useRouter } from "next/router";
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { project } from "../utils/project";
-import { alertMessageState } from '../state/recoil'
+import { alertMessageState } from "../state/recoil";
 
 export default function HeaderContainer({
   isInitial,
@@ -23,7 +23,7 @@ export default function HeaderContainer({
 
   const preSignOut = async () => {
     await signOut();
-    router.push(window.location.origin + "/");
+    router.reload();
   };
 
   const preSignIn = () => {
