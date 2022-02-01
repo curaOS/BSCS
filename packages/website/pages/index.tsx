@@ -1,17 +1,15 @@
-import type { NextPage } from "next";
-import {Box, Heading, Container, Spinner} from "theme-ui";
+// @ts-nocheck
+import { Box } from "theme-ui";
 
-import Layout from '../containers/Layout'
+import Layout from "../containers/Layout";
 
-const Explore: NextPage = () => {
+const Explore = () => {
   return (
-      <>
-          <Layout>
-              <Box>
-            
-              </Box>
-          </Layout>
-      </>
+    <>
+      <Layout>
+        <Box>home</Box>
+      </Layout>
+    </>
   );
 };
 
