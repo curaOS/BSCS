@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Header } from '@cura/components'
 import { useNearHooksContainer } from '@cura/hooks'
 import { Link, useColorMode } from "theme-ui";
