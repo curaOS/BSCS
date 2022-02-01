@@ -156,9 +156,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cura/components@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "@cura/components@npm:1.1.2"
+"@cura/components@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "@cura/components@npm:1.1.5"
   dependencies:
     "@theme-ui/color": ^0.12.1
     "@theme-ui/match-media": ^0.12.1
@@ -168,7 +168,7 @@ __metadata:
     react-dom: ^17.0.2
     theme-ui: ^0.12.1
     tslib: ^2.3.1
-  checksum: 054367c07aa4a1dce053af297c7c1fb1abebb3ae99ac842b80fb17fc7d76dd907b3b89375a5ca50e54fa340f7598095e26b46859db752837656584d5e8496119
+  checksum: e04877a05ab9ecee436a474856d5ee67325318e843d4bf50ee80eff43711b609bf9c44bed4ebd3a4fd220753d8e7a241eb2f2246178c611d40e33d82c1608f8b
   languageName: node
   linkType: hard
 
@@ -5557,7 +5557,7 @@ __metadata:
   resolution: "website@workspace:packages/website"
   dependencies:
     "@apollo/client": ^3.5.8
-    "@cura/components": ^1.1.2
+    "@cura/components": ^1.1.5
     "@cura/hooks": ^1.1.1
     "@types/node": 17.0.1
     "@types/react": 17.0.37
