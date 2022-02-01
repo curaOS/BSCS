@@ -47,7 +47,7 @@ const View = () => {
 
   const { loading, data, error } = useQuery(GET_OWNER_NFT, {
     variables: {
-      owner_id: accountId,
+      owner_id: accountId || "",
     },
   });
 
