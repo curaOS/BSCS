@@ -1,10 +1,11 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 import { useQuery, gql } from "@apollo/client";
-
-import { Link } from "theme-ui";
+import { Link, Spinner } from "theme-ui";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { MediaObject } from "@cura/components";
+
+import Layout from "../containers/Layout";
 
 const LIMIT_PER_PAGE = 2;
 
@@ -27,24 +28,23 @@ const ExploreToken = () => {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
-
-  if (error) {
-    console.error(error);
-    return <p>Error :(</p>;
-  }
-
   return (
-    <Feed
-      entries={data.nfts || []}
-      onLoadMore={() =>
-        fetchMore({
-          variables: {
-            offset: data.nfts.length,
-          },
-        })
-      }
-    />
+    <Layout>
+      {loading && <Spinner />}
+      {error && <p>Error: check console</p>}
+      {!loading && !error && (
+        <Feed
+          entries={data.nfts || []}
+          onLoadMore={() =>
+            fetchMore({
+              variables: {
+                offset: data.nfts.length,
+              },
+            })
+          }
+        />
+      )}
+    </Layout>
   );
 };
 
