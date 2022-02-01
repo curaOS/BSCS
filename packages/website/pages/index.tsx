@@ -1,12 +1,16 @@
-import type { NextPage } from "next";
-import { Box, Heading } from "theme-ui";
+// @ts-nocheck
+import { Box } from "theme-ui";
 
-const Home: NextPage = () => {
+import Layout from "../containers/Layout";
+
+const Explore = () => {
   return (
-    <Box sx={{ textAlign: "center" }}>
-      <Heading m={5}>Welcome to Cura</Heading>
-    </Box>
+    <>
+      <Layout>
+        <Box>home</Box>
+      </Layout>
+    </>
   );
 };
 
-export default Home;
+export default Explore;

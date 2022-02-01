@@ -1,14 +1,35 @@
-import type { Theme } from "theme-ui";
+import { theme as curaTheme } from '@cura/components'
 
-export const theme: Theme = {
-  fonts: {
-    body: "system-ui, sans-serif",
-    heading: '"Avenir Next", sans-serif',
-    monospace: "Menlo, monospace",
+const gradientLarge = `/gradientLarge.webp`
+const gradientSmall = `/gradientSmall.webp`
+
+//  Default Styles
+const styles = {
+  styles: {
+    root: {
+      variant: `text.body`,
+      bg: `bg`,
+    },
+    a: {
+      variant: `text.buttons.1`,
+    },
   },
-  colors: {
-    text: "#fff",
-    background: "#1e1e1e",
-    primary: "#33e",
+}
+
+// Theme variants specific to this frontend that override curaTheme
+const variants = {
+  images: {
+    ...curaTheme.images,
+    gradient: {
+      backgroundImage: [`url(${gradientSmall})`, `url(${gradientLarge})`],
+      backgroundPosition: `center`,
+      backgroundSize: `cover`,
+    },
   },
-};
+}
+
+export const theme = {
+  ...curaTheme,
+  ...variants,
+  ...styles,
+}
