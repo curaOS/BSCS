@@ -9,9 +9,12 @@
   "dependencies": {
     "@cura/components": "^1.1.2",
     "@cura/hooks": "^1.1.1",
+    "axios": "^0.25.0",
+    "near-api-js": "^0.44.2",
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "recoil": "^0.6.1",
     "theme-ui": "^0.12.1"
   },
   "devDependencies": {
