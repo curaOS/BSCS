@@ -4,7 +4,7 @@ import { useQuery, gql } from "@apollo/client";
 
 const NFTS_QUERY = gql`
   query GetNfts {
-    nfts() {
+    nfts {
         id
     }
   }
