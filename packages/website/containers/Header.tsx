@@ -15,8 +15,8 @@ export default function HeaderContainer({
 	const { signIn, signOut, accountId } = useNearHooksContainer();
 	const [mode, setMode] = useColorMode()
 
-	const preSignOut=()=>{
-		signOut()
+	const preSignOut= async()=>{
+		await signOut()
 		router.push(window.location.origin + '/')
 	}
 
