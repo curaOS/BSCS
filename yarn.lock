@@ -1906,9 +1906,9 @@ __metadata:
   linkType: hard
 
 "core-js-pure@npm:^3.20.2":
-  version: 3.20.3
-  resolution: "core-js-pure@npm:3.20.3"
-  checksum: a8ec44390849bcf0502f20e6349fa087944bb88ac83d796d7fd5ace837d242308aae54b247a6a56bec463e5ab9be08dfad48d389673c34e8e31cc0a661a17a95
+  version: 3.21.0
+  resolution: "core-js-pure@npm:3.21.0"
+  checksum: 0b9b72fb241b106997a14fe8099bf62d38f9e5e0e6b46f8ae71f3b05822508a27f34e629f3d7766042a33ae3438938aa401aa1a5d2dbc296affaefed5fe06d68
   languageName: node
   linkType: hard
 
@@ -2939,12 +2939,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-
-"hamt_plus@npm:1.0.2":
-  version: 1.0.2
-  resolution: "hamt_plus@npm:1.0.2"
-  checksum: af26ea32db03009019cc83dfa9411521a2fa16079443de1a502c9be46d8b3c975acda8ed93fc5750ef08d3186d35901e2d8cfe717dd54bea67b358601fa74e4c
-
 "graphql-tag@npm:^2.12.3":
   version: 2.12.6
   resolution: "graphql-tag@npm:2.12.6"
@@ -2960,7 +2954,13 @@ __metadata:
   version: 16.3.0
   resolution: "graphql@npm:16.3.0"
   checksum: ba540641e9cd2a8de5b989ff1433b015f232fa73aaef478d6709c1339cd43113347917acb965a5799c004667687852fc8ff0cfaa935eb26374c91c1fd7fdaeb1
+  languageName: node
+  linkType: hard
 
+"hamt_plus@npm:1.0.2":
+  version: 1.0.2
+  resolution: "hamt_plus@npm:1.0.2"
+  checksum: af26ea32db03009019cc83dfa9411521a2fa16079443de1a502c9be46d8b3c975acda8ed93fc5750ef08d3186d35901e2d8cfe717dd54bea67b358601fa74e4c
   languageName: node
   linkType: hard
 
@@ -5586,13 +5586,13 @@ __metadata:
     "@types/react": 17.0.37
     eslint: 8.5.0
     eslint-config-next: 12.0.7
-    near-api-js: ^0.44.2
-    recoil: ^0.6.1
     graphql: ^16.3.0
+    near-api-js: ^0.44.2
     next: 12.0.7
     react: 17.0.2
     react-dom: 17.0.2
     react-infinite-scroll-component: ^6.1.0
+    recoil: ^0.6.1
     theme-ui: ^0.12.1
     typescript: 4.5.4
   languageName: unknown
