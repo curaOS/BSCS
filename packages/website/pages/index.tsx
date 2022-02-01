@@ -6,7 +6,11 @@ import Layout from '../containers/Layout'
 const Explore: NextPage = () => {
   return (
       <>
-          <Layout />
+          <Layout>
+              <Box>
+            
+              </Box>
+          </Layout>
       </>
   );
 };
