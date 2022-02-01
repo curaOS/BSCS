@@ -3,8 +3,10 @@ import { Header } from "@cura/components";
 import { useNearHooksContainer } from "@cura/hooks";
 import { Link, useColorMode } from "theme-ui";
 import { useRouter } from "next/router";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { project } from "../utils/project";
+import { alertMessageState } from "../state/recoil";
 
 export default function HeaderContainer({
   isInitial,
@@ -16,9 +18,12 @@ export default function HeaderContainer({
   const { signIn, signOut, accountId } = useNearHooksContainer();
   const [mode, setMode] = useColorMode();
 
+  const alertMessage = useRecoilValue(alertMessageState);
+  const setAlertMessage = useSetRecoilState(alertMessageState);
+
   const preSignOut = async () => {
     await signOut();
-    router.push(window.location.origin + "/");
+    router.reload();
   };
 
   const preSignIn = () => {
@@ -43,8 +48,8 @@ export default function HeaderContainer({
         nextLinkWrapper={(href, children) => (
           <Link href={href}>{children}</Link>
         )}
-        setAlertMessage={() => null}
-        alertMessage=""
+        setAlertMessage={setAlertMessage}
+        alertMessage={alertMessage}
         base=""
       />
     </>
