@@ -4,10 +4,8 @@ import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import { useSetRecoilState } from "recoil";
 import { useQuery, gql } from "@apollo/client";
-import { useEffect } from 'react'
 import {
     useNFTContract,
-    useNFTViewMethod,
     useNearHooksContainer,
 } from '@cura/hooks'
 import {
@@ -74,20 +72,19 @@ const SingleView = () => {
   let nft = data?.nfts[0];
 
 
-  useEffect(()=>{
-    if(nft && accountId){
-      if(nft.owner?.id === accountId){
-        router.push('/view')
-      }
-    }
-  }, [nft])
+  // If nft don't exist
+  if(!loading && !nft){
+    router.push('/explore')
+    return <></>
+  }
 
-
-  useEffect(()=>{
-    if(data && !nft){
-        router.push('/explore')
+  // If user own nft
+  if(nft && accountId){
+    if(nft.owner?.id === accountId){
+      router.push('/view')
+      return <></>
     }
-  }, [data])
+  }
 
   async function setBid(amount, resale) {
       setIndexLoader(true)
@@ -112,7 +109,6 @@ const SingleView = () => {
   }
 
   return (
-    <>
       <Layout>
         <Box
             sx={{
@@ -202,7 +198,6 @@ const SingleView = () => {
             </Box>
         </Box>
       </Layout>
-    </>
   );
 };
 
