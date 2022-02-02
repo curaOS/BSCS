@@ -1,17 +1,18 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
-import { useQuery, gql } from "@apollo/client";
+import { useLazyQuery, gql } from "@apollo/client";
 import { Box, Link, Spinner, AspectRatio } from "theme-ui";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { MediaObject } from "@cura/components";
 import NextLink from "next/link";
 
 import Layout from "../../containers/Layout";
+import { useEffect } from "react";
 
 const LIMIT_PER_PAGE = 6;
 
 const GET_NFTS = gql`
-  query nfts($offset: Int, $limit: Int) {
+  query getNfts($offset: Int, $limit: Int) {
     nfts(skip: $offset, first: $limit) {
       id
       metadata {
@@ -22,12 +23,19 @@ const GET_NFTS = gql`
 `;
 
 const ExploreToken = () => {
-  const { loading, data, error, fetchMore } = useQuery(GET_NFTS, {
-    variables: {
-      offset: 0,
-      limit: LIMIT_PER_PAGE,
-    },
-  });
+  const [getNfts, { loading, data, error, fetchMore }] = useLazyQuery(
+    GET_NFTS,
+    {
+      variables: {
+        offset: 0,
+        limit: LIMIT_PER_PAGE,
+      },
+    }
+  );
+
+  useEffect(() => {
+    getNfts();
+  }, []);
 
   return (
     <Layout>
@@ -36,7 +44,7 @@ const ExploreToken = () => {
         {error && <p>Error: check console</p>}
         {!loading && !error && (
           <Feed
-            entries={data.nfts || []}
+            entries={data?.nfts || []}
             onLoadMore={() =>
               fetchMore({
                 variables: {
