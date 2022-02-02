@@ -1,13 +1,14 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 import { useQuery, gql } from "@apollo/client";
-import { Link, Spinner } from "theme-ui";
+import { Box, Link, Spinner, AspectRatio } from "theme-ui";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { MediaObject } from "@cura/components";
+import NextLink from "next/link";
 
 import Layout from "../../containers/Layout";
 
-const LIMIT_PER_PAGE = 2;
+const LIMIT_PER_PAGE = 6;
 
 const GET_NFTS = gql`
   query nfts($offset: Int, $limit: Int) {
@@ -50,30 +51,48 @@ const ExploreToken = () => {
 
 const Feed = ({ entries, onLoadMore }) => {
   return (
-    <>
-      <button onClick={onLoadMore}>load more</button>
-
+    <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>
       <InfiniteScroll dataLength={entries.length} next={onLoadMore}>
         {entries.map((item, index) => {
           return (
-            <Link
-              key={index}
-              href={`explore/${item.id}`}
-              sx={{
-                m: 10,
-              }}
-            >
-              <MediaObject
-                mediaURI={`${item.metadata.media}`}
-                width={"100%"}
-                height={"100%"}
-                type={"image"}
-              />
-            </Link>
+            <NextLink href={`explore/${item.id}`} key={index} passHref>
+              <Link
+                m={[21, 21, 21, 30]}
+                sx={{
+                  display: "inline-block",
+                  width: [225, 340],
+                  position: "relative",
+                  ":hover": {
+                    opacity: "0.8",
+                  },
+                }}
+              >
+                <AspectRatio
+                  ratio={1}
+                  sx={{
+                    bg: "gray.3",
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    mb: 36,
+                    width: "100%",
+                    height: "100%",
+                    cursor: "pointer",
+                  }}
+                >
+                  <MediaObject
+                    mediaURI={`${item.metadata.media}`}
+                    width={"100%"}
+                    height={"100%"}
+                    type={"image"}
+                  />
+                </AspectRatio>
+              </Link>
+            </NextLink>
           );
         })}
       </InfiniteScroll>
-    </>
+    </Box>
   );
 };
 
