@@ -18,8 +18,8 @@ export default function HeaderContainer({
   const { signIn, signOut, accountId } = useNearHooksContainer();
   const [mode, setMode] = useColorMode();
 
-  const alertMessage = useRecoilValue(alertMessageState);
-  const setAlertMessage = useSetRecoilState(alertMessageState);
+  const alertMessage = useRecoilValue(alertMessageState)
+  const setAlertMessage = useSetRecoilState(alertMessageState)
 
   const preSignOut = async () => {
     await signOut();
