@@ -82,6 +82,13 @@ const SingleView = () => {
     }
   }, [nft])
 
+
+  useEffect(()=>{
+    if(data && !nft){
+        router.push('/explore')
+    }
+  }, [data])
+
   async function setBid(amount, resale) {
       setIndexLoader(true)
       try {
