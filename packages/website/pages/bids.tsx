@@ -6,6 +6,7 @@ import { BiddersBids } from "@cura/components";
 import { useNFTContract, useNearHooksContainer } from "@cura/hooks";
 import { useSetRecoilState } from "recoil";
 import { useQuery, gql } from "@apollo/client";
+import { Box } from "theme-ui";
 
 import Layout from "../containers/Layout";
 import { project } from "../utils/project";
@@ -16,11 +17,10 @@ const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount(`0.00000000020`); /
 const GET_BIDS = gql`
   query bids($bidder: String) {
     bids(first: 1, where: { id: $bidder }) {
-      amount
+      nft
       bidder
-      recipient
+      amount
       sell_on_share
-      currency
     }
   }
 `;
@@ -61,7 +61,17 @@ const Bids = () => {
 
   return (
     <Layout requireAuth={true}>
-      {data && <BiddersBids biddersBids={data?.bids} onRemoveBid={removeBid} />}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: 3,
+        }}
+      >
+        {data && (
+          <BiddersBids biddersBids={data?.bids} onRemoveBid={removeBid} />
+        )}
+      </Box>
     </Layout>
   );
 };

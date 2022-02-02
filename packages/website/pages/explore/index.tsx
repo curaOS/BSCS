@@ -1,79 +1,118 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
-import { useQuery, gql } from "@apollo/client";
-import { Link, Spinner } from "theme-ui";
+import { useLazyQuery, gql } from "@apollo/client";
+import { Box, Link, Spinner, AspectRatio } from "theme-ui";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { MediaObject } from "@cura/components";
+import NextLink from "next/link";
+import { project } from "../../utils/project";
 
 import Layout from "../../containers/Layout";
+import { useEffect } from "react";
 
-const LIMIT_PER_PAGE = 2;
+const LIMIT_PER_PAGE = 4;
 
 const GET_NFTS = gql`
-  query nfts($offset: Int, $limit: Int) {
+  query getNfts($offset: Int, $limit: Int) {
     nfts(skip: $offset, first: $limit) {
       id
       metadata {
         media
       }
     }
+    # todo: change "vgr1.atestraf.testnet" to ${project} after deploying real contract
+    nftContracts(first: 1, where: { id: "vgr1.atestraf.testnet" }) {
+      total_supply
+    }
   }
 `;
 
 const ExploreToken = () => {
-  const { loading, data, error, fetchMore } = useQuery(GET_NFTS, {
-    variables: {
-      offset: 0,
-      limit: LIMIT_PER_PAGE,
-    },
-  });
+  const [getNfts, { loading, data, error, fetchMore }] = useLazyQuery(
+    GET_NFTS,
+    {
+      variables: {
+        offset: 0,
+        limit: LIMIT_PER_PAGE,
+      },
+    }
+  );
+
+  useEffect(() => {
+    getNfts();
+  }, []);
+
+  const total_supply = parseInt(data?.nftContracts[0]?.total_supply);
 
   return (
     <Layout>
-      {loading && <Spinner />}
-      {error && <p>Error: check console</p>}
-      {!loading && !error && (
-        <Feed
-          entries={data.nfts || []}
-          onLoadMore={() =>
-            fetchMore({
-              variables: {
-                offset: data.nfts.length,
-              },
-            })
-          }
-        />
-      )}
+      <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>
+        {loading && <Spinner />}
+        {error && <p>Error: check console</p>}
+        {!loading && !error && (
+          <Feed
+            entries={data?.nfts || []}
+            totalSupply={total_supply || 0}
+            onLoadMore={() =>
+              fetchMore({
+                variables: {
+                  offset: data.nfts.length,
+                },
+              })
+            }
+          />
+        )}
+      </Box>
     </Layout>
   );
 };
 
-const Feed = ({ entries, onLoadMore }) => {
+const Feed = ({ entries, onLoadMore, totalSupply }) => {
   return (
-    <>
-      <button onClick={onLoadMore}>load more</button>
-
-      <InfiniteScroll dataLength={entries.length} next={onLoadMore}>
-        {entries.map((item, index) => {
-          return (
+    <InfiniteScroll
+      dataLength={entries.length}
+      next={onLoadMore}
+      hasMore={totalSupply > entries.length}
+    >
+      {entries.map((item, index) => {
+        return (
+          <NextLink href={`explore/${item.id}`} key={index} passHref>
             <Link
-              key={index}
-              href={`explore/${item.id}`}
+              m={[21, 21, 21, 30]}
               sx={{
-                m: 10,
+                display: "inline-block",
+                width: [225, 340],
+                position: "relative",
+                ":hover": {
+                  opacity: "0.8",
+                },
               }}
             >
-              <MediaObject
-                mediaURI={`${item.metadata.media}`}
-                width={"100%"}
-                height={"100%"}
-                type={"image"}
-              />
+              <AspectRatio
+                ratio={1}
+                sx={{
+                  bg: "gray.3",
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 36,
+                  width: "100%",
+                  height: "100%",
+                  cursor: "pointer",
+                }}
+              >
+                <MediaObject
+                  mediaURI={`${item.metadata.media}`}
+                  width={"100%"}
+                  height={"100%"}
+                  type={"image"}
+                />
+              </AspectRatio>
             </Link>
-          );
-        })}
-      </InfiniteScroll>
-    </>
+          </NextLink>
+        );
+      })}
+    </InfiniteScroll>
   );
 };
 

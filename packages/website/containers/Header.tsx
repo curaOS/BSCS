@@ -46,7 +46,7 @@ export default function HeaderContainer({
         setMode={setMode}
         logo={mode == "dark" ? "/logoWhite.png" : "/logo.png"}
         nextLinkWrapper={(href, children) => (
-          <Link href={href.includes("bids") ? "bids" : href}>{children}</Link>
+          <Link href={href.includes("bids") ? "/bids" : href}>{children}</Link>
         )}
         setAlertMessage={setAlertMessage}
         alertMessage={alertMessage}
