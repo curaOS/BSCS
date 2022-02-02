@@ -1,13 +1,14 @@
 // @ts-nocheck
 
 import { useNearHooksContainer } from "@cura/hooks";
-import { Container, Box, Spinner } from "theme-ui";
+import { Container, Box, Spinner, Text } from "theme-ui";
 import { useRecoilValue } from 'recoil'
 
 import Header from "./Header";
 import { indexLoaderState } from '../state/recoil'
 
 import Menu from "./Menu";
+
 
 export default function Layout({ children, requireAuth = false, page }) {
 
@@ -16,12 +17,28 @@ export default function Layout({ children, requireAuth = false, page }) {
   const indexLoader = useRecoilValue(indexLoaderState)
 
   return (
-    <>
+    <Box
+    	sx={{
+    		height: '100vh',
+    	}}
+    >
       <Header />
       <Menu accountId={accountId} />
-      <Container>
-      	{indexLoader ? (
-            <Box
+      <Container
+      	sx={{
+      		minHeight: '100%',
+      		justifyContent: (requireAuth && !accountId) && 'center',
+            display: (requireAuth && !accountId) && 'flex',
+            alignItems: (requireAuth && !accountId) && 'center',
+      	}}
+      	variant={(requireAuth && !accountId) ? "images.gradient" : "container"}
+      >
+      	{(requireAuth && !accountId) ? (
+          <Box>
+       		<Text variant="buttons.1"> Please connect to use dapp </Text>
+       	  </Box>
+        ) :  indexLoader ? 
+        	<Box
                 sx={{
                     display: 'flex',
                     justifyContent: 'center',
@@ -30,11 +47,9 @@ export default function Layout({ children, requireAuth = false, page }) {
             >
                 <Spinner />
             </Box>
-        ) :  (!requireAuth || accountId) ? 
-        	 children 
-       	: "need login"
+       	: children
        }
       </Container>
-    </>
+    </Box>
   );
 }
