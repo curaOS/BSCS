@@ -24,34 +24,37 @@ export default function Layout({ children, requireAuth = false, page }) {
     		flexDirection:'column'
     	}}
     >
-      <Header />
-      <Menu accountId={accountId} />
-      <Container
-      	sx={{
-      		height: '100%',
-      		justifyContent: (requireAuth && !accountId) && 'center',
-            display: (requireAuth && !accountId) && 'flex',
-            alignItems: (requireAuth && !accountId) && 'center',
-      	}}
-      	variant={(requireAuth && !accountId) ? "images.gradient" : "container"}
-      >
+      	<Header />
+      	<Menu accountId={accountId} />
       	{(requireAuth && !accountId) ? (
-          <Box>
-       		<Text variant="buttons.1"> Please connect to use dapp </Text>
-       	  </Box>
-        ) :  indexLoader ? 
-        	<Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    my: 3,
-                }}
-            >
-                <Spinner />
-            </Box>
-       	: children
-       }
-      </Container>
+      		<Box
+      			sx={{
+	      			height: '100%',
+	      			justifyContent: 'center',
+	            	display: 'flex',
+	            	alignItems: 'center',
+	      		}}
+	      		variant="images.gradient"
+      		>
+	       		<Text variant="buttons.1"> Please connect to use dapp </Text>
+	       	</Box>
+	    ) : (
+
+	      	<Container>
+	      	{ indexLoader ? 
+	        	<Box
+	                sx={{
+	                    display: 'flex',
+	                    justifyContent: 'center',
+	                    my: 3,
+	                }}
+	            >
+	                <Spinner />
+	            </Box>
+	       	: children
+	       }
+	      </Container>
+	    )}
     </Box>
   );
 }
