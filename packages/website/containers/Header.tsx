@@ -18,8 +18,8 @@ export default function HeaderContainer({
   const { signIn, signOut, accountId } = useNearHooksContainer();
   const [mode, setMode] = useColorMode();
 
-  const alertMessage = useRecoilValue(alertMessageState)
-  const setAlertMessage = useSetRecoilState(alertMessageState)
+  const alertMessage = useRecoilValue(alertMessageState);
+  const setAlertMessage = useSetRecoilState(alertMessageState);
 
   const preSignOut = async () => {
     await signOut();
@@ -46,7 +46,7 @@ export default function HeaderContainer({
         setMode={setMode}
         logo={mode == "dark" ? "/logoWhite.png" : "/logo.png"}
         nextLinkWrapper={(href, children) => (
-          <Link href={href}>{children}</Link>
+          <Link href={href.includes("bids") ? "bids" : href}>{children}</Link>
         )}
         setAlertMessage={setAlertMessage}
         alertMessage={alertMessage}
