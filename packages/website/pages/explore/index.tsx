@@ -31,68 +31,68 @@ const ExploreToken = () => {
 
   return (
     <Layout>
-      {loading && <Spinner />}
-      {error && <p>Error: check console</p>}
-      {!loading && !error && (
-        <Feed
-          entries={data.nfts || []}
-          onLoadMore={() =>
-            fetchMore({
-              variables: {
-                offset: data.nfts.length,
-              },
-            })
-          }
-        />
-      )}
+      <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>
+        {loading && <Spinner />}
+        {error && <p>Error: check console</p>}
+        {!loading && !error && (
+          <Feed
+            entries={data.nfts || []}
+            onLoadMore={() =>
+              fetchMore({
+                variables: {
+                  offset: data.nfts.length,
+                },
+              })
+            }
+          />
+        )}
+      </Box>
     </Layout>
   );
 };
 
 const Feed = ({ entries, onLoadMore }) => {
   return (
-    <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>
-      <InfiniteScroll dataLength={entries.length} next={onLoadMore}>
-        {entries.map((item, index) => {
-          return (
-            <NextLink href={`explore/${item.id}`} key={index} passHref>
-              <Link
-                m={[21, 21, 21, 30]}
+    <InfiniteScroll dataLength={entries.length} next={onLoadMore}>
+      {entries.map((item, index) => {
+        return (
+          <NextLink href={`explore/${item.id}`} key={index} passHref>
+            <Link
+              m={[21, 21, 21, 30]}
+              sx={{
+                display: "inline-block",
+                width: [225, 340],
+                position: "relative",
+                ":hover": {
+                  opacity: "0.8",
+                },
+              }}
+            >
+              <AspectRatio
+                ratio={1}
                 sx={{
-                  display: "inline-block",
-                  width: [225, 340],
-                  position: "relative",
-                  ":hover": {
-                    opacity: "0.8",
-                  },
+                  bg: "gray.3",
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 36,
+                  width: "100%",
+                  height: "100%",
+                  cursor: "pointer",
                 }}
               >
-                <AspectRatio
-                  ratio={1}
-                  sx={{
-                    bg: "gray.3",
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                    mb: 36,
-                    width: "100%",
-                    height: "100%",
-                    cursor: "pointer",
-                  }}
-                >
-                  <MediaObject
-                    mediaURI={`${item.metadata.media}`}
-                    width={"100%"}
-                    height={"100%"}
-                    type={"image"}
-                  />
-                </AspectRatio>
-              </Link>
-            </NextLink>
-          );
-        })}
-      </InfiniteScroll>
-    </Box>
+                <MediaObject
+                  mediaURI={`${item.metadata.media}`}
+                  width={"100%"}
+                  height={"100%"}
+                  type={"image"}
+                />
+              </AspectRatio>
+            </Link>
+          </NextLink>
+        );
+      })}
+    </InfiniteScroll>
   );
 };
 
