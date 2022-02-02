@@ -5,11 +5,12 @@ import { Box, Link, Spinner, AspectRatio } from "theme-ui";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { MediaObject } from "@cura/components";
 import NextLink from "next/link";
+import { project } from "../../utils/project";
 
 import Layout from "../../containers/Layout";
 import { useEffect } from "react";
 
-const LIMIT_PER_PAGE = 6;
+const LIMIT_PER_PAGE = 4;
 
 const GET_NFTS = gql`
   query getNfts($offset: Int, $limit: Int) {
@@ -18,6 +19,10 @@ const GET_NFTS = gql`
       metadata {
         media
       }
+    }
+    # todo: change "vgr1.atestraf.testnet" to ${project} after deploying real contract
+    nftContracts(first: 1, where: { id: "vgr1.atestraf.testnet" }) {
+      total_supply
     }
   }
 `;
@@ -37,6 +42,8 @@ const ExploreToken = () => {
     getNfts();
   }, []);
 
+  const total_supply = parseInt(data?.nftContracts[0]?.total_supply);
+
   return (
     <Layout>
       <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>
@@ -45,6 +52,7 @@ const ExploreToken = () => {
         {!loading && !error && (
           <Feed
             entries={data?.nfts || []}
+            totalSupply={total_supply || 0}
             onLoadMore={() =>
               fetchMore({
                 variables: {
@@ -59,9 +67,13 @@ const ExploreToken = () => {
   );
 };
 
-const Feed = ({ entries, onLoadMore }) => {
+const Feed = ({ entries, onLoadMore, totalSupply }) => {
   return (
-    <InfiniteScroll dataLength={entries.length} next={onLoadMore}>
+    <InfiniteScroll
+      dataLength={entries.length}
+      next={onLoadMore}
+      hasMore={totalSupply > entries.length}
+    >
       {entries.map((item, index) => {
         return (
           <NextLink href={`explore/${item.id}`} key={index} passHref>
