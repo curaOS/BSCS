@@ -20,13 +20,15 @@ export default function Layout({ children, requireAuth = false, page }) {
     <Box
     	sx={{
     		height: '100vh',
+    		display: 'flex',
+    		flexDirection:'column'
     	}}
     >
       <Header />
       <Menu accountId={accountId} />
       <Container
       	sx={{
-      		minHeight: '100%',
+      		height: '100%',
       		justifyContent: (requireAuth && !accountId) && 'center',
             display: (requireAuth && !accountId) && 'flex',
             alignItems: (requireAuth && !accountId) && 'center',
