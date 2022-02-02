@@ -3,6 +3,7 @@ import { Box, AspectRatio } from "theme-ui";
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import { useSetRecoilState } from "recoil";
+import { useQuery, gql } from "@apollo/client";
 import {
     useNFTContract,
     useNFTViewMethod,
@@ -25,6 +26,26 @@ const HARDCODED_ROYALTY_ADDRESS = 'sample.address'
 const HARDCODED_ROYALTY_SHARE = `2500`
 
 
+const GET_SINGLE_NFT = gql`
+  query getnft($token_id: String) {
+    nfts(first: 1, where: { id: $token_id }) {
+      id
+      owner {
+        id
+      }
+      creator {
+        id
+      }
+      metadata {
+        media
+        title
+        description
+      }
+    }
+  }
+`;
+
+
 const SingleView = () => {
 
   const router = useRouter();
@@ -35,15 +56,21 @@ const SingleView = () => {
   const { contract } = useNFTContract(project)
   const { accountId } = useNearHooksContainer()
 
-  const { data: media } = useNFTViewMethod(
-      project,
-      `nft_token`,
-      {
-          token_id: router.query.id,
-      },
-      null
-  )
 
+  const { loading, data, error } = useQuery(GET_SINGLE_NFT, {
+    variables: {
+      token_id: router.query.id || "",
+    },
+  });
+
+  setIndexLoader(loading);
+
+  if (error) {
+    console.error(error);
+    setAlertMessage(error);
+  }
+
+  let nft = data?.nfts[0];
 
   async function setBid(amount, resale) {
       setIndexLoader(true)
@@ -99,9 +126,9 @@ const SingleView = () => {
                         marginRight: "auto",
                     }}
                 >
-                    {media && (
+                    {data && (
                         <MediaObject
-                            mediaURI={`https://arweave.net/${media?.metadata?.media}`}
+                            mediaURI={`${nft?.metadata?.media}`}
                             width={`100%`}
                             height={`100%`}
                         />
@@ -119,12 +146,16 @@ const SingleView = () => {
                 }}
             >
                 <Box>
-                    {media && (
+                    {data && (
                         <Metadata
-                            data={media}
+                            data={{
+                              owner_id: nft?.owner?.id,
+                              creator_id: nft?.creator?.id,
+                              metadata: nft?.metadata
+                            }}
                             loading={false}
                             width={`100%`}
-                            variant={1}
+                            variant={2}
                         />
                     )}
                 </Box>
@@ -137,8 +168,6 @@ const SingleView = () => {
                 </Box>
 
                 <BidCreate
-                    title={media?.metadata.title}
-                    creator={media?.owner_id}
                     onBid={setBid}
                 />
 
