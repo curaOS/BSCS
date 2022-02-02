@@ -5,7 +5,7 @@ import { Link, Spinner } from "theme-ui";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { MediaObject } from "@cura/components";
 
-import Layout from "../containers/Layout";
+import Layout from "../../containers/Layout";
 
 const LIMIT_PER_PAGE = 2;
 
@@ -58,7 +58,7 @@ const Feed = ({ entries, onLoadMore }) => {
           return (
             <Link
               key={index}
-              href={`view/${item.id}`}
+              href={`explore/${item.id}`}
               sx={{
                 m: 10,
               }}

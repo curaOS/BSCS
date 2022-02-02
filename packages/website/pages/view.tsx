@@ -11,9 +11,9 @@ import { CreatorShare, Bidders, MediaObject } from "@cura/components";
 import { useSetRecoilState } from "recoil";
 import { useQuery, gql } from "@apollo/client";
 
-import Layout from "../../containers/Layout";
-import { project } from "../../utils/project";
-import { alertMessageState, indexLoaderState } from "../../state/recoil";
+import Layout from "../containers/Layout";
+import { project } from "../utils/project";
+import { alertMessageState, indexLoaderState } from "../state/recoil";
 
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`); // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000025`); // 250 Tgas
