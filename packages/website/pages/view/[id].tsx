@@ -4,6 +4,7 @@ import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import { useSetRecoilState } from "recoil";
 import { useQuery, gql } from "@apollo/client";
+import { useEffect } from 'react'
 import {
     useNFTContract,
     useNFTViewMethod,
@@ -71,6 +72,15 @@ const SingleView = () => {
   }
 
   let nft = data?.nfts[0];
+
+
+  useEffect(()=>{
+    if(nft && accountId){
+      if(nft.owner?.id === accountId){
+        router.push('/view')
+      }
+    }
+  }, [nft])
 
   async function setBid(amount, resale) {
       setIndexLoader(true)
@@ -150,7 +160,6 @@ const SingleView = () => {
                         <Metadata
                             data={{
                               owner_id: nft?.owner?.id,
-                              creator_id: nft?.creator?.id,
                               metadata: nft?.metadata
                             }}
                             loading={false}
@@ -167,9 +176,21 @@ const SingleView = () => {
                   />
                 </Box>
 
-                <BidCreate
-                    onBid={setBid}
-                />
+                {accountId ? (
+                  <BidCreate
+                      onBid={setBid}
+                  />
+                ) : (
+                  <Box
+                    sx={{
+                      mt: 35,
+                      fontWeight: 'bold',
+                      fontSize:'24px'
+                    }}
+                  >
+                    Please login to add bids
+                  </Box>
+                )}
 
             </Box>
         </Box>
