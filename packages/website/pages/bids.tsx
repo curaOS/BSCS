@@ -16,10 +16,11 @@ const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount(`0.00000000020`); /
 const GET_BIDS = gql`
   query bids($bidder: String) {
     bids(first: 1, where: { id: $bidder }) {
-      nft
-      bidder
       amount
+      bidder
+      recipient
       sell_on_share
+      currency
     }
   }
 `;
