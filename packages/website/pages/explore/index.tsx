@@ -5,7 +5,7 @@ import { Box, Link, Spinner, AspectRatio } from "theme-ui";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { MediaObject } from "@cura/components";
 import NextLink from "next/link";
-import { project } from "../../utils/project";
+import { contractAddress } from "../../utils/config";
 
 import Layout from "../../containers/Layout";
 import { useEffect } from "react";
@@ -20,9 +20,9 @@ const GET_NFTS = gql`
         media
       }
     }
-    # todo: change "vgr1.atestraf.testnet" to ${project} after deploying real contract
-    nftContracts(first: 1, where: { id: "vgr1.atestraf.testnet" }) {
+    nftContracts(first: 1, where: { id: "${contractAddress}" }) {
       total_supply
+      base_uri
     }
   }
 `;
@@ -43,7 +43,10 @@ const ExploreToken = () => {
   }, []);
 
   const total_supply = parseInt(data?.nftContracts[0]?.total_supply);
+  const base_uri = data?.nftContracts[0]?.base_uri;
 
+  console.log(data);
+  
   return (
     <Layout>
       <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>
@@ -53,6 +56,7 @@ const ExploreToken = () => {
           <Feed
             entries={data?.nfts || []}
             totalSupply={total_supply || 0}
+            base_uri={base_uri}
             onLoadMore={() =>
               fetchMore({
                 variables: {
@@ -67,7 +71,7 @@ const ExploreToken = () => {
   );
 };
 
-const Feed = ({ entries, onLoadMore, totalSupply }) => {
+const Feed = ({ entries, onLoadMore, totalSupply, base_uri }) => {
   return (
     <InfiniteScroll
       dataLength={entries.length}
@@ -102,7 +106,7 @@ const Feed = ({ entries, onLoadMore, totalSupply }) => {
                 }}
               >
                 <MediaObject
-                  mediaURI={`${item.metadata.media}`}
+                  mediaURI={`${base_uri}${item.metadata.media}`}
                   width={"100%"}
                   height={"100%"}
                   type={"image"}

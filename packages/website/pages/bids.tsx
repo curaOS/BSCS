@@ -9,7 +9,7 @@ import { useQuery, gql } from "@apollo/client";
 import { Box } from "theme-ui";
 
 import Layout from "../containers/Layout";
-import { project } from "../utils/project";
+import { contractAddress } from "../utils/config";
 import { alertMessageState, indexLoaderState } from "../state/recoil";
 
 const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount(`0.00000000020`); // 200 Tgas
@@ -26,7 +26,7 @@ const GET_BIDS = gql`
 `;
 
 const Bids = () => {
-  const { contract } = useNFTContract(project);
+  const { contract } = useNFTContract(contractAddress);
   const { accountId } = useNearHooksContainer();
   const setIndexLoader = useSetRecoilState(indexLoaderState);
   const setAlertMessage = useSetRecoilState(alertMessageState);

@@ -5,7 +5,7 @@ import { Link, useColorMode } from "theme-ui";
 import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { project } from "../utils/project";
+import { contractAddress } from "../utils/config";
 import { alertMessageState } from "../state/recoil";
 
 export default function HeaderContainer({
@@ -28,7 +28,7 @@ export default function HeaderContainer({
 
   const preSignIn = () => {
     signIn(
-      project,
+      contractAddress,
       window.location.origin + router.asPath,
       window.location.origin + router.asPath
     );
