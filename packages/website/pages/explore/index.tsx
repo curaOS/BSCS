@@ -5,7 +5,7 @@ import { Box, Link, Spinner, AspectRatio } from "theme-ui";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { MediaObject } from "@cura/components";
 import NextLink from "next/link";
-import { project } from "../../utils/project";
+import { contractAddress } from "../../utils/config";
 
 import Layout from "../../containers/Layout";
 import { useEffect } from "react";
@@ -20,8 +20,7 @@ const GET_NFTS = gql`
         media
       }
     }
-    # todo: change "vgr1.atestraf.testnet" to ${project} after deploying real contract
-    nftContracts(first: 1, where: { id: "vgr1.atestraf.testnet" }) {
+    nftContracts(first: 1, where: { id: "${contractAddress}" }) {
       total_supply
     }
   }

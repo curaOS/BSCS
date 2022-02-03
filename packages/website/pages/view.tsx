@@ -1,18 +1,13 @@
 // @ts-nocheck
 import { Box, AspectRatio, Button } from "theme-ui";
 import { utils } from "near-api-js";
-import {
-  useNFTViewMethod,
-  useNFTContract,
-  useNearHooksContainer,
-  useMarketMethod,
-} from "@cura/hooks";
+import { useNFTContract, useNearHooksContainer } from "@cura/hooks";
 import { CreatorShare, Bidders, MediaObject } from "@cura/components";
 import { useSetRecoilState } from "recoil";
 import { useQuery, gql } from "@apollo/client";
 
 import Layout from "../containers/Layout";
-import { project } from "../utils/project";
+import { contractAddress } from "../utils/config";
 import { alertMessageState, indexLoaderState } from "../state/recoil";
 
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`); // 290 Tgas
@@ -40,7 +35,7 @@ const GET_OWNER_NFT = gql`
 
 const View = () => {
   const { accountId } = useNearHooksContainer();
-  const { contract } = useNFTContract(project);
+  const { contract } = useNFTContract(contractAddress);
 
   const setAlertMessage = useSetRecoilState(alertMessageState);
   const setIndexLoader = useSetRecoilState(indexLoaderState);

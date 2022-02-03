@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { graphUri } from "./config";
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -16,7 +17,7 @@ const cache = new InMemoryCache({
 });
 
 const client = new ApolloClient({
-  uri: "https://api.thegraph.com/subgraphs/name/achrafismyname/cura-subgraph",
+  uri: graphUri,
   cache: cache,
 });
 
