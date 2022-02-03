@@ -30,6 +30,9 @@ const GET_OWNER_NFT = gql`
         sell_on_share
       }
     }
+    nftContracts(first: 1, where: { id: "${contractAddress}" }) {
+      base_uri
+    }
   }
 `;
 
@@ -87,6 +90,8 @@ const View = () => {
     }
   }
 
+  const base_uri = data?.nftContracts[0]?.base_uri;
+
   return (
     <Layout requireAuth={true}>
       <Box
@@ -120,7 +125,7 @@ const View = () => {
           >
             {data && (
               <MediaObject
-                mediaURI={`${nft?.metadata?.media}`}
+                mediaURI={`${base_uri}${nft?.metadata?.media}`}
                 width={`100%`}
                 height={`100%`}
               />
