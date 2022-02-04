@@ -36,3 +36,6 @@ exports.CONTRACT_ADDRESS = `cura-${version}`;
 // This will be used in init for Contract Metadata
 const metadata = require("./metadata.json");
 exports.METADATA = metadata;
+
+// Contract file
+exports.CONTRACT = "../contract/build/release/cNFT.wasm";

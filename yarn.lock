@@ -1896,9 +1896,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"contract@workspace:packages/contract":
+"contract@workspace:packages/scripts":
   version: 0.0.0-use.local
-  resolution: "contract@workspace:packages/contract"
+  resolution: "contract@workspace:packages/scripts"
   dependencies:
     bn.js: ^5.2.0
     near-api-js: ^0.44.2

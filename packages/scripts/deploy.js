@@ -39,7 +39,7 @@ async function initNear() {
 async function deploy() {
   await initNear();
 
-  const contract = await fs.readFile("./build/release/cNFT.wasm");
+  const contract = await fs.readFile(configFile.CONTRACT);
 
   contractAddress = configFile.CONTRACT_ADDRESS + "." + config.masterAccount;
 
