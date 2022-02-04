@@ -1896,6 +1896,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"contract@workspace:packages/contract":
+  version: 0.0.0-use.local
+  resolution: "contract@workspace:packages/contract"
+  dependencies:
+    bn.js: ^5.2.0
+    near-api-js: ^0.44.2
+  languageName: unknown
+  linkType: soft
+
 "convert-source-map@npm:1.7.0":
   version: 1.7.0
   resolution: "convert-source-map@npm:1.7.0"
@@ -5268,6 +5277,15 @@ __metadata:
   checksum: a04c07bb9e2d8f46776517d4618f2406fb977a74d914ad98b264fc3db0fe8224da5bec11e5f8902c5b9bcb8ace22d95fbe3c7b36b8593b7dfc8391a25898f32f
   languageName: node
   linkType: hard
+
+"tests@workspace:packages/tests":
+  version: 0.0.0-use.local
+  resolution: "tests@workspace:packages/tests"
+  dependencies:
+    bn.js: ^5.2.0
+    near-api-js: ^0.44.2
+  languageName: unknown
+  linkType: soft
 
 "text-encoding-utf-8@npm:^1.0.2":
   version: 1.0.2
