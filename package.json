@@ -8,6 +8,7 @@
   "scripts": {
     "build:website": "yarn workspace website build",
     "dev:website": "yarn workspace website dev",
+    "deploy:contract": "yarn workspace contract deploy",
     "test:sandbox": "yarn workspace tests sandbox"
   }
 }
