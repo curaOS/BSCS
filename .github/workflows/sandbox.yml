@@ -35,4 +35,4 @@ jobs:
       - name: "Testing contract"
         working-directory: packages/tests
         run: |
-          yarn sandbox
+          yarn test:sandbox
