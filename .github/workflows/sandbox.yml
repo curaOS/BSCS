@@ -23,16 +23,16 @@ jobs:
           target/debug/near-sandbox --home /tmp/near-sandbox run &
       - uses: actions/checkout@v2
         with:
-          path: packages/contracts
+          path: packages/tests
       - uses: actions/setup-node@v2
         with:
           node-version: "15"
       - name: "Building contracts"
-        working-directory: ./packages/contract
+        working-directory: packages/tests
         run: |
           yarn install
         # yarn build-cnft
       - name: "Testing contract"
-        working-directory: ./packages/tests
+        working-directory: packages/tests
         run: |
           yarn sandbox
