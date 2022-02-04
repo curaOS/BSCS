@@ -7,6 +7,7 @@
   ],
   "scripts": {
     "build:website": "yarn workspace website build",
-    "dev:website": "yarn workspace website dev"
+    "dev:website": "yarn workspace website dev",
+    "test:sandbox": "yarn workspace tests sandbox"
   }
 }
