@@ -7,8 +7,8 @@ exports.config = {
   testnet: {
     networkId: "testnet",
     nodeUrl: "https://rpc.testnet.near.org",
-    masterAccount: "achtest.testnet",
-    keyPath: credentialsPath + "/testnet/achtest.testnet.json",
+    masterAccount: "creatify.testnet",
+    keyPath: credentialsPath + "/testnet/creatify.testnet.json",
   },
   mainnet: {
     networkId: "mainnet",
