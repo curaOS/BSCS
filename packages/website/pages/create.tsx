@@ -10,7 +10,7 @@ import axios from "axios";
 
 import Layout from "../containers/Layout";
 import { contractAddress } from "../utils/config";
-import { indexLoaderState } from "../state/recoil";
+import { alertMessageState, indexLoaderState } from "../state/recoil";
 
 const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount(`0.00000000020`); // 200 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount(`0.00000000029`); // 300 Tgas
@@ -25,6 +25,7 @@ const Create = () => {
   const { contract } = useNFTContract(contractAddress);
 
   const setIndexLoader = useSetRecoilState(indexLoaderState);
+  const setAlertMessage = useSetRecoilState(alertMessageState);
 
   const [seed, setSeed] = useState();
   const [creativeCode, setCreativeCode] = useState(``);
@@ -52,6 +53,7 @@ const Create = () => {
 
       setTimeout(() => setIndexLoader(false), 200);
     } catch (e) {
+      console.error(e);      
       setIndexLoader(false);
       setAlertMessage(e.toString());
     }
