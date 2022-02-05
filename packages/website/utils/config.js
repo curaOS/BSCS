@@ -1,3 +1,3 @@
-export const contractAddress = "0.share-nft.testnet";
+export const contractAddress = "cura-0_0_1.creatify.testnet";
 export const graphUri =
-  "https://api.thegraph.com/subgraphs/name/achrafismyname/cura-subgraph";
+  "https://api.thegraph.com/subgraphs/name/curaos/cc-project";
