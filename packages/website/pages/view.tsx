@@ -2,13 +2,14 @@
 import { Box, AspectRatio, Button } from "theme-ui";
 import { utils } from "near-api-js";
 import { useNFTContract, useNearHooksContainer } from "@cura/hooks";
-import { CreatorShare, Bidders, MediaObject } from "@cura/components";
+import { CreatorShare, Bidders, MediaObject, List, History } from "@cura/components";
 import { useSetRecoilState } from "recoil";
 import { useQuery, gql } from "@apollo/client";
 
 import Layout from "../containers/Layout";
 import { contractAddress } from "../utils/config";
 import { alertMessageState, indexLoaderState } from "../state/recoil";
+import { listData, historyData } from "../utils/data"
 
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`); // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000025`); // 250 Tgas
@@ -16,6 +17,7 @@ const YOCTO_NEAR = utils.format.parseNearAmount(`0.000000000000000000000001`);
 
 const HARDCODED_ROYALTY_ADDRESS = "sample.address";
 const HARDCODED_ROYALTY_SHARE = `2500`;
+
 
 const GET_OWNER_NFT = gql`
   query getnft($owner_id: String) {
@@ -152,8 +154,27 @@ const View = () => {
             address={HARDCODED_ROYALTY_ADDRESS}
             share={HARDCODED_ROYALTY_SHARE}
           />
+
         </Box>
       </Box>
+
+      <Box
+        sx={{
+          display: [ 'block', 'flex' ],
+          justifyContent: 'between'
+        }}
+      >
+
+        <Box mb={35} >
+          <History history = {historyData} />
+        </Box>
+
+        <Box mb={35} >
+          <List data={listData} />
+        </Box>
+
+      </Box>
+
     </Layout>
   );
 };

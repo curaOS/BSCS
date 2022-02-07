@@ -10,11 +10,14 @@ import {
   Metadata,
   MediaObject,
   BidCreate,
+  History,
+  List
 } from "@cura/components";
 
 import Layout from "../../containers/Layout";
 import { contractAddress } from "../../utils/config";
 import { alertMessageState, indexLoaderState } from "../../state/recoil";
+import { listData, historyData } from "../../utils/data"
 
 const MARKET_SET_BID_GAS = utils.format.parseNearAmount(`0.00000000020`); // 200 Tgas
 
@@ -188,6 +191,24 @@ const SingleView = () => {
               Please login to add bids
             </Box>
           )}
+
+          <Box
+            sx={{
+              display: [ 'block', 'flex' ],
+              justifyContent: 'between'
+            }}
+          >
+
+            <Box mb={35} >
+              <History history = {historyData} />
+            </Box>
+
+            <Box mb={35} >
+              <List data={listData} />
+            </Box>
+
+          </Box>
+
         </Box>
       </Box>
     </Layout>
