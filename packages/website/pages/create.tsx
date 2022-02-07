@@ -21,6 +21,11 @@ const HARDCODED_ROYALTY_SHARE = `2500`;
 
 const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA;
 
+const TEMP_TOKEN_ROYALTY = {
+  split_between: {},
+  percentage: 0,
+};
+
 const Create = () => {
   const { contract } = useNFTContract(contractAddress);
 
@@ -53,7 +58,7 @@ const Create = () => {
 
       setTimeout(() => setIndexLoader(false), 200);
     } catch (e) {
-      console.error(e);      
+      console.error(e);
       setIndexLoader(false);
       setAlertMessage(e.toString());
     }
@@ -68,7 +73,7 @@ const Create = () => {
         JSON.stringify({ contentType: `text/html`, data: creativeCode })
       )
       .then(async function (response) {
-        await contract.claim_media({
+        await contract.mint({
           args: {
             tokenMetadata: {
               media: response.data.transaction.id,
@@ -78,6 +83,7 @@ const Create = () => {
                 })
               ).toString(`base64`),
             },
+            token_royalty: TEMP_TOKEN_ROYALTY,
           },
           callbackUrl: `${window.location.origin}`,
           amount: CONTRACT_CLAIM_PRICE,
