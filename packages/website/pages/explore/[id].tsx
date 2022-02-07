@@ -200,11 +200,11 @@ const SingleView = () => {
           >
 
             <Box mb={35} >
-              <History history = {historyData} />
+              <List data={listData} />
             </Box>
 
             <Box mb={35} >
-              <List data={listData} />
+              <History history = {historyData} />
             </Box>
 
           </Box>

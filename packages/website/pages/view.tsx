@@ -154,6 +154,7 @@ const View = () => {
             address={HARDCODED_ROYALTY_ADDRESS}
             share={HARDCODED_ROYALTY_SHARE}
           />
+          <History history = {historyData} />
 
         </Box>
       </Box>
@@ -164,10 +165,6 @@ const View = () => {
           justifyContent: 'between'
         }}
       >
-
-        <Box mb={35} >
-          <History history = {historyData} />
-        </Box>
 
         <Box mb={35} >
           <List data={listData} />
