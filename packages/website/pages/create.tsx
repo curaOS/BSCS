@@ -39,20 +39,27 @@ const Create = () => {
     setIndexLoader(true);
 
     try {
-      const result = await contract.generate({}, CONTRACT_DESIGN_GAS);
+      // const result = await contract.generate({}, CONTRACT_DESIGN_GAS);
 
       const nftMetadata = await contract.nft_metadata();
 
-      setSeed(result?.seed);
+      // setSeed(result?.seed);
 
+      // const arweaveHTML = combineHTML(
+      //   `<script>let jsonParams = '${JSON.stringify({
+      //     instructions: result?.instructions?.split(`,`),
+      //   })}'</script>`,
+      //   nftMetadata.packages_script,
+      //   nftMetadata.render_script,
+      //   nftMetadata.style_css
+      // );
       const arweaveHTML = combineHTML(
-        `<script>let jsonParams = '${JSON.stringify({
-          instructions: result?.instructions?.split(`,`),
-        })}'</script>`,
+        "",
         nftMetadata.packages_script,
         nftMetadata.render_script,
         nftMetadata.style_css
       );
+      
 
       setCreativeCode(arweaveHTML);
 
