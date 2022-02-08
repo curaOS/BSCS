@@ -65,6 +65,7 @@ async function init() {
   await contract.init({
     args: {
       contract_metadata: metadata,
+      contract_extra: { mint_price: "1" },
     },
     gas: 300000000000000,
   });
