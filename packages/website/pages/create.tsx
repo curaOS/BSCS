@@ -127,7 +127,6 @@ const Create = () => {
               alignItems: "center",
               display: "flex",
               justifyContent: "center",
-              mb: 36,
               width: "100%",
               maxHeight: "100%",
               marginLeft: "auto",
