@@ -1854,6 +1854,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bscs@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "bscs@workspace:."
+  languageName: unknown
+  linkType: soft
+
 "buffer-xor@npm:^1.0.3":
   version: 1.0.3
   resolution: "buffer-xor@npm:1.0.3"
@@ -2189,12 +2195,6 @@ __metadata:
   checksum: ba12bb2257b585a0396108c72830e85f882ab659c3320c83584b1037f8ab72415095167ced80dc4ce8e446a8ecc4b2acf36d87befe0707d73b26cf9dc77440ed
   languageName: node
   linkType: hard
-
-"creative-project@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "creative-project@workspace:."
-  languageName: unknown
-  linkType: soft
 
 "cross-spawn@npm:^7.0.2":
   version: 7.0.3
