@@ -38,7 +38,7 @@ export default function HeaderContainer({
     <>
       <Header
         isInitial={isInitial ? isInitial : false}
-        title="Creative Project"
+        title="BSCS"
         onSignIn={preSignIn}
         onSignOut={preSignOut}
         accountId={accountId}
