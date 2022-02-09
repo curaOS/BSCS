@@ -12,6 +12,7 @@
     "@cura/hooks": "^1.1.2",
     "axios": "^0.25.0",
     "graphql": "^16.3.0",
+    "html2canvas": "^1.4.1",
     "near-api-js": "^0.44.2",
     "next": "12.0.7",
     "react": "17.0.2",
