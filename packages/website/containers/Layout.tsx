@@ -37,7 +37,7 @@ export default function Layout({ children, requireAuth = false, page }) {
           <Text variant="buttons.1"> Please connect to use dapp </Text>
         </Box>
       ) : (
-        <Container>
+        <Container variant="wide">
           {indexLoader ? (
             <Box
               sx={{
