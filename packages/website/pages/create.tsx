@@ -22,11 +22,6 @@ const HARDCODED_ROYALTY_SHARE = `2500`;
 
 const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA;
 
-const TEMP_TOKEN_ROYALTY = {
-  split_between: {},
-  percentage: 0,
-};
-
 const Create = () => {
   const { contract } = useNFTContract(contractAddress);
 
@@ -102,6 +97,15 @@ const Create = () => {
       console.log(`live`, liveResponse.data.transaction.id);
       console.log(`preview `, previewResponse.data.transaction.id);
 
+      const contract_extra = await contract.nft_metadata_extra();
+
+      const token_royalty = {
+        split_between: {
+          [contract_extra.mint_royalty.id]: contract_extra.mint_royalty.amount,
+        },
+        percentage: 10,
+      };
+
       await contract.mint(
         {
           tokenMetadata: {
@@ -113,10 +117,10 @@ const Create = () => {
               })
             ).toString(`base64`),
           },
-          token_royalty: TEMP_TOKEN_ROYALTY,
+          token_royalty: token_royalty,
         },
         CONTRACT_CLAIM_GAS,
-        CONTRACT_CLAIM_PRICE
+        parseInt(contract_extra.mint_price)
       );
     } catch (error) {
       console.error(error);
