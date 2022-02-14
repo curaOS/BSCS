@@ -79,7 +79,6 @@ const Create = () => {
 
   async function claimDesign() {
     const preview = await generatePreview();
-    
 
     setIndexLoader(true);
 
@@ -114,7 +113,7 @@ const Create = () => {
               })
             ).toString(`base64`),
           },
-          token_royalty: TEMP_TOKEN_ROYALTY
+          token_royalty: TEMP_TOKEN_ROYALTY,
         },
         CONTRACT_CLAIM_GAS,
         CONTRACT_CLAIM_PRICE
