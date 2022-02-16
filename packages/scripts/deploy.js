@@ -56,7 +56,8 @@ async function deploy() {
 }
 
 async function init() {
-  metadata = configFile.METADATA;
+  let metadata = configFile.METADATA.standard;
+  let extra = configFile.METADATA.extra;
 
   const contract = await new nearAPI.Contract(masterAccount, contractAddress, {
     changeMethods: ["init"],
@@ -65,7 +66,7 @@ async function init() {
   await contract.init({
     args: {
       contract_metadata: metadata,
-      contract_extra: { mint_price: "1" },
+      contract_extra: extra,
     },
     gas: 300000000000000,
   });

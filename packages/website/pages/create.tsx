@@ -20,7 +20,7 @@ const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount(`1`); // 1N
 const HARDCODED_ROYALTY_ADDRESS = "sample.address";
 const HARDCODED_ROYALTY_SHARE = `2500`;
 
-const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA;
+const arweaveLambda = "https://je8kkc8duc.execute-api.us-east-1.amazonaws.com/dev/arweave-upload";
 
 const Create = () => {
   const { contract } = useNFTContract(contractAddress);
@@ -99,9 +99,11 @@ const Create = () => {
 
       const contract_extra = await contract.nft_metadata_extra();
 
+      console.log(contract_extra);
+      
       const token_royalty = {
         split_between: {
-          [contract_extra.mint_royalty.id]: contract_extra.mint_royalty.amount,
+          [contract_extra.mint_royalty_id]: contract_extra.mint_royalty_amount,
         },
         percentage: 10,
       };
