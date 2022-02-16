@@ -17,7 +17,7 @@ import {
 import Layout from "../../containers/Layout";
 import { contractAddress } from "../../utils/config";
 import { alertMessageState, indexLoaderState } from "../../state/recoil";
-import { listData, historyData } from "../../utils/data"
+import { listData } from "../../utils/data"
 
 const MARKET_SET_BID_GAS = utils.format.parseNearAmount(`0.00000000020`); // 200 Tgas
 
@@ -38,6 +38,16 @@ const GET_SINGLE_NFT = gql`
         media
         title
         description
+      }
+      history {
+        id
+        type
+        timestamp
+        mintBy
+        burnBy
+        transferFrom
+        transferTo
+        transactionHash
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
@@ -69,6 +79,7 @@ const SingleView = () => {
   }
 
   let nft = data?.nfts[0];
+  let history = nft?.history;
 
   // If nft don't exist
   if (!loading && !nft) {
@@ -204,7 +215,7 @@ const SingleView = () => {
             </Box>
 
             <Box mb={35} >
-              <History history = {historyData} />
+              <History history = {history} />
             </Box>
 
           </Box>

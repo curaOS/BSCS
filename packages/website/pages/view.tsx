@@ -9,7 +9,7 @@ import { useQuery, gql } from "@apollo/client";
 import Layout from "../containers/Layout";
 import { contractAddress } from "../utils/config";
 import { alertMessageState, indexLoaderState } from "../state/recoil";
-import { listData, historyData } from "../utils/data"
+import { listData } from "../utils/data"
 
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`); // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000025`); // 250 Tgas
@@ -30,6 +30,16 @@ const GET_OWNER_NFT = gql`
         amount
         bidder
         sell_on_share
+      }
+      history {
+        id
+        type
+        timestamp
+        mintBy
+        burnBy
+        transferFrom
+        transferTo
+        transactionHash
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
@@ -60,6 +70,7 @@ const View = () => {
 
   const nft = data?.nfts[0];
   const bids = nft?.bids;
+  const history = nft?.history;
 
   async function burnDesign() {
     setIndexLoader(true);
@@ -154,7 +165,7 @@ const View = () => {
             address={HARDCODED_ROYALTY_ADDRESS}
             share={HARDCODED_ROYALTY_SHARE}
           />
-          <History history = {historyData} />
+          <History history = {history} />
 
         </Box>
       </Box>
