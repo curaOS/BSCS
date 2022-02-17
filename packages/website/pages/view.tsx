@@ -154,6 +154,14 @@ const View = () => {
               />
             )}
           </AspectRatio>
+          <List
+              data={[
+                { title: "Contract Address", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
+                { title: "Token ID", content: nft?.id, link : null, copiable : true },
+                { title: "Blockchain", content: "NEAR", link : null, copiable : false },
+              ]}
+              width={"100%"}
+          />
         </Box>
         <Box
           sx={{
@@ -186,16 +194,6 @@ const View = () => {
           justifyContent: 'between'
         }}
       >
-
-        <Box mb={35} >
-          <List
-              data={[
-                { title: "Contract Address", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
-                { title: "Token ID", content: nft?.id, link : null, copiable : true },
-                { title: "Blockchain", content: "NEAR", link : null, copiable : false },
-              ]}
-          />
-        </Box>
 
       </Box>
 

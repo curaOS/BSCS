@@ -167,6 +167,14 @@ const SingleView = () => {
               />
             )}
           </AspectRatio>
+                  <List
+                      width={"100%"}
+                      data={[
+                          { title: "Contract Address", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
+                          { title: "Token ID", content: nft?.id, link : null, copiable : true },
+                          { title: "Blockchain", content: "NEAR", link : null, copiable : false },
+                      ]}
+                  />
         </Box>
         <Box
           sx={{
@@ -216,25 +224,6 @@ const SingleView = () => {
             <History history = {history} />
 
         </Box>
-
-          <Box
-              sx={{
-                  display: [ 'block', 'flex' ],
-                  justifyContent: 'between'
-              }}
-          >
-
-              <Box mb={35} >
-                  <List
-                      data={[
-                          { title: "Contract Address", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
-                          { title: "Token ID", content: nft?.id, link : null, copiable : true },
-                          { title: "Blockchain", content: "NEAR", link : null, copiable : false },
-                      ]}
-                  />
-              </Box>
-
-          </Box>
 
       </Box>
     </Layout>
