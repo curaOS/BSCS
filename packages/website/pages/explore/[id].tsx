@@ -17,7 +17,6 @@ import {
 import Layout from "../../containers/Layout";
 import { contractAddress } from "../../utils/config";
 import { alertMessageState, indexLoaderState } from "../../state/recoil";
-import { listData } from "../../utils/data"
 
 const MARKET_SET_BID_GAS = utils.format.parseNearAmount(`0.00000000020`); // 200 Tgas
 
@@ -28,6 +27,9 @@ const GET_SINGLE_NFT = gql`
   query getnft($token_id: String) {
     nfts(first: 1, where: { id: $token_id }) {
       id
+      contract {
+        id
+      }
       owner {
         id
       }
@@ -43,10 +45,18 @@ const GET_SINGLE_NFT = gql`
         id
         type
         timestamp
-        mintBy { id }
-        burnBy { id }
-        transferFrom { id }
-        transferTo { id }
+        mintBy { 
+            id 
+        }
+        burnBy { 
+            id 
+        }
+        transferFrom { 
+            id 
+        }
+        transferTo { 
+            id 
+        }
         transactionHash
       }
     }
@@ -203,24 +213,29 @@ const SingleView = () => {
             </Box>
           )}
 
+            <History history = {history} />
+
+        </Box>
+
           <Box
-            sx={{
-              display: [ 'block', 'flex' ],
-              justifyContent: 'between'
-            }}
+              sx={{
+                  display: [ 'block', 'flex' ],
+                  justifyContent: 'between'
+              }}
           >
 
-            <Box mb={35} >
-              <List data={listData} />
-            </Box>
-
-            <Box mb={35} >
-              <History history = {history} />
-            </Box>
+              <Box mb={35} >
+                  <List
+                      data={[
+                          { title: "Contract Address", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
+                          { title: "Token ID", content: nft?.id, link : null, copiable : true },
+                          { title: "Blockchain", content: "NEAR", link : null, copiable : false },
+                      ]}
+                  />
+              </Box>
 
           </Box>
 
-        </Box>
       </Box>
     </Layout>
   );

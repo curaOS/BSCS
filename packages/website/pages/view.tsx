@@ -9,7 +9,6 @@ import { useQuery, gql } from "@apollo/client";
 import Layout from "../containers/Layout";
 import { contractAddress } from "../utils/config";
 import { alertMessageState, indexLoaderState } from "../state/recoil";
-import { listData } from "../utils/data"
 
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`); // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000025`); // 250 Tgas
@@ -23,6 +22,9 @@ const GET_OWNER_NFT = gql`
   query getnft($owner_id: String) {
     nfts(first: 1, where: { owner: $owner_id }) {
       id
+      contract {
+        id
+      }
       metadata {
         media
       }
@@ -35,10 +37,18 @@ const GET_OWNER_NFT = gql`
         id
         type
         timestamp
-        mintBy { id }
-        burnBy { id }
-        transferFrom { id }
-        transferTo { id }
+        mintBy { 
+            id
+        }
+        burnBy { 
+            id
+        }
+        transferFrom { 
+            id
+        }
+        transferTo { 
+            id 
+        }
         transactionHash
       }
     }
@@ -178,7 +188,13 @@ const View = () => {
       >
 
         <Box mb={35} >
-          <List data={listData} />
+          <List
+              data={[
+                { title: "Contract Address", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
+                { title: "Token ID", content: nft?.id, link : null, copiable : true },
+                { title: "Blockchain", content: "NEAR", link : null, copiable : false },
+              ]}
+          />
         </Box>
 
       </Box>
