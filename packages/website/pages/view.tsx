@@ -2,7 +2,7 @@
 import { Box, AspectRatio, Button } from "theme-ui";
 import { utils } from "near-api-js";
 import { useNFTContract, useNearHooksContainer } from "@cura/hooks";
-import { CreatorShare, Bidders, MediaObject } from "@cura/components";
+import { CreatorShare, Bidders, MediaObject, List, History } from "@cura/components";
 import { useSetRecoilState } from "recoil";
 import { useQuery, gql } from "@apollo/client";
 
@@ -17,10 +17,14 @@ const YOCTO_NEAR = utils.format.parseNearAmount(`0.000000000000000000000001`);
 const HARDCODED_ROYALTY_ADDRESS = "sample.address";
 const HARDCODED_ROYALTY_SHARE = `2500`;
 
+
 const GET_OWNER_NFT = gql`
   query getnft($owner_id: String) {
-    nfts(first: 1, where: { owner: $owner_id }) {
+    nfts(skip: 0, first: 1, where: { owner: $owner_id }) {
       id
+      contract {
+        id
+      }
       metadata {
         media
       }
@@ -28,6 +32,24 @@ const GET_OWNER_NFT = gql`
         amount
         bidder
         sell_on_share
+      }
+      history {
+        id
+        type
+        timestamp
+        mintBy { 
+            id
+        }
+        burnBy { 
+            id
+        }
+        transferFrom { 
+            id
+        }
+        transferTo { 
+            id 
+        }
+        transactionHash
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
@@ -58,6 +80,7 @@ const View = () => {
 
   const nft = data?.nfts[0];
   const bids = nft?.bids;
+  const history = nft?.history;
 
   async function burnDesign() {
     setIndexLoader(true);
@@ -132,6 +155,7 @@ const View = () => {
             )}
           </AspectRatio>
         </Box>
+        {!loading && nft && 
         <Box
           sx={{
             mt: 0,
@@ -152,8 +176,29 @@ const View = () => {
             address={HARDCODED_ROYALTY_ADDRESS}
             share={HARDCODED_ROYALTY_SHARE}
           />
+          <List
+              data={[
+                { title: "Contract Address", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
+                { title: "Token ID", content: nft?.id, link : null, copiable : true },
+                { title: "Blockchain", content: "NEAR", link : null, copiable : false },
+              ]}
+              width={"100%"}
+          />
+          <History history = {history} />
+
         </Box>
+        }
       </Box>
+
+      <Box
+        sx={{
+          display: [ 'block', 'flex' ],
+          justifyContent: 'between'
+        }}
+      >
+
+      </Box>
+
     </Layout>
   );
 };

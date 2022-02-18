@@ -10,6 +10,8 @@ import {
   Metadata,
   MediaObject,
   BidCreate,
+  History,
+  List
 } from "@cura/components";
 
 import Layout from "../../containers/Layout";
@@ -23,8 +25,11 @@ const HARDCODED_ROYALTY_SHARE = `2500`;
 
 const GET_SINGLE_NFT = gql`
   query getnft($token_id: String) {
-    nfts(first: 1, where: { id: $token_id }) {
+    nfts(skip: 0, first: 1, where: { id: $token_id }) {
       id
+      contract {
+        id
+      }
       owner {
         id
       }
@@ -35,6 +40,24 @@ const GET_SINGLE_NFT = gql`
         media
         title
         description
+      }
+      history {
+        id
+        type
+        timestamp
+        mintBy { 
+            id 
+        }
+        burnBy { 
+            id 
+        }
+        transferFrom { 
+            id 
+        }
+        transferTo { 
+            id 
+        }
+        transactionHash
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
@@ -66,6 +89,7 @@ const SingleView = () => {
   }
 
   let nft = data?.nfts[0];
+  let history = nft?.history;
 
   // If nft don't exist
   if (!loading && !nft) {
@@ -156,6 +180,17 @@ const SingleView = () => {
             mb: [50, 0],
           }}
         >
+          
+          {!accountId && (
+            <Box
+              sx={{
+                mb: 35,
+                variant: "text.h5",
+              }}
+            >
+              Please connect to add bids
+            </Box>
+          )}
           <Box>
             {data && (
               <Metadata
@@ -177,20 +212,19 @@ const SingleView = () => {
             />
           </Box>
 
-          {accountId ? (
-            <BidCreate onBid={setBid} />
-          ) : (
-            <Box
-              sx={{
-                mt: 35,
-                fontWeight: "bold",
-                fontSize: "24px",
-              }}
-            >
-              Please login to add bids
-            </Box>
-          )}
+          {accountId && <BidCreate onBid={setBid} />}
+          <List
+              data={[
+                  { title: "Contract Address", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
+                  { title: "Token ID", content: nft?.id, link : null, copiable : true },
+                  { title: "Blockchain", content: "NEAR", link : null, copiable : false },
+              ]}
+          />
+          <History history = {history} />
+            
+
         </Box>
+
       </Box>
     </Layout>
   );

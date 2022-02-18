@@ -1,4 +1,5 @@
 import { theme as curaTheme } from '@cura/components'
+import { darken } from '@theme-ui/color'
 
 const gradientLarge = `/gradientLarge.webp`
 const gradientSmall = `/gradientSmall.webp`
@@ -12,6 +13,16 @@ const styles = {
     },
     a: {
       variant: `text.buttons.1`,
+      textDecoration: `none`,
+      opacity: 1,
+      color: darken(`primary`, .2),
+      transitionDuration: `200ms`,
+      ':hover': {
+        opacity: .6
+      },
+      ':focus': {
+        opacity: .8
+      }
     },
   },
 }
