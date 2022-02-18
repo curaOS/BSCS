@@ -27,6 +27,7 @@ const GET_OWNER_NFT = gql`
       }
       metadata {
         media
+        media_animation
       }
       bids {
         amount
@@ -178,9 +179,10 @@ const View = () => {
           />
           <List
               data={[
-                { title: "Contract Address", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
+                { title: "Contract", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
                 { title: "Token ID", content: nft?.id, link : null, copiable : true },
-                { title: "Blockchain", content: "NEAR", link : null, copiable : false },
+                { title: "Media", content: "arweave link ↗", link : `${base_uri}${nft?.metadata?.media}`, copiable : false },
+                { title: "Animation", content: "arweave link ↗", link : `${base_uri}${nft?.metadata?.media_animation}`, copiable : false },
               ]}
               width={"100%"}
           />
