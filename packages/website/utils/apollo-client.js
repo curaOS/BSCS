@@ -6,9 +6,14 @@ const cache = new InMemoryCache({
     Query: {
       fields: {
         nfts: {
-          keyArgs: false,
-          merge(existing = [], incoming) {
-            return [...existing, ...incoming];
+          keyArgs: ["id"],
+          merge(existing = [], incoming, { args }) {
+            const merged = existing ? existing.slice(0) : [];
+            const end = args.skip + Math.min(args.first, incoming.length);
+            for (let i = args.skip; i < end; ++i) {
+              merged[i] = incoming[i - args.skip];
+            }
+            return merged;
           },
         },
       },
