@@ -154,7 +154,6 @@ const SingleView = () => {
               alignItems: "center",
               display: "flex",
               justifyContent: "center",
-              mb: 36,
               width: "100%",
               maxHeight: "100%",
               marginLeft: "auto",
@@ -166,6 +165,7 @@ const SingleView = () => {
                 mediaURI={`${base_uri}${nft?.metadata?.media}`}
                 width={`100%`}
                 height={`100%`}
+                type={`image`}
               />
             )}
           </AspectRatio>
