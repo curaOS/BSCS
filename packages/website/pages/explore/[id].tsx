@@ -180,6 +180,17 @@ const SingleView = () => {
             mb: [50, 0],
           }}
         >
+          
+          {!accountId && (
+            <Box
+              sx={{
+                mb: 35,
+                variant: "text.h5",
+              }}
+            >
+              Please connect to add bids
+            </Box>
+          )}
           <Box>
             {data && (
               <Metadata
@@ -201,19 +212,7 @@ const SingleView = () => {
             />
           </Box>
 
-          {accountId ? (
-            <BidCreate onBid={setBid} />
-          ) : (
-            <Box
-              sx={{
-                mt: 35,
-                fontWeight: "bold",
-                fontSize: "24px",
-              }}
-            >
-              Please login to add bids
-            </Box>
-          )}
+          {accountId && <BidCreate onBid={setBid} />}
           <List
               data={[
                   { title: "Contract Address", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
