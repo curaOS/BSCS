@@ -9,7 +9,7 @@ import { contractAddress } from "../../utils/config";
 
 import Layout from "../../containers/Layout";
 
-const LIMIT_PER_PAGE = 4;
+const LIMIT_PER_PAGE = 6;
 
 const GET_NFTS = gql`
   query ExploreNfts($offset: Int, $limit: Int) {
