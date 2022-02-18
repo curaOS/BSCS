@@ -1,6 +1,6 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
-import { useLazyQuery, gql } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import { Box, Link, Spinner, AspectRatio } from "theme-ui";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { MediaObject } from "@cura/components";
@@ -8,12 +8,11 @@ import NextLink from "next/link";
 import { contractAddress } from "../../utils/config";
 
 import Layout from "../../containers/Layout";
-import { useEffect } from "react";
 
 const LIMIT_PER_PAGE = 4;
 
 const GET_NFTS = gql`
-  query getNfts($offset: Int, $limit: Int) {
+  query ExploreNfts($offset: Int, $limit: Int) {
     nfts(skip: $offset, first: $limit) {
       id
       metadata {
@@ -28,25 +27,17 @@ const GET_NFTS = gql`
 `;
 
 const ExploreToken = () => {
-  const [getNfts, { loading, data, error, fetchMore }] = useLazyQuery(
-    GET_NFTS,
-    {
-      variables: {
-        offset: 0,
-        limit: LIMIT_PER_PAGE,
-      },
-    }
-  );
-
-  useEffect(() => {
-    getNfts();
-  }, []);
+  const { loading, data, error, fetchMore } = useQuery(GET_NFTS, {
+    variables: {
+      offset: 0,
+      limit: LIMIT_PER_PAGE,
+    },
+  });
 
   const total_supply = parseInt(data?.nftContracts[0]?.total_supply);
   const base_uri = data?.nftContracts[0]?.base_uri;
 
   console.log(data);
-  
   return (
     <Layout>
       <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>
