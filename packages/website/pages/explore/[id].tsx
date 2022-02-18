@@ -25,7 +25,7 @@ const HARDCODED_ROYALTY_SHARE = `2500`;
 
 const GET_SINGLE_NFT = gql`
   query getnft($token_id: String) {
-    nfts(first: 1, where: { id: $token_id }) {
+    nfts(skip: 0, first: 1, where: { id: $token_id }) {
       id
       contract {
         id

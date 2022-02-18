@@ -20,7 +20,7 @@ const HARDCODED_ROYALTY_SHARE = `2500`;
 
 const GET_OWNER_NFT = gql`
   query getnft($owner_id: String) {
-    nfts(first: 1, where: { owner: $owner_id }) {
+    nfts(skip: 0, first: 1, where: { owner: $owner_id }) {
       id
       contract {
         id
@@ -155,6 +155,7 @@ const View = () => {
             )}
           </AspectRatio>
         </Box>
+        {!loading && nft && 
         <Box
           sx={{
             mt: 0,
@@ -181,10 +182,12 @@ const View = () => {
                 { title: "Token ID", content: nft?.id, link : null, copiable : true },
                 { title: "Blockchain", content: "NEAR", link : null, copiable : false },
               ]}
+              width={"100%"}
           />
           <History history = {history} />
 
         </Box>
+        }
       </Box>
 
       <Box
