@@ -86,12 +86,14 @@ const SingleView = () => {
     try {
       await contract.set_bid(
         {
-          token_id: nft.id,
-          amount: utils.format.parseNearAmount(amount),
-          bidder: accountId,
-          recipient: nft.owner?.id,
-          sell_on_share: parseInt(resale) * 100,
-          currency: `near`,
+          tokenId: nft.id,
+          bid:{
+              amount: utils.format.parseNearAmount(amount),
+              bidder: accountId,
+              recipient: nft.owner?.id,
+              sell_on_share: parseInt(resale) * 100,
+              currency: `near`,
+          }
         },
         MARKET_SET_BID_GAS,
         utils.format.parseNearAmount(amount)
