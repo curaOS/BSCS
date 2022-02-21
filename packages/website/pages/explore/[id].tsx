@@ -80,6 +80,7 @@ const SingleView = () => {
     variables: {
       token_id: router.query.id || "",
     },
+      fetchPolicy: "no-cache"
   });
 
   setIndexLoader(loading);
@@ -223,7 +224,7 @@ const SingleView = () => {
               ]}
               width={"100%"}
           />
-          <History history = {history} />
+          {/*<History history = {history} />*/}
             
 
         </Box>

@@ -12,7 +12,7 @@ const LIMIT_PER_PAGE = 2;
 
 const GET_NFTS = gql`
   query ExploreNfts($offset: Int, $limit: Int) {
-    nfts(skip: $offset, first: $limit) @connection(key: "root"){
+    nfts(skip: $offset, first: $limit) @connection(key: root){
       id
       metadata {
         media

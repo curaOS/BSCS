@@ -73,6 +73,7 @@ const ViewToken = () => {
         variables: {
             nft_id: router.query.id || "",
         },
+        fetchPolicy: "no-cache"
     });
 
     setIndexLoader(loading);
