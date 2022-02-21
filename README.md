@@ -16,3 +16,6 @@ End-to-end tests for the contract
 
 ### [Website](https://github.com/curaOS/Creative-Project/tree/master/packages/website)
 Frontend for [bscs.cura.run](https://bscs.cura.run/)
+
+### [Subgraph](https://github.com/curaOS/Creative-Project/tree/master/packages/subgraph)
+Frontend for [bscs.cura.run](https://bscs.cura.run/)

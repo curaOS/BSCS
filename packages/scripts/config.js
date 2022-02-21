@@ -54,7 +54,7 @@ exports.newVersion = async () => {
 };
 
 /***
- *  Updates contractAddress in package.json
+ *  Updates contractAddress in package.json and in subgraph.yaml
  ***/
 exports.updateContractAddress = async (newContract) => {
   const pck = fs.readFileSync("../../package.json");
@@ -63,5 +63,12 @@ exports.updateContractAddress = async (newContract) => {
   fs.writeFileSync(
     "../../package.json",
     pck.toString().replace(oldContract, newContract)
+  );
+
+  const sub = fs.readFileSync("../subgraph/subgraph.yaml");
+
+  fs.writeFileSync(
+    "../subgraph/subgraph.yaml",
+    sub.toString().replace(oldContract, newContract)
   );
 };

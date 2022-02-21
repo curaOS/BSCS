@@ -1,0 +1,124 @@
+type NftContract @entity {
+  id: ID!
+
+  # NEP-177
+  spec: String!
+  name: String!
+  symbol: String!
+  icon: String
+  base_uri: String
+  reference: String
+  packages_script: String
+  render_script: String
+  style_css: String
+  parameters: String
+
+  # Stats
+  timestamp: BigInt!
+  updated_at: BigInt!
+  total_supply: BigInt!
+
+  # Relationships
+  nfts: [Nft!]! @derivedFrom(field: "contract")
+}
+
+type Nft @entity {
+  id: ID!
+
+  # Relationships
+  contract: NftContract!
+  metadata: NftMetadata! @derivedFrom(field: "nft")
+  history: [Activity!]! @derivedFrom(field: "nft")
+
+  # Ownership
+  owner: User!
+  creator: User!
+  prev_owner: User
+
+  # Market
+  ## royalties
+  royalties: [User!]
+  royalties_percentage: Int
+
+  ## ask
+  askedPrice: Int
+
+  ## shares
+  owner_share: Int
+  creator_share: Int
+  prev_owner_share: Int
+
+  ## bids
+  bids: [Bid!] @derivedFrom(field: "nft")
+}
+
+type NftMetadata @entity {
+  id: ID!
+  nft: Nft!
+
+  title: String!
+  description: String
+  media: String!
+  media_animation: String
+  media_hash: String
+  copies: Int
+  extra: String
+  reference: String
+  reference_hash: String
+  issued_at: String
+  starts_at: String
+  updated_at: String
+  expires_at: String
+}
+
+type User @entity {
+  id: ID!
+
+  # Relationships
+  ownedNfts: [Nft!] @derivedFrom(field: "owner")
+  createdNfts: [Nft!] @derivedFrom(field: "creator")
+  bids: [Bid!] @derivedFrom(field: "bidder")
+
+  # Stats
+  total_owned: BigInt!
+  total_minted: BigInt!
+}
+
+type Activity @entity {
+  id: ID!
+  nft: Nft!
+  type: ActivityType!
+  timestamp: BigInt!
+
+  # mint activity
+  mintBy: User
+
+  # burn activity
+  burnBy: User
+
+  # transfer activity
+  transferFrom: User
+  transferTo: User
+
+  transactionHash: String!
+}
+
+enum ActivityType @entity {
+  mint
+  burn
+  transfer
+}
+
+type Bid @entity {
+  id: ID!
+  nft: Nft!
+  timestamp: BigInt!
+
+  amount: BigInt!
+  bidder: User!
+  recipient: User!
+  sell_on_share: Int!
+  currency: String!
+
+  accepted: Boolean!
+}
