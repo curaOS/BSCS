@@ -13,12 +13,12 @@
     "parameters": ""
   },
   "extra": {
-    "mint_price": "100",
+    "mint_price": "100000",
     "max_copies": 1024,
     "default_max_len_payout": 20,
     "mints_per_address": 1024,
-    "mint_payee_id": "creatify.testnet",
-    "mint_royalty_id": "creatify.testnet",
+    "mint_payee_id": "basics.testnet",
+    "mint_royalty_id": "basics.testnet",
     "mint_royalty_amount": 5
   }
 }
