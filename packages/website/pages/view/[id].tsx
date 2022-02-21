@@ -9,6 +9,7 @@ import { useQuery, gql } from "@apollo/client";
 import Layout from "../../containers/Layout";
 import { contractAddress } from "../../utils/config";
 import { alertMessageState, indexLoaderState } from "../../state/recoil";
+import {useRouter} from "next/router";
 
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`); // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000025`); // 250 Tgas
@@ -19,8 +20,8 @@ const HARDCODED_ROYALTY_SHARE = `2500`;
 
 
 const GET_OWNER_NFT = gql`
-  query getnft($owner_id: String) {
-    nfts(skip: 0, first: 1, where: { owner: $owner_id }) {
+  query getnft($nft_id: String) {
+    nfts(skip: 0, first: 1, where: { id: $nft_id }) {
       id
       contract {
         id
@@ -60,6 +61,8 @@ const GET_OWNER_NFT = gql`
 `;
 
 const ViewToken = () => {
+    const router = useRouter();
+
     const { accountId } = useNearHooksContainer();
     const { contract } = useNFTContract(contractAddress);
 
@@ -68,7 +71,7 @@ const ViewToken = () => {
 
     const { loading, data, error } = useQuery(GET_OWNER_NFT, {
         variables: {
-            owner_id: accountId || "",
+            nft_id: router.query.id || "",
         },
     });
 
@@ -82,6 +85,13 @@ const ViewToken = () => {
     const nft = data?.nfts[0];
     const bids = nft?.bids;
     const history = nft?.history;
+
+    // If nft don't exist
+    if (!loading && !nft) {
+        router.push("/view");
+        return <></>;
+    }
+
 
     async function burnDesign() {
         setIndexLoader(true);
