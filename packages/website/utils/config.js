@@ -1,3 +1,4 @@
-export const contractAddress = "cura-0_0_13.creatify.testnet";
-export const graphUri =
-  "https://api.thegraph.com/subgraphs/name/curaos/cc-project";
+let pck = require("../../../package.json");
+
+export const contractAddress = pck.config.contractAddress;
+export const graphUri = pck.config.graphAPI;

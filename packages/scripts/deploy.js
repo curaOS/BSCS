@@ -12,11 +12,7 @@ let near;
 let contractAddress;
 
 async function initNear() {
-  if (process.env.NEAR_ENV == "mainnet") {
-    config = configFile.config.mainnet;
-  } else {
-    config = configFile.config.testnet;
-  }
+  config = await configFile.networkConfig();
 
   const keyFile = require(config.keyPath);
   masterKey = nearAPI.utils.KeyPair.fromString(
@@ -41,7 +37,9 @@ async function deploy() {
 
   const contract = await fs.readFile(configFile.CONTRACT);
 
-  contractAddress = configFile.CONTRACT_ADDRESS + "." + config.masterAccount;
+  const version = await configFile.newVersion();
+
+  contractAddress = version + "." + config.masterAccount;
 
   const response = await masterAccount.createAndDeployContract(
     contractAddress,
@@ -56,8 +54,9 @@ async function deploy() {
 }
 
 async function init() {
-  let metadata = configFile.METADATA.standard;
-  let extra = configFile.METADATA.extra;
+  let metadata = await configFile.metadata();
+  let standard = metadata.standard;
+  let extra = metadata.extra;
 
   const contract = await new nearAPI.Contract(masterAccount, contractAddress, {
     changeMethods: ["init"],
@@ -65,12 +64,15 @@ async function init() {
 
   await contract.init({
     args: {
-      contract_metadata: metadata,
+      owner_id: masterAccount.accountId,
+      contract_metadata: standard,
       contract_extra: extra,
     },
     gas: 300000000000000,
   });
-  console.log("Finish init contract ");
+  console.log("Finished init contract");
+
+  configFile.updateContractAddress(contractAddress);
 }
 
 deploy();

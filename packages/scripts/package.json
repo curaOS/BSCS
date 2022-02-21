@@ -1,6 +1,5 @@
 {
   "name": "scripts",
-  "version": "0.0.13",
   "scripts": {
     "deploy": "node deploy.js"
   },

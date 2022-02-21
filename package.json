@@ -11,5 +11,12 @@
     "dev:website": "yarn workspace website dev",
     "deploy:contract": "yarn workspace scripts deploy",
     "test:sandbox": "yarn workspace tests sandbox"
+  },
+  "version": "0.0.1",
+  "config": {
+    "contractAddress": "0_0_1.creatify.testnet",
+    "network": "testnet",
+    "masterAccount": "creatify.testnet",
+    "graphAPI": "https://api.thegraph.com/subgraphs/name/curaos/cc-project"
   }
 }
