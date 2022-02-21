@@ -20,7 +20,7 @@ const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount(`1`); // 1N
 const HARDCODED_ROYALTY_ADDRESS = "sample.address";
 const HARDCODED_ROYALTY_SHARE = `2500`;
 
-const arweaveLambda = "https://je8kkc8duc.execute-api.us-east-1.amazonaws.com/dev/arweave-upload";
+const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 
 const Create = () => {
   const { contract } = useNFTContract(contractAddress);
