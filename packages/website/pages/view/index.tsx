@@ -11,7 +11,7 @@ import Layout from "../../containers/Layout";
 import Feed from "../../containers/Feed";
 import { contractAddress } from "../../utils/config";
 
-const LIMIT_PER_PAGE = 4;
+const LIMIT_PER_PAGE = 6;
 
 const GET_OWNER_NFTS = gql`
   query ExploreNfts($offset: Int, $limit: Int, $owner_id: String) {

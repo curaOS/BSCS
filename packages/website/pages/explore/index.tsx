@@ -8,7 +8,7 @@ import Layout from "../../containers/Layout";
 import Feed from "../../containers/Feed";
 
 
-const LIMIT_PER_PAGE = 2;
+const LIMIT_PER_PAGE = 6;
 
 const GET_NFTS = gql`
   query ExploreNfts($offset: Int, $limit: Int) {
