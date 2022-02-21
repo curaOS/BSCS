@@ -80,6 +80,7 @@ const SingleView = () => {
     variables: {
       token_id: router.query.id || "",
     },
+      fetchPolicy: "no-cache"
   });
 
   setIndexLoader(loading);
