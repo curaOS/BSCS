@@ -5,14 +5,14 @@ import { Box, Link, Spinner, AspectRatio } from "theme-ui";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { MediaObject } from "@cura/components";
 import NextLink from "next/link";
-import { useNearHooksContainer } from "@cura/hooks";
+import {useNearHooksContainer, useNFTViewMethod} from "@cura/hooks";
 
 import Layout from "../../containers/Layout";
 import { contractAddress } from "../../utils/config";
 
-const LIMIT_PER_PAGE = 6;
+const LIMIT_PER_PAGE = 4;
 
-const GET_NFTS = gql`
+const GET_OWNER_NFTS = gql`
   query ExploreNfts($offset: Int, $limit: Int, $owner_id: String) {
     nfts(skip: $offset, first: $limit, where: { owner: $owner_id } ) {
       id
@@ -21,17 +21,16 @@ const GET_NFTS = gql`
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
-      total_supply
       base_uri
     }
   }
 `;
 
-const View = () => {
+const ViewTokens = () => {
 
     const { accountId } = useNearHooksContainer();
 
-    const { loading, data, error, fetchMore } = useQuery(GET_NFTS, {
+    const { loading, data, error, fetchMore } = useQuery(GET_OWNER_NFTS, {
         variables: {
             offset: 0,
             limit: LIMIT_PER_PAGE,
@@ -39,12 +38,16 @@ const View = () => {
         },
     });
 
-    const total_supply_for_owner = parseInt(data?.nfts?.length);
     const base_uri = data?.nftContracts[0]?.base_uri;
 
-    console.log(error);
+    const { data :total_supply_for_owner } = useNFTViewMethod(
+        contractAddress,
+        'nft_supply_for_owner',
+        { "account_id": accountId}
+    );
+
     return (
-        <Layout>
+        <Layout requireAuth={true} >
             <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>
                 {loading && <Spinner />}
                 {error && <p>Error: check console</p>}
@@ -116,5 +119,4 @@ const Feed = ({ entries, onLoadMore, totalSupply, base_uri }) => {
     );
 };
 
-
-export default View;
+export default ViewTokens;
