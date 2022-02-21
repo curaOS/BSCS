@@ -59,7 +59,7 @@ const Bids = () => {
     setIndexLoader(true);
     try {
       await contract.remove_bid(
-        { token_id: token_id, bidder: bidder },
+        { tokenId: token_id, bidder: bidder },
         CONTRACT_REMOVE_BID_GAS
       );
       setIndexLoader(false);
