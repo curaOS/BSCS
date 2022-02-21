@@ -1,5 +1,5 @@
 specVersion: 0.0.2
-description: Subgraph for Cura NFT
+description: Subgraph for BSCS
 repository: https://github.com/curaOS/subgraph.git
 schema:
   file: ./schema.graphql
@@ -8,7 +8,7 @@ dataSources:
     network: near-testnet
     name: receipts
     source:
-      account: cura-0_0_13.creatify.testnet
+      account: 0_0_1.creatify.testnet
       startBlock: 82758949
     mapping:
       file: ./src/mapping.ts
