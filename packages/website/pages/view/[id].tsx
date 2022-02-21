@@ -119,7 +119,7 @@ const ViewToken = () => {
         try {
             await contract.accept_bid(
                 {
-                    token_id: nft?.id,
+                    tokenId: nft?.id,
                     bidder: bidder,
                 },
                 MARKET_ACCEPT_BID_GAS,
