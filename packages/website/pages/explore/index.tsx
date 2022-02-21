@@ -8,11 +8,11 @@ import Layout from "../../containers/Layout";
 import Feed from "../../containers/Feed";
 
 
-const LIMIT_PER_PAGE = 6;
+const LIMIT_PER_PAGE = 2;
 
 const GET_NFTS = gql`
   query ExploreNfts($offset: Int, $limit: Int) {
-    nfts(skip: $offset, first: $limit) {
+    nfts(skip: $offset, first: $limit) @connection(key: "root"){
       id
       metadata {
         media

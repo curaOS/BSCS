@@ -6,7 +6,7 @@ const cache = new InMemoryCache({
     Query: {
       fields: {
         nfts: {
-          keyArgs: ["id"],
+          keyArgs: ["@connection"],
           merge(existing = [], incoming, { args }) {
             const merged = existing ? existing.slice(0) : [];
             const end = args.skip + Math.min(args.first, incoming.length);

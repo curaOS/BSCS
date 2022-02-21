@@ -15,7 +15,7 @@ const LIMIT_PER_PAGE = 4;
 
 const GET_OWNER_NFTS = gql`
   query ExploreNfts($offset: Int, $limit: Int, $owner_id: String) {
-    nfts(skip: $offset, first: $limit, where: { owner: $owner_id } ) {
+    nfts(skip: $offset, first: $limit, where: { owner: $owner_id } ) @connection(key: $owner_id) {
       id
       metadata {
         media
