@@ -116,7 +116,7 @@ const SingleView = () => {
           bid:{
               amount: utils.format.parseNearAmount(amount),
               bidder: accountId,
-              recipient: nft.owner?.id,
+              recipient: nft?.id,
               sell_on_share: parseInt(resale) * 100,
               currency: `near`,
           }
