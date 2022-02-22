@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { Box, AspectRatio, Button } from "theme-ui";
 import { utils } from "near-api-js";
-import { useNFTContract, useNearHooksContainer } from "@cura/hooks";
+import { useNFTContract, useNearHooksContainer, useNFTViewMethod } from "@cura/hooks";
 import { CreatorShare, Bidders, MediaObject, List, History } from "@cura/components";
 import { useSetRecoilState } from "recoil";
 import { useQuery, gql } from "@apollo/client";
@@ -76,6 +76,12 @@ const ViewToken = () => {
         fetchPolicy: "no-cache"
     });
 
+    const { loading:bids_loading, data:bids, error:bids_error } = useNFTViewMethod(
+        contractAddress,
+        "get_bids",
+        { tokenId: router.query.id || "" }
+      );
+
     setIndexLoader(loading);
 
     if (error) {
@@ -84,7 +90,7 @@ const ViewToken = () => {
     }
 
     const nft = data?.nfts[0];
-    const bids = nft?.bids;
+    // const bids = nft?.bids;
     const history = nft?.history;
 
     // If nft don't exist
@@ -113,7 +119,7 @@ const ViewToken = () => {
         try {
             await contract.accept_bid(
                 {
-                    token_id: nft?.id,
+                    tokenId: nft?.id,
                     bidder: bidder,
                 },
                 MARKET_ACCEPT_BID_GAS,

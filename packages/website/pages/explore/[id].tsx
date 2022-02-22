@@ -102,7 +102,7 @@ const SingleView = () => {
   // If user own nft
   if (nft && accountId) {
     if (nft.owner?.id === accountId) {
-      router.push("/view");
+      router.push("/view/"+router.query.id || "");
       return <></>;
     }
   }

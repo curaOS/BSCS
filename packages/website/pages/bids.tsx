@@ -3,7 +3,11 @@
 
 import { utils } from "near-api-js";
 import { BiddersBids } from "@cura/components";
-import { useNFTContract, useNearHooksContainer } from "@cura/hooks";
+import {
+  useNFTContract,
+  useNearHooksContainer,
+  useNFTViewMethod,
+} from "@cura/hooks";
 import { useSetRecoilState } from "recoil";
 import { useQuery, gql } from "@apollo/client";
 import { Box } from "theme-ui";
@@ -31,11 +35,18 @@ const Bids = () => {
   const setIndexLoader = useSetRecoilState(indexLoaderState);
   const setAlertMessage = useSetRecoilState(alertMessageState);
 
-  const { loading, data, error } = useQuery(GET_BIDS, {
-    variables: {
-      bidder: accountId || "",
-    },
-  });
+  // const { loading, data, error } = useQuery(GET_BIDS, {
+  //   variables: {
+  //     bidder: accountId || "",
+  //   },
+  // });
+
+  const { loading, data, error } = useNFTViewMethod(
+    contractAddress,
+    "get_bidder_bids",
+    { accountId: accountId }
+  );
+
 
   setIndexLoader(loading);
 
@@ -48,7 +59,7 @@ const Bids = () => {
     setIndexLoader(true);
     try {
       await contract.remove_bid(
-        { token_id: token_id, bidder: bidder },
+        { tokenId: token_id, bidder: bidder },
         CONTRACT_REMOVE_BID_GAS
       );
       setIndexLoader(false);
@@ -69,7 +80,7 @@ const Bids = () => {
         }}
       >
         {data && (
-          <BiddersBids biddersBids={data?.bids} onRemoveBid={removeBid} />
+          <BiddersBids biddersBids={data?.bids || data} onRemoveBid={removeBid} />
         )}
       </Box>
     </Layout>
