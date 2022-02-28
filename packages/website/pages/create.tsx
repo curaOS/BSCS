@@ -47,16 +47,8 @@ const Create = () => {
 
       // setSeed(result?.seed);
 
-      // const arweaveHTML = combineHTML(
-      //   `<script>let jsonParams = '${JSON.stringify({
-      //     instructions: result?.instructions?.split(`,`),
-      //   })}'</script>`,
-      //   nftMetadata.packages_script,
-      //   nftMetadata.render_script,
-      //   nftMetadata.style_css
-      // );
       const arweaveHTML = combineHTML(
-        "",
+        `<script>let SEED = ${Math.floor(Math.random() * (1024 - 1 + 1) + 1)};</script>`,
         nftMetadata.packages_script,
         nftMetadata.render_script,
         nftMetadata.style_css
