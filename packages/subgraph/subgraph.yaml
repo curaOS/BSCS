@@ -1,0 +1,25 @@
+specVersion: 0.0.2
+description: Subgraph for BSCS
+repository: https://github.com/curaOS/subgraph.git
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: near
+    network: near-testnet
+    name: receipts
+    source:
+      account: 0_0_3.basics.testnet
+      startBlock: 83889110
+    mapping:
+      file: ./src/mapping.ts
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NftContract
+        - Nft
+        - NftMetadata
+        - User
+        - Activity
+        - Bid
+      receiptHandlers:
+        - handler: handleReceipt

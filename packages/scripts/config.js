@@ -1,41 +1,74 @@
 const fs = require("fs");
+const configFile = require("../../config");
 
 const homedir = require("os").homedir();
 const credentialsPath = require("path").join(homedir, ".near-credentials");
 
-exports.config = {
-  testnet: {
-    networkId: "testnet",
-    nodeUrl: "https://rpc.testnet.near.org",
-    masterAccount: "creatify.testnet",
-    keyPath: credentialsPath + "/testnet/creatify.testnet.json",
-  },
-  mainnet: {
-    networkId: "mainnet",
-    nodeUrl: "https://rpc.mainnet.near.org",
-    masterAccount: "achtest.mainnet",
-    keyPath: credentialsPath + "/mainnet/achtest.mainnet.json",
-  },
+/***
+ *  Network config used by NEAR
+ ***/
+exports.networkConfig = async () => {
+  const config = await configFile.config();
+  return {
+    networkId: config.network,
+    nodeUrl: "https://rpc." + config.network + ".near.org",
+    masterAccount: config.masterAccount,
+    keyPath:
+      credentialsPath +
+      "/" +
+      config.network +
+      "/" +
+      config.masterAccount +
+      ".json",
+  };
 };
 
-const pck = fs.readFileSync("./package.json");
-const pjson = JSON.parse(pck);
+/***
+ *  Contract Metadata used to call init
+ ***/
+exports.metadata = configFile.metadata;
 
-// PATCH version is increased by one on each new deploy
-const tmp = pjson.version.split(".");
-const newVersion = `${tmp[0]}.${tmp[1]}.${parseInt(tmp[2]) + 1}`;
-fs.writeFileSync(
-  "./package.json",
-  pck.toString().replace(pjson.version, newVersion)
-);
-
-const version = newVersion.replaceAll(".", "_");
-// A sub account will be created using this name
-exports.CONTRACT_ADDRESS = `cura-${version}`;
-
-// This will be used in init for Contract Metadata
-const metadata = require("./metadata.json");
-exports.METADATA = metadata;
-
-// Contract file
+/***
+ *  Contract wasm file to deploy
+ ***/
 exports.CONTRACT = "../contract/build/release/cNFT.wasm";
+
+/***
+ *  Updates contract version by x.x.1 and returns it
+ ***/
+exports.newVersion = async () => {
+  const pck = fs.readFileSync("../../package.json");
+  const pjson = JSON.parse(pck);
+
+  // PATCH version is increased by one on each new deploy
+  const tmp = pjson.version.split(".");
+  const newVersion = `${tmp[0]}.${tmp[1]}.${parseInt(tmp[2]) + 1}`;
+  fs.writeFileSync(
+    "../../package.json",
+    pck.toString().replace(pjson.version, newVersion)
+  );
+
+  const version = newVersion.replaceAll(".", "_");
+
+  return version;
+};
+
+/***
+ *  Updates contractAddress in package.json and in subgraph.yaml
+ ***/
+exports.updateContractAddress = async (newContract) => {
+  const pck = fs.readFileSync("../../package.json");
+  const oldContract = JSON.parse(pck).config.contractAddress;
+
+  fs.writeFileSync(
+    "../../package.json",
+    pck.toString().replace(oldContract, newContract)
+  );
+
+  const sub = fs.readFileSync("../subgraph/subgraph.yaml");
+
+  fs.writeFileSync(
+    "../subgraph/subgraph.yaml",
+    sub.toString().replace(oldContract, newContract)
+  );
+};

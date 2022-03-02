@@ -1,6 +1,5 @@
 {
-  "name": "contract",
-  "version": "0.0.13",
+  "name": "scripts",
   "scripts": {
     "deploy": "node deploy.js"
   },
