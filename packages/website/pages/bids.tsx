@@ -35,17 +35,17 @@ const Bids = () => {
   const setIndexLoader = useSetRecoilState(indexLoaderState);
   const setAlertMessage = useSetRecoilState(alertMessageState);
 
-  // const { loading, data, error } = useQuery(GET_BIDS, {
-  //   variables: {
-  //     bidder: accountId || "",
-  //   },
-  // });
+  const { loading, data, error } = useQuery(GET_BIDS, {
+    variables: {
+      bidder: accountId || "",
+    },
+  });
 
-  const { loading, data, error } = useNFTViewMethod(
-    contractAddress,
-    "get_bidder_bids",
-    { accountId: accountId }
-  );
+  // const { loading, data, error } = useNFTViewMethod(
+  //   contractAddress,
+  //   "get_bidder_bids",
+  //   { accountId: accountId }
+  // );
 
 
   setIndexLoader(loading);
