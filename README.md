@@ -45,7 +45,7 @@ yarn deploy:contract
 ```
 This command will run deployement script from packages/scripts, this script will:
 1. Read `/package.json` to determine the contract address and network
-3. Create and deploy the contract to a new address
+3. Create a new address and deploy the contract to it
 4. Update the version and contract address under `/package.json`
 5. Update the contract address under `packages/subgraph/subgraph.yaml`
 6. Read `/metadata.json` and use it to call `init`
