@@ -186,7 +186,7 @@ const View = () => {
               ]}
               width={"100%"}
           />
-          <History history = {history} />
+          {/*<History history = {history} />*/}
 
         </Box>
         }
