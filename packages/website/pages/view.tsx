@@ -38,18 +38,6 @@ const GET_OWNER_NFT = gql`
         id
         type
         timestamp
-        mintBy { 
-            id
-        }
-        burnBy { 
-            id
-        }
-        transferFrom { 
-            id
-        }
-        transferTo { 
-            id 
-        }
         transactionHash
       }
     }
