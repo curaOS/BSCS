@@ -31,7 +31,9 @@ const GET_OWNER_NFT = gql`
       }
       bids {
         amount
-        bidder
+        bidder {
+           id
+        }
         sell_on_share
       }
       history {
@@ -159,7 +161,17 @@ const View = () => {
             BURN
           </Button>
 
-          {bids && <Bidders bidders={bids} onAcceptBid={acceptBid} />}
+          {bids &&
+              <Bidders
+                  bidders={bids?.reduce((a, v) => (
+                      { ...a, [v.bidder?.id]: {
+                          ...v,
+                          "bidder": v.bidder?.id
+                      }}), {})
+                  }
+                  onAcceptBid={acceptBid}
+              />
+          }
 
           <CreatorShare
             address={HARDCODED_ROYALTY_ADDRESS}
