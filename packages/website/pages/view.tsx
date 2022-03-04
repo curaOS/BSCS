@@ -11,7 +11,7 @@ import { contractAddress } from "../utils/config";
 import { alertMessageState, indexLoaderState } from "../state/recoil";
 
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`); // 290 Tgas
-const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000040`); // 400 Tgas
+const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000030`); // 300 Tgas
 const YOCTO_NEAR = utils.format.parseNearAmount(`0.000000000000000000000001`);
 
 const HARDCODED_ROYALTY_ADDRESS = "sample.address";
