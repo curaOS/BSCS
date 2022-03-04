@@ -5,28 +5,42 @@ import { TokenMetadata } from './persistent_tokens_metadata'
 /* @todo metatada is here cause it's returned in enumeration, remove if possible*/
 @nearBindgen
 export class Token {
-
     /** ID of the token */
     id: string
 
     /** ID of the current owner who owns the token */
     owner_id: string
 
-    /** ID of the creator who created or minted this token */
+    /** ID of the creator who created or minted this token, this could be the artist or collective in case of a generative art project */
     creator_id: string
 
     /** ID of the previous owner */
     prev_owner_id: string
 
-    /** Metadata object of the token that describe the token */
+    /** Metadata object of the token that describes the token */
     metadata: TokenMetadata
+
+    /** ID of the accounts, that can approve a transfer behalf of the owner */
+    approvals: Map<string, number>
+
+    /** Number used for the next approval ID */
+    next_approval_id: number
 }
 
 @nearBindgen
 export class PersistentTokens {
+    /**
+     * Tokens Map --> Maps ID to Token Object
+     */
     private _tmap: PersistentUnorderedMap<TokenId, Token>
-    /** Set is persistent cause it avoids loading the whole Set but just reference */
+    /**
+     * Accounts Map --> Associates AccountId to owned Tokens
+     * **Note** Set is persistent cause it avoids loading the whole Set but just reference
+     */
     private _amap: PersistentUnorderedMap<AccountId, PersistentSet<TokenId>>
+    /**
+     * Owners Set --> A set of all the Accounts that have at least one Token
+     */
     private _oset: PersistentSet<AccountId>
 
     /**
@@ -43,8 +57,6 @@ export class PersistentTokens {
 
         this._oset = new PersistentSet<AccountId>('_oset' + prefix)
     }
-
-
 
     /**
      * Get token details of a single token
@@ -65,8 +77,6 @@ export class PersistentTokens {
         return this._tmap.getSome(token_id)
     }
 
-
-
     /**
      * Check if the relevant token exists or not
      *
@@ -79,13 +89,11 @@ export class PersistentTokens {
      * ```
      *
      * @param token_id ID of the token to check it's exists or not
-     * @return true if exits, false if not exists
+     * @return true if token exits, false if not
      */
     has(token_id: TokenId): bool {
         return this._tmap.contains(token_id)
     }
-
-
 
     /**
      * Get the IDs of tokens saved in the provided range
@@ -107,10 +115,6 @@ export class PersistentTokens {
     }
 
     /**
-     * TODO not sure _tmap.length can represent up to u128 values
-     */
-
-    /**
      * Get number of tokens tracked in the contract
      *
      * **Basic usage example:**
@@ -123,13 +127,13 @@ export class PersistentTokens {
      * log(parseInt(tokens_length)) // 9450
      * ```
      *
+     * @todo not sure _tmap.length can represent up to u128 values
+     *
      * @return Number of tokens present in the contract in `u128` format
      */
     get number_of_tokens(): u128 {
         return u128.from(this._tmap.length)
     }
-
-
 
     /**
      * Get number of tokens saved in the contract for a given account
@@ -157,8 +161,6 @@ export class PersistentTokens {
         return accountTokenSet.size.toString()
     }
 
-
-
     /**
      * Get the IDs of tokens saved in the contract for a given account/user
      *
@@ -176,8 +178,6 @@ export class PersistentTokens {
     tokens_for_owner(accountId: AccountId): TokenId[] {
         return this._amap.getSome(accountId).values()
     }
-
-
 
     /**
      * Add a new token to the contract
@@ -208,8 +208,6 @@ export class PersistentTokens {
         return token
     }
 
-
-
     /**
      * Burn a token from the contract
      *
@@ -225,15 +223,13 @@ export class PersistentTokens {
      * @param accountId ID of the account that owns the burning token
      */
     burn(tokenId: TokenId, accountId: AccountId): void {
-        let token = this._tmap.getSome(tokenId);
-        token.owner_id = '';
+        let token = this._tmap.getSome(tokenId)
+        token.owner_id = ''
 
-        this._tmap.set(tokenId, token);
+        this._tmap.set(tokenId, token)
 
-        this.remove(tokenId, accountId);
+        this.remove(tokenId, accountId)
     }
-
-
 
     /**
      * Remove a token from a user's token set
@@ -250,7 +246,6 @@ export class PersistentTokens {
      * @param accountId ID of the account that owns the removing token
      */
     remove(tokenId: TokenId, accountId: AccountId): void {
-
         this._amap.set(
             accountId,
             this._removeFromAccountTokenSet(tokenId, accountId)
