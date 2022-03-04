@@ -9,7 +9,7 @@
     "reference_hash": ""
   },
   "extra": {
-    "mint_price": "100000",
+    "mint_price": "1000000000000000000000000",
     "max_copies": 1024,
     "default_max_len_payout": 20,
     "mints_per_address": 1024,
