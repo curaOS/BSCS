@@ -30,7 +30,7 @@ const GET_OWNER_NFT = gql`
         media
         media_animation
       }
-      bids {
+      bids ( where: { accepted: false } ) {
         amount
         bidder {
           id
