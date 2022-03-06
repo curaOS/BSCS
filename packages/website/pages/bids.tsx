@@ -84,7 +84,14 @@ const Bids = () => {
         }}
       >
         {data && (
-          <BiddersBids biddersBids={data?.bids || data} onRemoveBid={removeBid} />
+          <BiddersBids
+              biddersBids={data?.bids?.reduce((a, v) => (
+                  { ...a, [v.nft?.id]: {
+                      ...v,
+                      "bidder": v.bidder?.id
+                    }}), {})
+              }
+              onRemoveBid={removeBid} />
         )}
       </Box>
     </Layout>
