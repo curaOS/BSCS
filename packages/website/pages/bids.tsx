@@ -20,9 +20,13 @@ const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount(`0.00000000020`); /
 
 const GET_BIDS = gql`
   query bids($bidder: String) {
-    bids(first: 1, where: { id: $bidder }) {
-      nft
-      bidder
+    bids(first: 1, where: { bidder: $bidder }) {
+      nft {
+       id
+      }
+      bidder {
+        id
+      }
       amount
       sell_on_share
     }
@@ -35,17 +39,17 @@ const Bids = () => {
   const setIndexLoader = useSetRecoilState(indexLoaderState);
   const setAlertMessage = useSetRecoilState(alertMessageState);
 
-  // const { loading, data, error } = useQuery(GET_BIDS, {
-  //   variables: {
-  //     bidder: accountId || "",
-  //   },
-  // });
+  const { loading, data, error } = useQuery(GET_BIDS, {
+    variables: {
+      bidder: accountId || "",
+    },
+  });
 
-  const { loading, data, error } = useNFTViewMethod(
-    contractAddress,
-    "get_bidder_bids",
-    { accountId: accountId }
-  );
+  // const { loading, data, error } = useNFTViewMethod(
+  //   contractAddress,
+  //   "get_bidder_bids",
+  //   { accountId: accountId }
+  // );
 
 
   setIndexLoader(loading);
