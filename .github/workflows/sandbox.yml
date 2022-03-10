@@ -31,7 +31,7 @@ jobs:
         working-directory: packages/tests
         run: |
           yarn install
-        # yarn build-cnft
+          yarn build:contract
       - name: "Testing contract"
         working-directory: packages/tests
         run: |

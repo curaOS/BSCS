@@ -79,7 +79,7 @@ async function createContractUser(
 }
 
 async function initTest() {
-    const contract = await fs.readFile('./build/release/cNFT.wasm')
+    const contract = await fs.readFile('../contract/build/release/cNFT.wasm')
     await masterAccount.createAndDeployContract(
         config.contractAccount,
         pubKey,
@@ -237,7 +237,7 @@ async function test() {
      * 4. Test enumeration methods
      */
 
-    // a. get NFT Total Supply
+        // a. get NFT Total Supply
 
     const total_supply = await bobUseContract.nft_total_supply()
     assert.equal(parseInt(total_supply), TOTAL_MINT)
@@ -309,7 +309,7 @@ async function test() {
      * 5. Test market methods
      */
 
-    // a. Bob bids on Jenny token
+        // a. Bob bids on Jenny token
     const rBid = random_bid()
     await bobUseContract.set_bid({
         args: {
