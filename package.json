@@ -14,11 +14,11 @@
     "deploy:subgraph": "yarn workspace subgraph deploy",
     "test:sandbox": "yarn workspace tests sandbox"
   },
-  "version": "0.0.3",
+  "version": "0.1.1",
   "config": {
-    "contractAddress": "0_0_3.basics.testnet",
+    "contractAddress": "0_1_1.bscs-x.testnet",
     "network": "testnet",
-    "masterAccount": "basics.testnet",
+    "masterAccount": "bscs-x.testnet",
     "graphAPI": "https://api.thegraph.com/subgraphs/name/curaos/cc-project"
   }
 }

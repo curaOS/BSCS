@@ -1,5 +1,5 @@
 {
-    "extends": "/node_modules/assemblyscript/std/assembly.json",
+    "extends": "../node_modules/assemblyscript/std/assembly.json",
     "include": ["./**/*.ts"],
     "typedocOptions": {
         "exclude": "**/*/__tests__",
@@ -8,6 +8,8 @@
         "excludeProtected": true,
         "excludeExternals": true,
         "stripInternal": true,
+        "mode": "file",
+        "name": "curaOS/Contracts",
         "inputFiles": ["as/cNFT/assembly"]
     }
 }
