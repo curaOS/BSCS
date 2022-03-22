@@ -20,9 +20,13 @@ const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount(`0.00000000020`); /
 
 const GET_BIDS = gql`
   query bids($bidder: String) {
-    bids(first: 1, where: { id: $bidder }) {
-      nft
-      bidder
+    bids(first: 1, where: { bidder: $bidder }) {
+      nft {
+       id
+      }
+      bidder {
+        id
+      }
       amount
       sell_on_share
     }
@@ -59,7 +63,7 @@ const Bids = () => {
     setIndexLoader(true);
     try {
       await contract.remove_bid(
-        { tokenId: token_id, bidder: bidder },
+        { tokenId: token_id },
         CONTRACT_REMOVE_BID_GAS
       );
       setIndexLoader(false);
@@ -80,7 +84,14 @@ const Bids = () => {
         }}
       >
         {data && (
-          <BiddersBids biddersBids={data?.bids || data} onRemoveBid={removeBid} />
+          <BiddersBids
+              biddersBids={data?.bids?.reduce((a, v) => (
+                  { ...a, [v.nft?.id]: {
+                      ...v,
+                      "bidder": v.bidder?.id
+                    }}), {})
+              }
+              onRemoveBid={removeBid} />
         )}
       </Box>
     </Layout>
