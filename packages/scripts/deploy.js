@@ -58,6 +58,16 @@ async function init() {
   let standard = metadata.standard;
   let extra = metadata.extra;
 
+  // Encode render_script to base64
+  let buffer_render_script = Buffer.from(extra.render_script, "utf8");
+  let base_64_render_script = buffer_render_script.toString("base64");
+  extra.render_script = base_64_render_script;
+
+  // Encode style_css to base64
+  let buffer_style_css = Buffer.from(extra.style_css, "utf8");
+  let base_64_style_css = buffer_style_css.toString("base64");
+  extra.style_css = base_64_style_css;
+
   const contract = await new nearAPI.Contract(masterAccount, contractAddress, {
     changeMethods: ["init"],
   });

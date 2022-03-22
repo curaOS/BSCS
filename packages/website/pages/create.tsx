@@ -43,15 +43,16 @@ const Create = () => {
     try {
       // const result = await contract.generate({}, CONTRACT_DESIGN_GAS);
 
-      const nftMetadata = await contract.nft_metadata();
+      const nftExtra = await contract.nft_metadata_extra();
 
-      // setSeed(result?.seed);
+      setSeed(Math.floor(Math.random() * (1024 - 1 + 1) + 1));
+      console.log(nftExtra);
 
       const arweaveHTML = combineHTML(
-        `<script>let SEED = ${Math.floor(Math.random() * (1024 - 1 + 1) + 1)};</script>`,
-        nftMetadata.packages_script,
-        nftMetadata.render_script,
-        nftMetadata.style_css
+        `<script>let ${nftExtra.parameters} = ${seed};</script>`,
+        nftExtra.packages_script,
+        nftExtra.render_script,
+        nftExtra.style_css
       );
 
       setCreativeCode(arweaveHTML);
@@ -92,7 +93,7 @@ const Create = () => {
       const contract_extra = await contract.nft_metadata_extra();
 
       console.log(contract_extra);
-      
+
       const token_royalty = {
         split_between: {
           [contract_extra.mint_royalty_id]: contract_extra.mint_royalty_amount,
@@ -114,7 +115,7 @@ const Create = () => {
           token_royalty: token_royalty,
         },
         CONTRACT_CLAIM_GAS,
-        parseInt(contract_extra.mint_price)
+        contract_extra.mint_price
       );
     } catch (error) {
       console.error(error);
