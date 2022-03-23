@@ -887,7 +887,9 @@ export class Bid extends Entity {
     this.set("amount", Value.fromBigInt(BigInt.zero()));
     this.set("bidder", Value.fromString(""));
     this.set("recipient", Value.fromString(""));
+    this.set("sell_on_share", Value.fromI32(0));
     this.set("currency", Value.fromString(""));
+    this.set("accepted", Value.fromBoolean(false));
   }
 
   save(): void {
