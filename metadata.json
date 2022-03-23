@@ -19,6 +19,7 @@
     "mints_per_address": 1024,
     "mint_payee_id": "basics.testnet",
     "mint_royalty_id": "basics.testnet",
-    "mint_royalty_amount": 5
+    "mint_royalty_amount": 5,
+    "min_bid_amount": "10000000000000000000000"
   }
 }
