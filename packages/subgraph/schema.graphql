@@ -59,6 +59,7 @@ type NftMetadata @entity {
   title: String!
   description: String
   media: String!
+  media_animation: String
   media_hash: String
   copies: Int
   extra: String
@@ -89,15 +90,9 @@ type Activity @entity {
   type: ActivityType!
   timestamp: BigInt!
 
-  # mint activity
-  mintBy: User
-
-  # burn activity
-  burnBy: User
-
-  # transfer activity
-  transferFrom: User
-  transferTo: User
+  sender: User!
+  recipient: User
+  amount: BigInt
 
   transactionHash: String!
 }
@@ -106,17 +101,24 @@ enum ActivityType @entity {
   mint
   burn
   transfer
+  set_bid
+  accept_bid
+  update_bid
+  remove_bid
 }
 
 type Bid @entity {
   id: ID!
   nft: Nft!
-  bidder: User!
   timestamp: BigInt!
 
-  amount: Int!
-  sell_on_share: String
-  currency: String
+  amount: BigInt!
+  bidder: User!
+  recipient: User!
+  sell_on_share: Int!
+  currency: String!
 
-  accepted: Boolean
+  accepted: Boolean!
 }
+
+
