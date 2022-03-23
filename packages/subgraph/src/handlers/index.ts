@@ -6,8 +6,6 @@ import bid from "./market/bid";
 
 import { JSONValue, log } from "@graphprotocol/graph-ts";
 import { assert_json } from "../utils/assert";
-import remove_bid from "./market/remove_bid";
-import accept_bid from "./market/accept_bid";
 
 export function handleEvent(event: JSONValue, info: Map<string, string>): void {
   if (!assert_json(event, "object", "logs.event")) return;
@@ -52,16 +50,6 @@ export function handleEvent(event: JSONValue, info: Map<string, string>): void {
 
   if (eventName == "nft_bid") {
     bid(eventData, info);
-    return;
-  }
-
-  if (eventName == "nft_remove_bid") {
-    remove_bid(eventData, info);
-    return;
-  }
-
-  if (eventName == "nft_accept_bid") {
-    accept_bid(eventData, info);
     return;
   }
 

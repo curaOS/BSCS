@@ -59,7 +59,6 @@ type NftMetadata @entity {
   title: String!
   description: String
   media: String!
-  media_animation: String
   media_hash: String
   copies: Int
   extra: String
@@ -112,13 +111,12 @@ enum ActivityType @entity {
 type Bid @entity {
   id: ID!
   nft: Nft!
+  bidder: User!
   timestamp: BigInt!
 
-  amount: BigInt!
-  bidder: User!
-  recipient: User!
-  sell_on_share: Int!
-  currency: String!
+  amount: Int!
+  sell_on_share: String
+  currency: String
 
-  accepted: Boolean!
+  accepted: Boolean
 }

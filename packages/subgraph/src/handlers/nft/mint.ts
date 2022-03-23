@@ -7,7 +7,6 @@ import {
   NftMetadata,
 } from "../../../generated/schema";
 import { assert_json } from "../../utils/assert";
-import { stringifyJson } from "../../utils/debug";
 
 export default function mint(
   event_data: JSONValue,
@@ -29,18 +28,13 @@ export default function mint(
     .get("tokens")!
     .toArray();
 
-  const metadata = event_data
-    .toObject()
-    .get("metadata")!
-    .toArray();
-
   // for each nfts
   for (let i = 0; i < nfts.length; i++) {
     // save nft
     const nft = save_nft(nfts[i], contractAddress);
     // save activity
     if (nft != null) {
-      save_metadata(nfts[i], metadata[i]);
+      save_metadata(nfts[i]);
       save_activity(nft, info);
       update_user(nft.owner);
       update_contract(contract);
@@ -69,28 +63,24 @@ function save_nft(token: JSONValue, contractAddress: string): Nft | null {
         // owner is required
         if (!assert_json(value, "string", "mint.save_nft.owner")) return null;
         nft.owner = value.toString();
-        break;
-      case key == "creator_id":
+      case key == "creator":
         // creator is required
-        if (!assert_json(value, "string", "mint.save_nft.creator_id")) return null;
+        if (!assert_json(value, "string", "mint.save_nft.creator")) return null;
         nft.creator = value.toString();
-        break;
-      case key == "prev_owner_id":
+      case key == "prev_owner":
         // prev_owner is optional
         nft.prev_owner = assert_json(
           value,
           "string",
-          "mint.save_nft.prev_owner_id"
+          "mint.save_nft.prev_owner"
         )
           ? value.toString()
           : nft.owner;
-        break;
       case key == "royalty":
         // royalty is optional
         var royalty = assert_json(value, "object", "mint.save_nft.royalty")
           ? value.toObject()
           : null;
-        break;
     }
   }
 
@@ -102,101 +92,76 @@ function save_nft(token: JSONValue, contractAddress: string): Nft | null {
   return nft;
 }
 
-function save_metadata(token: JSONValue, metadata: JSONValue): NftMetadata | null {
-  const entries = metadata.toObject().entries;
+function save_metadata(token: JSONValue): NftMetadata | null {
+  // map token object into variables
+  const metadataObj = token.toObject().get("metadata")!;
+  if (!assert_json(metadataObj, "object", "mint.save_metadata.metadata"))
+    return null;
+
+  const entries = metadataObj.toObject().entries;
 
   // nft id
   const tokenId = token
     .toObject()
     .get("id")!
+    .toString();
 
   // new NftMetadata entity with tokenId as id
-  const nftMetadata = new NftMetadata(`${tokenId.toString()}`);
-  nftMetadata.nft = tokenId.toString();
+  const nftMetadata = new NftMetadata(`${tokenId}`);
+  nftMetadata.nft = tokenId;
 
   for (let i = 0; i < entries.length; i++) {
     const key = entries[i].key;
     const value = entries[i].value;
     switch (true) {
       case key == "title":
-        nftMetadata.title = assert_json(value, "string", "save_metadata.title")
+        nftMetadata.title = assert_json(value, "string")
           ? value.toString()
           : "";
-        break;
-
       case key == "description":
-        nftMetadata.description = assert_json(value, "string", "save_metadata.description")
+        nftMetadata.description = assert_json(value, "string")
           ? value.toString()
           : "";
-        break;
-
       case key == "media":
-        nftMetadata.media = assert_json(value, "string", "save_metadata.media")
+        nftMetadata.media = assert_json(value, "string")
           ? value.toString()
           : "";
-        break;
-
-      case key == "media_animation":
-        nftMetadata.media_animation = assert_json(value, "string", "save_metadata.media_animation")
-          ? value.toString()
-          : "";
-        break;
-
       case key == "media_hash":
-        nftMetadata.media_hash = assert_json(value, "string", "save_metadata.media_hash")
+        nftMetadata.media_hash = assert_json(value, "string")
           ? value.toString()
           : "";
-        break;
-
       case key == "copies":
-        nftMetadata.copies = assert_json(value, "number", "save_metadata.copies")
+        nftMetadata.copies = assert_json(value, "number")
           ? (value.toU64() as i32)
           : 1;
-        break;
-
       case key == "extra":
-        log.warning(key + " --- " + stringifyJson(value) + " --- " + value.kind.toString(), [])
-        nftMetadata.extra = assert_json(value, "string", "save_metadata.extra")
+        nftMetadata.extra = assert_json(value, "string")
           ? value.toString()
           : "";
-        break;
-
       case key == "reference":
-        nftMetadata.reference = assert_json(value, "string", "save_metadata.reference")
+        nftMetadata.reference = assert_json(value, "string")
           ? value.toString()
           : "";
-        break;
-
       case key == "reference_hash":
-        nftMetadata.reference_hash = assert_json(value, "string", "save_metadata.reference_hash")
+        nftMetadata.reference_hash = assert_json(value, "string")
           ? value.toString()
           : "";
-        break;
-
       case key == "issued_at":
-        nftMetadata.issued_at = assert_json(value, "string", "save_metadata.issued_at")
+        nftMetadata.issued_at = assert_json(value, "string")
           ? value.toString()
           : "";
-        break;
-
       case key == "starts_at":
-        nftMetadata.starts_at = assert_json(value, "string", "save_metadata.starts_at")
+        nftMetadata.starts_at = assert_json(value, "string")
           ? value.toString()
           : "";
-        break;
-
       case key == "updated_at":
-        nftMetadata.updated_at = assert_json(value, "string", "save_metadata.updated_at")
+        nftMetadata.updated_at = assert_json(value, "string")
           ? value.toString()
           : "";
-        break;
-
       case key == "expires_at":
-        nftMetadata.expires_at = assert_json(value, "string", "save_metadata.expires_at")
+        nftMetadata.expires_at = assert_json(value, "string")
           ? value.toString()
           : "";
-        break;
-
     }
   }
 
