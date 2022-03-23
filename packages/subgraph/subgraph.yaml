@@ -8,7 +8,7 @@ dataSources:
     network: near-testnet
     name: receipts
     source:
-      account: 0_1_3.bscs-x.testnet
+      account: 0_1_4.bscs-x.testnet
       startBlock: 85628465
     mapping:
       file: ./src/mapping.ts
