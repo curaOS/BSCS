@@ -45,13 +45,6 @@ const Bids = () => {
     },
   });
 
-  // const { loading, data, error } = useNFTViewMethod(
-  //   contractAddress,
-  //   "get_bidder_bids",
-  //   { accountId: accountId }
-  // );
-
-
   setIndexLoader(loading);
 
   if (error) {
