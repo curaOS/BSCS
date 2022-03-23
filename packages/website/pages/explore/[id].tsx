@@ -46,17 +46,12 @@ const GET_SINGLE_NFT = gql`
         id
         type
         timestamp
-        mintBy { 
-            id 
+        amount
+        sender {
+            id
         }
-        burnBy { 
-            id 
-        }
-        transferFrom { 
-            id 
-        }
-        transferTo { 
-            id 
+        recipient {
+            id
         }
         transactionHash
       }
