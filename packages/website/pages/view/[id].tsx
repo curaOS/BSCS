@@ -73,12 +73,6 @@ const ViewToken = () => {
         fetchPolicy: "no-cache"
     });
 
-    const { loading:bids_loading, data:bids, error:bids_error } = useNFTViewMethod(
-        contractAddress,
-        "get_bids",
-        { tokenId: router.query.id || "" }
-      );
-
     setIndexLoader(loading);
 
     if (error) {
@@ -87,7 +81,7 @@ const ViewToken = () => {
     }
 
     const nft = data?.nfts[0];
-    // const bids = nft?.bids;
+    const bids = nft?.bids;
     const history = nft?.history;
 
     // If nft don't exist
