@@ -90,6 +90,13 @@ const ViewToken = () => {
         return <></>;
     }
 
+    // If user own nft
+    if (nft && accountId) {
+        if (nft.owner?.id !== accountId) {
+            router.push("/explore/"+router.query.id || "");
+            return <></>;
+        }
+    }
 
     async function burnDesign() {
         setIndexLoader(true);
