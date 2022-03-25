@@ -26,6 +26,9 @@ const GET_OWNER_NFT = gql`
       contract {
         id
       }
+      owner {
+        id
+      }
       metadata {
         media
         media_animation
