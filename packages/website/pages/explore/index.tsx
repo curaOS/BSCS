@@ -36,7 +36,7 @@ const ExploreToken = () => {
   });
 
   const total_supply = parseInt(data?.nftContracts[0]?.total_supply);
-  const base_uri = data?.nftContracts[0]?.metdata?.base_uri;
+  const base_uri = data?.nftContracts[0]?.metadata?.base_uri;
 
   return (
     <Layout>
