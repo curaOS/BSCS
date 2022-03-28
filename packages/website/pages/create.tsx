@@ -43,10 +43,9 @@ const Create = () => {
     try {
       // const result = await contract.generate({}, CONTRACT_DESIGN_GAS);
 
-      const nftMetadata = await contract.nft_metadata();
+      const nftMetadata = await contract.nft_metadata_extra();
 
       // setSeed(result?.seed);
-
       const arweaveHTML = combineHTML(
         `<script>let SEED = ${Math.floor(Math.random() * (1024 - 1 + 1) + 1)};</script>`,
         nftMetadata.packages_script,

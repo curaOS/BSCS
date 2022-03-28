@@ -20,7 +20,9 @@ const GET_NFTS = gql`
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
       total_supply
-      base_uri
+      metadata{
+        base_uri
+      }
     }
   }
 `;
@@ -34,9 +36,8 @@ const ExploreToken = () => {
   });
 
   const total_supply = parseInt(data?.nftContracts[0]?.total_supply);
-  const base_uri = data?.nftContracts[0]?.base_uri;
+  const base_uri = data?.nftContracts[0]?.metdata?.base_uri;
 
-  console.log(data);
   return (
     <Layout>
       <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>

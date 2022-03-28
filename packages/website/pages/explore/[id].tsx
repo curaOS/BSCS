@@ -57,7 +57,9 @@ const GET_SINGLE_NFT = gql`
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
-      base_uri
+      metadata{
+        base_uri
+      }
     }
   }
 `;
@@ -125,7 +127,7 @@ const SingleView = () => {
       setAlertMessage(e.toString());
     }
   }
-  const base_uri = data?.nftContracts[0]?.base_uri;
+  const base_uri = data?.nftContracts[0]?.metadata?.base_uri;
 
   return (
     <Layout>

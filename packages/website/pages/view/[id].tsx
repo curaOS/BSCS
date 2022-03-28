@@ -55,7 +55,9 @@ const GET_OWNER_NFT = gql`
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
-      base_uri
+      metadata{
+        base_uri
+      }
     }
   }
 `;
@@ -132,7 +134,7 @@ const ViewToken = () => {
         }
     }
 
-    const base_uri = data?.nftContracts[0]?.base_uri;
+    const base_uri = data?.nftContracts[0]?.metadata?.base_uri;
 
     return (
         <Layout requireAuth={true}>

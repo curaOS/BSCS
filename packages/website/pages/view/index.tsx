@@ -22,7 +22,9 @@ const GET_OWNER_NFTS = gql`
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
-      base_uri
+      metadata{
+        base_uri
+      }
     }
   }
 `;
@@ -39,7 +41,7 @@ const ViewTokens = () => {
         },
     });
 
-    const base_uri = data?.nftContracts[0]?.base_uri;
+    const base_uri = data?.nftContracts[0]?.metadata?.base_uri;
 
     const { data :total_supply_for_owner } = useNFTViewMethod(
         contractAddress,
