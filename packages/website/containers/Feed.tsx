@@ -19,7 +19,8 @@ export default function Feed({ entries, onLoadMore, totalSupply, base_uri, page 
                             m={[21, 21, 21, 30]}
                             sx={{
                                 display: "inline-block",
-                                width: [225, 340],
+                                width: ['80%', 300, 340],
+                                maxWidth: [260, 300, 340],
                                 position: "relative",
                                 ":hover": {
                                     opacity: "0.8",
