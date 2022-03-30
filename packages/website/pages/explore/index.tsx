@@ -40,7 +40,7 @@ const ExploreToken = () => {
 
   return (
     <Layout>
-      <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>
+      <Box sx={{ textAlign: "center", my: 30, mx: "left", maxWidth: '100%' }}>
         {loading && <Spinner />}
         {error && <p>Error: check console</p>}
         {!loading && !error && (
