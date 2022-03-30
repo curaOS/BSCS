@@ -1,5 +1,5 @@
 // @ts-nocheck
-import {Link, AspectRatio} from "theme-ui";
+import {Link, AspectRatio, Box} from "theme-ui";
 import InfiniteScroll from "react-infinite-scroll-component";
 import NextLink from "next/link";
 import {MediaObject} from "@cura/components";
@@ -22,6 +22,7 @@ export default function Feed({ entries, onLoadMore, totalSupply, base_uri, page 
                                 width: ['80%', 300, 340],
                                 maxWidth: [260, 300, 340],
                                 position: "relative",
+                                boxShadow: "0px 0px 20px 5px #B0B0B0",
                                 ":hover": {
                                     opacity: "0.8",
                                 },
@@ -38,6 +39,7 @@ export default function Feed({ entries, onLoadMore, totalSupply, base_uri, page 
                                     width: "100%",
                                     height: "100%",
                                     cursor: "pointer",
+                                    flexDirection: "column"
                                 }}
                             >
                                 <MediaObject
@@ -47,10 +49,22 @@ export default function Feed({ entries, onLoadMore, totalSupply, base_uri, page 
                                     type={"image"}
                                 />
                             </AspectRatio>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    padding: "15px 10px",
+                                    background: "#CCC",
+                                    fontSize: 18
+                                }}
+                            >
+                                <Box>{item.id}</Box>
+                                {item.owner && <Box>{item.owner.id}</Box> }
+                            </Box>
                         </Link>
                     </NextLink>
                 );
             })}
         </InfiniteScroll>
     );
-};
+}
