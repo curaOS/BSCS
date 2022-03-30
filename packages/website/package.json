@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.8",
-    "@cura/components": "^1.3.6",
+    "@cura/components": "^1.3.7",
     "@cura/hooks": "^1.1.3",
     "axios": "^0.26.0",
     "graphql": "^16.3.0",

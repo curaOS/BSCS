@@ -53,7 +53,7 @@ const GET_SINGLE_NFT = gql`
         recipient {
             id
         }
-        transactionHash
+        block_hash_58
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
