@@ -14,6 +14,9 @@ const GET_NFTS = gql`
   query ExploreNfts($offset: Int, $limit: Int) {
     nfts(skip: $offset, first: $limit) @connection(key: root){
       id
+      owner {
+        id
+      }
       metadata {
         media
       }
