@@ -22,7 +22,8 @@ export default function Feed({ entries, onLoadMore, totalSupply, base_uri, page 
                                 width: ['80%', 300, 340],
                                 maxWidth: [260, 300, 340],
                                 position: "relative",
-                                boxShadow: "0px 0px 20px 5px rgb(176, 176, 176, 0.2)",
+                                boxShadow: "0px 0px 20px 1px rgba(176, 176, 176, 0.2)",
+                                border: '1px solid rgba(204, 204, 204, 1)',
                                 ":hover": {
                                     opacity: "0.8",
                                 },
@@ -39,7 +40,8 @@ export default function Feed({ entries, onLoadMore, totalSupply, base_uri, page 
                                     width: "100%",
                                     height: "100%",
                                     cursor: "pointer",
-                                    flexDirection: "column"
+                                    flexDirection: "column",
+                                    border: '1px solid rgba(204, 204, 204, 1)',
                                 }}
                             >
                                 <MediaObject
@@ -55,15 +57,18 @@ export default function Feed({ entries, onLoadMore, totalSupply, base_uri, page 
                                     background: "#CCC",
                                     fontSize: 16,
                                     padding:0,
-                                    marginTop: -3,
+                                    marginTop: 1,
                                     textAlign: 'left'
                                 }}
                             >
                                 {item.owner &&
                                     <Metadata
+                                        width={'100%'}
                                         data={{
                                             owner_id: item.owner.id,
-                                            metadata: {}
+                                            metadata: {
+                                                title: item.id
+                                            }
                                         }}
                                         loading={false}
                                     />
