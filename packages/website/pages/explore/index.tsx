@@ -33,6 +33,8 @@ const ExploreToken = () => {
       offset: 0,
       limit: LIMIT_PER_PAGE,
     },
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first"
   });
 
   const total_supply = parseInt(data?.nftContracts[0]?.total_supply);

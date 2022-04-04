@@ -39,6 +39,8 @@ const ViewTokens = () => {
             limit: LIMIT_PER_PAGE,
             owner_id: accountId
         },
+        fetchPolicy: "network-only",
+        nextFetchPolicy: "cache-first"
     });
 
     const base_uri = data?.nftContracts[0]?.metadata?.base_uri;
