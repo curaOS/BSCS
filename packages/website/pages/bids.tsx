@@ -39,7 +39,7 @@ const Bids = () => {
   const setIndexLoader = useSetRecoilState(indexLoaderState);
   const setAlertMessage = useSetRecoilState(alertMessageState);
 
-  const { loading, data, error } = useQuery(GET_BIDS, {
+  const { loading, data, error, refetch } = useQuery(GET_BIDS, {
     variables: {
       bidder: accountId || "",
     },
@@ -59,6 +59,7 @@ const Bids = () => {
         { tokenId: token_id },
         CONTRACT_REMOVE_BID_GAS
       );
+      await refetch();
       setIndexLoader(false);
     } catch (e) {
       console.error(e);
