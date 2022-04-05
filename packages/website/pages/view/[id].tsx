@@ -1,14 +1,14 @@
 // @ts-nocheck
-import { Box, AspectRatio, Button } from "theme-ui";
-import { utils } from "near-api-js";
-import { useNFTContract, useNearHooksContainer, useNFTViewMethod } from "@cura/hooks";
-import { CreatorShare, Bidders, MediaObject, List, History } from "@cura/components";
-import { useSetRecoilState } from "recoil";
-import { useQuery, gql } from "@apollo/client";
+import {Box, AspectRatio, Button} from "theme-ui";
+import {utils} from "near-api-js";
+import {useNFTContract, useNearHooksContainer, useNFTViewMethod} from "@cura/hooks";
+import {CreatorShare, Bidders, MediaObject, List, History} from "@cura/components";
+import {useSetRecoilState} from "recoil";
+import {useQuery, gql} from "@apollo/client";
 
 import Layout from "../../containers/Layout";
-import { contractAddress } from "../../utils/config";
-import { alertMessageState, indexLoaderState } from "../../state/recoil";
+import {contractAddress} from "../../utils/config";
+import {alertMessageState, indexLoaderState} from "../../state/recoil";
 import {useRouter} from "next/router";
 
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`); // 290 Tgas
@@ -65,13 +65,13 @@ const GET_OWNER_NFT = gql`
 const ViewToken = () => {
     const router = useRouter();
 
-    const { accountId } = useNearHooksContainer();
-    const { contract } = useNFTContract(contractAddress);
+    const {accountId} = useNearHooksContainer();
+    const {contract} = useNFTContract(contractAddress);
 
     const setAlertMessage = useSetRecoilState(alertMessageState);
     const setIndexLoader = useSetRecoilState(indexLoaderState);
 
-    const { loading, data, error } = useQuery(GET_OWNER_NFT, {
+    const {loading, data, error} = useQuery(GET_OWNER_NFT, {
         variables: {
             nft_id: router.query.id || "",
         },
@@ -98,7 +98,7 @@ const ViewToken = () => {
     // If user own nft
     if (nft && accountId) {
         if (nft.owner?.id !== accountId) {
-            router.push("/explore/"+router.query.id || "");
+            router.push("/explore/" + router.query.id || "");
             return <></>;
         }
     }
@@ -107,7 +107,7 @@ const ViewToken = () => {
         setIndexLoader(true);
         try {
             await contract.burn_design(
-                { token_id: nft?.id },
+                {token_id: nft?.id},
                 CONTRACT_BURN_GAS,
                 YOCTO_NEAR
             );
@@ -120,14 +120,15 @@ const ViewToken = () => {
     async function acceptBid(bidder: string) {
         setIndexLoader(true);
         try {
-            await contract.accept_bid(
-                {
+            await contract.accept_bid({
+                args: {
                     tokenId: nft?.id,
                     bidder: bidder,
                 },
-                MARKET_ACCEPT_BID_GAS,
-                YOCTO_NEAR
-            );
+                gas: MARKET_ACCEPT_BID_GAS,
+                amount: YOCTO_NEAR,
+                callbackUrl: `${window.location.origin}/view`,
+            });
         } catch (e) {
             setIndexLoader(false);
             setAlertMessage(e.toString());
@@ -194,10 +195,12 @@ const ViewToken = () => {
                         {bids &&
                             <Bidders
                                 bidders={bids?.reduce((a, v) => (
-                                    { ...a, [v.bidder?.id]: {
+                                    {
+                                        ...a, [v.bidder?.id]: {
                                             ...v,
                                             "bidder": v.bidder?.id
-                                        }}), {})
+                                        }
+                                    }), {})
                                 }
                                 onAcceptBid={acceptBid}
                             />
@@ -209,14 +212,29 @@ const ViewToken = () => {
                         />
                         <List
                             data={[
-                                { title: "Contract", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
-                                { title: "Token ID", content: nft?.id, link : null, copiable : true },
-                                { title: "Media", content: "arweave link ↗", link : `${base_uri}${nft?.metadata?.media}`, copiable : false },
-                                { title: "Animation", content: "arweave link ↗", link : `${base_uri}${nft?.metadata?.media_animation}`, copiable : false },
+                                {
+                                    title: "Contract",
+                                    content: nft?.contract?.id,
+                                    link: `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`,
+                                    copiable: true
+                                },
+                                {title: "Token ID", content: nft?.id, link: null, copiable: true},
+                                {
+                                    title: "Media",
+                                    content: "arweave link ↗",
+                                    link: `${base_uri}${nft?.metadata?.media}`,
+                                    copiable: false
+                                },
+                                {
+                                    title: "Animation",
+                                    content: "arweave link ↗",
+                                    link: `${base_uri}${nft?.metadata?.media_animation}`,
+                                    copiable: false
+                                },
                             ]}
                             width={"100%"}
                         />
-                        <History history = {history} />
+                        <History history={history}/>
 
                     </Box>
                 }
@@ -224,7 +242,7 @@ const ViewToken = () => {
 
             <Box
                 sx={{
-                    display: [ 'block', 'flex' ],
+                    display: ['block', 'flex'],
                     justifyContent: 'between'
                 }}
             >
