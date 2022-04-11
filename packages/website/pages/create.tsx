@@ -18,9 +18,6 @@ const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount(`0.00000000020`); // 20
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount(`0.00000000029`); // 300 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount(`1`); // 1N
 
-const HARDCODED_ROYALTY_ADDRESS = "sample.address";
-const HARDCODED_ROYALTY_SHARE = `2500`;
-
 const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 
 const GET_CONTRACT_METADATA = gql`
@@ -53,11 +50,8 @@ const Create = () => {
 
     const iframeRef = createRef(null);
 
-    const { loading, data, error } = useQuery(GET_CONTRACT_METADATA);
+    const {loading, data, error} = useQuery(GET_CONTRACT_METADATA);
     let metadata = data?.nftContracts[0]?.metadata;
-
-    console.log(metadata)
-
 
     const generatePreview = async () => {
         const iframeHtml = iframeRef.current.contentWindow.document.body;
@@ -70,14 +64,12 @@ const Create = () => {
         try {
             // const result = await contract.generate({}, CONTRACT_DESIGN_GAS);
 
-            const nftMetadata = await contract.nft_metadata_extra();
-
             // setSeed(result?.seed);
             const arweaveHTML = combineHTML(
                 `<script>let SEED = ${Math.floor(Math.random() * (1024 - 1 + 1) + 1)};</script>`,
-                nftMetadata.packages_script,
-                nftMetadata.render_script,
-                nftMetadata.style_css
+                metadata.packages_script,
+                metadata.render_script,
+                metadata.style_css
             );
 
             setCreativeCode(arweaveHTML);
@@ -220,10 +212,12 @@ const Create = () => {
                             CLAIM
                         </Button>
                     </Box>
-                    <CreatorShare
-                        address={metadata?.mint_royalty_id?.id}
-                        share={metadata?.mint_royalty_amount * 100}
-                    />
+                    {metadata &&
+                        <CreatorShare
+                            address={metadata?.mint_royalty_id?.id}
+                            share={metadata?.mint_royalty_amount * 100}
+                        />
+                    }
                 </Box>
             </Box>
         </Layout>
