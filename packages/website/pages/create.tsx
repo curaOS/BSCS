@@ -53,6 +53,13 @@ const Create = () => {
     const {loading, data, error} = useQuery(GET_CONTRACT_METADATA);
     let metadata = data?.nftContracts[0]?.metadata;
 
+    setIndexLoader(loading);
+
+    if (error) {
+        console.error(error);
+        setAlertMessage(error);
+    }
+
     const generatePreview = async () => {
         const iframeHtml = iframeRef.current.contentWindow.document.body;
         return await htmlToImg(iframeHtml);
