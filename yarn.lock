@@ -7072,8 +7072,6 @@ __metadata:
     bn.js: ^5.2.0
     commander: ^9.1.0
     near-api-js: ^0.44.2
-  bin:
-    basics-cli: develop.js
   languageName: unknown
   linkType: soft
 
