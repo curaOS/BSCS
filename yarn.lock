@@ -2547,6 +2547,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "commander@npm:9.1.0"
+  checksum: 1428319b6b90600a813c28fe1e413996d1be99bf01afe9ebc4a9fc6f8077ff3e75f11809b2d2f85bd9b13d7cb592154278e9bbfdb16dc5843cef97bcba6a9cfd
+  languageName: node
+  linkType: hard
+
 "concat-map@npm:0.0.1":
   version: 0.0.1
   resolution: "concat-map@npm:0.0.1"
@@ -7063,7 +7070,10 @@ __metadata:
   resolution: "scripts@workspace:packages/scripts"
   dependencies:
     bn.js: ^5.2.0
+    commander: ^9.1.0
     near-api-js: ^0.44.2
+  bin:
+    basics-cli: develop.js
   languageName: unknown
   linkType: soft
 
