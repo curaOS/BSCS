@@ -1,7 +1,8 @@
 {
   "name": "scripts",
   "scripts": {
-    "deploy": "node deploy.js"
+    "deploy-new": "node deploy.js -p",
+    "deploy-same": "node deploy.js -m"
   },
   "devDependencies": {
     "bn.js": "^5.2.0",
