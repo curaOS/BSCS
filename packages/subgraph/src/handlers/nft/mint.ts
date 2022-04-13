@@ -215,7 +215,9 @@ function save_activity(nft: Nft, info: Map<string, string>): Activity {
 
   activity.sender = nft.owner;
 
-  activity.transactionHash = info.get("transactionHash");
+  activity.transaction_hash = info.get("transactionHash");
+  activity.receipt_id = info.get("receiptId")
+  activity.block_hash_58 = info.get("blockHash58")
 
   activity.save();
   return activity;

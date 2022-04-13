@@ -53,12 +53,13 @@ const GET_SINGLE_NFT = gql`
         recipient {
             id
         }
-        transactionHash
+        block_hash_58
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
       metadata{
         base_uri
+        mint_royalty_amount
       }
     }
   }
@@ -128,6 +129,7 @@ const SingleView = () => {
     }
   }
   const base_uri = data?.nftContracts[0]?.metadata?.base_uri;
+  const mint_royalty_amount = data?.nftContracts[0]?.metadata?.mint_royalty_amount;
 
   return (
     <Layout>
@@ -211,7 +213,12 @@ const SingleView = () => {
             />
           </Box>
 
-          {accountId && <BidCreate onBid={setBid} />}
+          {accountId &&
+              <BidCreate
+                  onBid={setBid}
+                  maxResale={100-mint_royalty_amount}
+              />
+          }
           <List
               data={[
                 { title: "Contract", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
