@@ -5,7 +5,7 @@ import NextLink from "next/link";
 import {MediaObject, Metadata} from "@cura/components";
 
 
-export default function Feed({ entries, onLoadMore, totalSupply, base_uri, page }) {
+export default function Feed({entries, onLoadMore, totalSupply, base_uri, page}) {
     return (
         <InfiniteScroll
             dataLength={entries.length}
@@ -56,23 +56,21 @@ export default function Feed({ entries, onLoadMore, totalSupply, base_uri, page 
                                     padding: "15px 10px",
                                     background: "#CCC",
                                     fontSize: 16,
-                                    padding:0,
+                                    padding: 0,
                                     marginTop: 1,
                                     textAlign: 'left'
                                 }}
                             >
-                                {item.owner &&
-                                    <Metadata
-                                        width={'100%'}
-                                        data={{
-                                            owner_id: item.owner.id,
-                                            metadata: {
-                                                title: item.id
-                                            }
-                                        }}
-                                        loading={false}
-                                    />
-                                }
+                                <Metadata
+                                    width={'100%'}
+                                    data={{
+                                        owner_id: page === 'view' ? null : item.owner?.id,
+                                        metadata: {
+                                            title: item.id
+                                        }
+                                    }}
+                                    loading={false}
+                                />
                             </Box>
                         </Link>
                     </NextLink>
