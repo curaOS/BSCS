@@ -44,19 +44,29 @@ const ExploreToken = () => {
         {loading && <Spinner />}
         {error && <p>Error: check console</p>}
         {!loading && !error && (
-          <Feed
+          total_supply > 0 ? (
+            <Feed
               page='explore'
-            entries={data?.nfts || []}
-            totalSupply={total_supply || 0}
-            base_uri={base_uri}
-            onLoadMore={() =>
-              fetchMore({
-                variables: {
-                  offset: data.nfts.length,
-                },
-              })
-            }
-          />
+              entries={data?.nfts || []}
+              totalSupply={total_supply || 0}
+              base_uri={base_uri}
+              onLoadMore={() =>
+                  fetchMore({
+                      variables: {
+                          offset: data.nfts.length,
+                      },
+                  })
+              }
+            />
+          ) : (
+              <Box
+                  sx={{
+                    mt: 50
+                  }}
+              >
+                Contract does not have any tokens
+              </Box>
+          )
         )}
       </Box>
     </Layout>
