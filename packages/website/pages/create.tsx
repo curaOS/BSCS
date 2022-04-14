@@ -29,6 +29,7 @@ const GET_CONTRACT_METADATA = gql`
                     id
                 }
                 mint_royalty_amount
+                mint_price
                 packages_script
                 render_script
                 style_css
@@ -114,13 +115,9 @@ const Create = () => {
             console.log(`live`, liveResponse.data.transaction.id);
             console.log(`preview `, previewResponse.data.transaction.id);
 
-            const contract_extra = await contract.nft_metadata_extra();
-
-            console.log(contract_extra);
-
             const token_royalty = {
                 split_between: {
-                    [contract_extra.mint_royalty_id]: contract_extra.mint_royalty_amount,
+                    [metadata?.mint_royalty_id?.id]: metadata?.mint_royalty_amount,
                 },
                 percentage: 10,
             };
@@ -139,7 +136,7 @@ const Create = () => {
                     token_royalty: token_royalty,
                 },
                 CONTRACT_CLAIM_GAS,
-                parseInt(contract_extra.mint_price)
+                parseInt(metadata?.mint_price)
             );
         } catch (error) {
             console.error(error);
@@ -222,7 +219,7 @@ const Create = () => {
                     {metadata &&
                         <CreatorShare
                             address={metadata?.mint_royalty_id?.id}
-                            share={metadata?.mint_royalty_amount * 100}
+                            share={metadata?.mint_royalty_amount}
                         />
                     }
                 </Box>
