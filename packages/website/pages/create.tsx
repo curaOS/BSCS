@@ -117,7 +117,7 @@ const Create = () => {
 
             const token_royalty = {
                 split_between: {
-                    [metadata?.mint_royalty_id?.id]: metadata?.mint_royalty_amount,
+                    [metadata?.mint_royalty_id?.id]: Number(metadata?.mint_royalty_amount),
                 },
                 percentage: 10,
             };
