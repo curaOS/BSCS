@@ -46,11 +46,21 @@ const GET_SINGLE_NFT = gql`
         id
         type
         timestamp
-        transactionHash
+        amount
+        sender {
+            id
+        }
+        recipient {
+            id
+        }
+        block_hash_58
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
-      base_uri
+      metadata{
+        base_uri
+        mint_royalty_amount
+      }
     }
   }
 `;
@@ -68,6 +78,7 @@ const SingleView = () => {
     variables: {
       token_id: router.query.id || "",
     },
+      fetchPolicy: "no-cache"
   });
 
   setIndexLoader(loading);
@@ -89,7 +100,7 @@ const SingleView = () => {
   // If user own nft
   if (nft && accountId) {
     if (nft.owner?.id === accountId) {
-      router.push("/view");
+      router.push("/view/"+router.query.id || "");
       return <></>;
     }
   }
@@ -117,7 +128,8 @@ const SingleView = () => {
       setAlertMessage(e.toString());
     }
   }
-  const base_uri = data?.nftContracts[0]?.base_uri;
+  const base_uri = data?.nftContracts[0]?.metadata?.base_uri;
+  const mint_royalty_amount = data?.nftContracts[0]?.metadata?.mint_royalty_amount;
 
   return (
     <Layout>
@@ -201,7 +213,12 @@ const SingleView = () => {
             />
           </Box>
 
-          {accountId && <BidCreate onBid={setBid} />}
+          {accountId &&
+              <BidCreate
+                  onBid={setBid}
+                  maxResale={100-mint_royalty_amount}
+              />
+          }
           <List
               data={[
                 { title: "Contract", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
@@ -211,7 +228,7 @@ const SingleView = () => {
               ]}
               width={"100%"}
           />
-          {/*<History history = {history} />*/}
+          <History history = {history} />
             
 
         </Box>

@@ -6,9 +6,21 @@
     "packages/*"
   ],
   "scripts": {
+    "deploy:contract:new": "yarn workspace scripts deploy-new",
+    "deploy:contract:same": "yarn workspace scripts deploy-same",
     "build:website": "yarn workspace website build",
+    "build:contract": "yarn workspace contract build",
+    "build:subgraph": "yarn workspace subgraph build",
     "dev:website": "yarn workspace website dev",
-    "deploy:contract": "yarn workspace contract deploy",
+    "deploy:contract": "yarn workspace scripts deploy",
+    "deploy:subgraph": "yarn workspace subgraph deploy",
     "test:sandbox": "yarn workspace tests sandbox"
+  },
+  "version": "0.0.2",
+  "config": {
+    "contractAddress": "0_0_2.basics-t.testnet",
+    "network": "testnet",
+    "masterAccount": "basics-t.testnet",
+    "graphAPI": "https://api.thegraph.com/subgraphs/name/curaos/cc-project"
   }
 }

@@ -1,9 +1,10 @@
 // @ts-nocheck
 import { Header } from "@cura/components";
 import { useNearHooksContainer } from "@cura/hooks";
-import { Link, useColorMode } from "theme-ui";
+import { useColorMode } from "theme-ui";
 import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import Link from "next/link";
 
 import { contractAddress } from "../utils/config";
 import { alertMessageState } from "../state/recoil";

@@ -1,11 +1,14 @@
 {
-  "name": "contract",
-  "version": "0.0.13",
+  "name": "scripts",
   "scripts": {
-    "deploy": "node deploy.js"
+    "deploy-new": "node deploy.js -p",
+    "deploy-same": "node deploy.js -m"
   },
   "devDependencies": {
     "bn.js": "^5.2.0",
     "near-api-js": "^0.44.2"
+  },
+  "dependencies": {
+    "commander": "^9.1.0"
   }
 }
