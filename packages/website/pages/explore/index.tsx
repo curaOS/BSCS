@@ -14,6 +14,9 @@ const GET_NFTS = gql`
   query ExploreNfts($offset: Int, $limit: Int) {
     nfts(skip: $offset, first: $limit) @connection(key: root){
       id
+      owner {
+        id
+      }
       metadata {
         media
       }
@@ -42,23 +45,33 @@ const ExploreToken = () => {
 
   return (
     <Layout>
-      <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>
+      <Box sx={{ textAlign: "center", my: 30, mx: "left", maxWidth: '100%' }}>
         {loading && <Spinner />}
         {error && <p>Error: check console</p>}
         {!loading && !error && (
-          <Feed
+          total_supply > 0 ? (
+            <Feed
               page='explore'
-            entries={data?.nfts || []}
-            totalSupply={total_supply || 0}
-            base_uri={base_uri}
-            onLoadMore={() =>
-              fetchMore({
-                variables: {
-                  offset: data.nfts.length,
-                },
-              })
-            }
-          />
+              entries={data?.nfts || []}
+              totalSupply={total_supply || 0}
+              base_uri={base_uri}
+              onLoadMore={() =>
+                  fetchMore({
+                      variables: {
+                          offset: data.nfts.length,
+                      },
+                  })
+              }
+            />
+          ) : (
+              <Box
+                  sx={{
+                    mt: 50
+                  }}
+              >
+                Contract does not have any tokens
+              </Box>
+          )
         )}
       </Box>
     </Layout>

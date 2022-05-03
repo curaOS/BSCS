@@ -39,7 +39,6 @@ exports.CONTRACT = "../contract/build/release/cNFT.wasm";
 exports.newVersion = async () => {
   const pck = fs.readFileSync("../../package.json");
   const pjson = JSON.parse(pck);
-
   // PATCH version is increased by one on each new deploy
   const tmp = pjson.version.split(".");
   const newVersion = `${tmp[0]}.${tmp[1]}.${parseInt(tmp[2]) + 1}`;
@@ -48,9 +47,14 @@ exports.newVersion = async () => {
     pck.toString().replace(pjson.version, newVersion)
   );
 
-  const version = newVersion.replaceAll(".", "_");
+  return newVersion.replaceAll(".", "_");
+};
 
-  return version;
+exports.currentVersion = async () => {
+  const pck = fs.readFileSync("../../package.json");
+  const pjson = JSON.parse(pck);
+
+  return pjson.version.replaceAll(".", "_");
 };
 
 /***

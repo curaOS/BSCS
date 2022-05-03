@@ -57,19 +57,29 @@ const ViewTokens = () => {
                 {loading && <Spinner />}
                 {error && <p>Error: check console</p>}
                 {!loading && !error && (
-                    <Feed
-                        page='view'
-                        entries={data?.nfts || []}
-                        totalSupply={total_supply_for_owner || 0}
-                        base_uri={base_uri}
-                        onLoadMore={() =>
-                            fetchMore({
-                                variables: {
-                                    offset: data.nfts.length,
-                                },
-                            })
-                        }
-                    />
+                    total_supply_for_owner > 0 ? (
+                        <Feed
+                            page='view'
+                            entries={data?.nfts || []}
+                            totalSupply={total_supply_for_owner || 0}
+                            base_uri={base_uri}
+                            onLoadMore={() =>
+                                fetchMore({
+                                    variables: {
+                                        offset: data.nfts.length,
+                                    },
+                                })
+                            }
+                        />
+                    ) : (
+                        <Box
+                            sx={{
+                                mt: 50
+                            }}
+                        >
+                            You do not have any tokens
+                        </Box>
+                    )
                 )}
             </Box>
         </Layout>

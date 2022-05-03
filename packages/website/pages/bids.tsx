@@ -17,6 +17,7 @@ import { contractAddress } from "../utils/config";
 import { alertMessageState, indexLoaderState } from "../state/recoil";
 
 const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount(`0.00000000020`); // 200 Tgas
+const YOCTO_NEAR = utils.format.parseNearAmount(`0.000000000000000000000001`);
 
 const GET_BIDS = gql`
   query bids($bidder: String) {
@@ -57,7 +58,8 @@ const Bids = () => {
     try {
       await contract.remove_bid(
         { tokenId: token_id },
-        CONTRACT_REMOVE_BID_GAS
+        CONTRACT_REMOVE_BID_GAS,
+          YOCTO_NEAR
       );
       await refetch();
       setIndexLoader(false);
