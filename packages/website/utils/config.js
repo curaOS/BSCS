@@ -1,4 +1,3 @@
-let pck = require("../../../package.json");
-
-export const contractAddress = pck.config.contractAddress;
-export const graphUri = pck.config.graphAPI;
+export const contractAddress = "test6.ashen99.testnet";
+export const graphUri =
+  "https://api.thegraph.com/subgraphs/name/asheni99/graph_test";

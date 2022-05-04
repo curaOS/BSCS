@@ -216,7 +216,7 @@ const SingleView = () => {
           {accountId &&
               <BidCreate
                   onBid={setBid}
-                  maxResale={100-mint_royalty_amount}
+                  maxResale={100-(mint_royalty_amount/100)}
               />
           }
           <List
