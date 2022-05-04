@@ -39,6 +39,7 @@ const GET_CONTRACT_METADATA = gql`
     }
 `;
 
+
 const Create = () => {
   const { contract } = useNFTContract(contractAddress);
 
@@ -116,12 +117,12 @@ const Create = () => {
       // console.log(`live`, liveResponse.data.transaction.id);
       // console.log(`preview `, previewResponse.data.transaction.id);
 
-      const token_royalty = {
-        split_between: {
-          [metadata?.mint_royalty_id?.id]: metadata?.mint_royalty_amount,
-        },
-        percentage: 10,
-      };
+            const token_royalty = {
+                split_between: {
+                    [metadata?.mint_royalty_id?.id]: Number(metadata?.mint_royalty_amount),
+                },
+                percentage: 10,
+            };
 
       await contract.mint(
         {
