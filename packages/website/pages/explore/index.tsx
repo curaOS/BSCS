@@ -1,20 +1,22 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
-import { useQuery, gql } from "@apollo/client";
-import { Box, Link, Spinner, AspectRatio } from "theme-ui";
-import { contractAddress } from "../../utils/config";
+import { useQuery, gql } from '@apollo/client'
+import { Box, Link, Spinner, AspectRatio } from 'theme-ui'
+import { contractAddress } from '../../utils/config'
 
-import Layout from "../../containers/Layout";
-import Feed from "../../containers/Feed";
+import Layout from '../../containers/Layout'
+import Feed from '../../containers/Feed'
 
-
-const LIMIT_PER_PAGE = 6;
+const LIMIT_PER_PAGE = 6
 
 const GET_NFTS = gql`
   query ExploreNfts($offset: Int, $limit: Int) {
     nfts(skip: $offset, first: $limit) @connection(key: root){
       id
-      metadata {
+      owner {
+        id
+        }
+        metadata {
         media
       }
     }
@@ -25,52 +27,61 @@ const GET_NFTS = gql`
       }
     }
   }
-`;
+`
 
 const ExploreToken = () => {
-  const { loading, data, error, fetchMore } = useQuery(GET_NFTS, {
-    variables: {
-      offset: 0,
-      limit: LIMIT_PER_PAGE,
-    },
-  });
+    const { loading, data, error, fetchMore } = useQuery(GET_NFTS, {
+        variables: {
+            offset: 0,
+            limit: LIMIT_PER_PAGE,
+        },
+        fetchPolicy: 'network-only',
+        nextFetchPolicy: 'cache-first',
+    })
 
-  const total_supply = parseInt(data?.nftContracts[0]?.total_supply);
-  const base_uri = data?.nftContracts[0]?.metadata?.base_uri;
+    const total_supply = parseInt(data?.nftContracts[0]?.total_supply)
+    const base_uri = data?.nftContracts[0]?.metadata?.base_uri
 
-  return (
-    <Layout>
-      <Box sx={{ textAlign: "center", my: 30, mx: "auto", maxWidth: 900 }}>
-        {loading && <Spinner />}
-        {error && <p>Error: check console</p>}
-        {!loading && !error && (
-          total_supply > 0 ? (
-            <Feed
-              page='explore'
-              entries={data?.nfts || []}
-              totalSupply={total_supply || 0}
-              base_uri={base_uri}
-              onLoadMore={() =>
-                  fetchMore({
-                      variables: {
-                          offset: data.nfts.length,
-                      },
-                  })
-              }
-            />
-          ) : (
-              <Box
-                  sx={{
-                    mt: 50
-                  }}
-              >
-                Contract does not have any tokens
-              </Box>
-          )
-        )}
-      </Box>
-    </Layout>
-  );
-};
+    return (
+        <Layout>
+            <Box
+                sx={{
+                    textAlign: 'center',
+                    my: 30,
+                    mx: 'left',
+                    maxWidth: '100%',
+                }}
+            >
+                {loading && <Spinner />}
+                {error && <p>Error: check console</p>}
+                {!loading &&
+                    !error &&
+                    (total_supply > 0 ? (
+                        <Feed
+                            page="explore"
+                            entries={data?.nfts || []}
+                            totalSupply={total_supply || 0}
+                            base_uri={base_uri}
+                            onLoadMore={() =>
+                                fetchMore({
+                                    variables: {
+                                        offset: data.nfts.length,
+                                    },
+                                })
+                            }
+                        />
+                    ) : (
+                        <Box
+                            sx={{
+                                mt: 50,
+                            }}
+                        >
+                            Contract does not have any tokens
+                        </Box>
+                    ))}
+            </Box>
+        </Layout>
+    )
+}
 
-export default ExploreToken;
+export default ExploreToken
