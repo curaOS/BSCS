@@ -125,7 +125,7 @@ const Create = () => {
                         metadata?.mint_royalty_amount
                     ),
                 },
-                percentage: metadata?.mint_royalty_amount,
+                percentage: Number(metadata?.mint_royalty_amount),
             }
 
             await contract.mint(
