@@ -1,27 +1,27 @@
 // @ts-nocheck
-import { Box, AspectRatio } from "theme-ui";
-import { utils } from "near-api-js";
-import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
-import { useQuery, gql } from "@apollo/client";
-import { useNFTContract, useNearHooksContainer } from "@cura/hooks";
+import { Box, AspectRatio } from 'theme-ui'
+import { utils } from 'near-api-js'
+import { useRouter } from 'next/router'
+import { useSetRecoilState } from 'recoil'
+import { useQuery, gql } from '@apollo/client'
+import { useNFTContract, useNearHooksContainer } from '@cura/hooks'
 import {
-  CreatorShare,
-  Metadata,
-  MediaObject,
-  BidCreate,
-  History,
-  List
-} from "@cura/components";
+    CreatorShare,
+    Metadata,
+    MediaObject,
+    BidCreate,
+    History,
+    List,
+} from '@cura/components'
 
-import Layout from "../../containers/Layout";
-import { contractAddress } from "../../utils/config";
-import { alertMessageState, indexLoaderState } from "../../state/recoil";
+import Layout from '../../containers/Layout'
+import { contractAddress } from '../../utils/config'
+import { alertMessageState, indexLoaderState } from '../../state/recoil'
 
-const MARKET_SET_BID_GAS = utils.format.parseNearAmount(`0.00000000020`); // 200 Tgas
+const MARKET_SET_BID_GAS = utils.format.parseNearAmount(`0.00000000020`) // 200 Tgas
 
-const HARDCODED_ROYALTY_ADDRESS = "sample.address";
-const HARDCODED_ROYALTY_SHARE = `2500`;
+const HARDCODED_ROYALTY_ADDRESS = 'sample.address'
+const HARDCODED_ROYALTY_SHARE = `2500`
 
 const GET_SINGLE_NFT = gql`
   query getnft($token_id: String) {
@@ -63,179 +63,196 @@ const GET_SINGLE_NFT = gql`
       }
     }
   }
-`;
+`
 
 const SingleView = () => {
-  const router = useRouter();
+    const router = useRouter()
 
-  const setAlertMessage = useSetRecoilState(alertMessageState);
-  const setIndexLoader = useSetRecoilState(indexLoaderState);
+    const setAlertMessage = useSetRecoilState(alertMessageState)
+    const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-  const { contract } = useNFTContract(contractAddress);
-  const { accountId } = useNearHooksContainer();
+    const { contract } = useNFTContract(contractAddress)
+    const { accountId } = useNearHooksContainer()
 
-  const { loading, data, error } = useQuery(GET_SINGLE_NFT, {
-    variables: {
-      token_id: router.query.id || "",
-    },
-      fetchPolicy: "no-cache"
-  });
-
-  setIndexLoader(loading);
-
-  if (error) {
-    console.error(error);
-    setAlertMessage(error);
-  }
-
-  let nft = data?.nfts[0];
-  let history = nft?.history;
-
-  // If nft don't exist
-  if (!loading && !nft) {
-    router.push("/explore");
-    return <></>;
-  }
-
-  // If user own nft
-  if (nft && accountId) {
-    if (nft.owner?.id === accountId) {
-      router.push("/view/"+router.query.id || "");
-      return <></>;
-    }
-  }
-
-  async function setBid(amount, resale) {
-    setIndexLoader(true);
-    try {
-      await contract.set_bid(
-        {
-          tokenId: nft.id,
-          bid:{
-              amount: utils.format.parseNearAmount(amount),
-              bidder: accountId,
-              recipient: nft?.id,
-              sell_on_share: parseInt(resale) * 100,
-              currency: `near`,
-          }
+    const { loading, data, error } = useQuery(GET_SINGLE_NFT, {
+        variables: {
+            token_id: router.query.id || '',
         },
-        MARKET_SET_BID_GAS,
-        utils.format.parseNearAmount(amount)
-      );
-    } catch (e) {
-      console.error(e);
-      setIndexLoader(false);
-      setAlertMessage(e.toString());
+        fetchPolicy: 'no-cache',
+    })
+
+    setIndexLoader(loading)
+
+    if (error) {
+        console.error(error)
+        setAlertMessage(error)
     }
-  }
-  const base_uri = data?.nftContracts[0]?.metadata?.base_uri;
-  const mint_royalty_amount = data?.nftContracts[0]?.metadata?.mint_royalty_amount;
 
-  return (
-    <Layout>
-      <Box
-        sx={{
-          mt: 50,
-        }}
-      >
-        <Box
-          sx={{
-            display: ["block", "block", "block", "inline-block"],
-            width: ["100%", "70%", "70%", "50%"],
-            mr: [0, "auto", "auto", "110px"],
-            ml: [0, "auto", "auto", 0],
-            mb: [2, 0],
-            textAlign: "center",
-          }}
-        >
-          <AspectRatio
-            ratio={1}
-            sx={{
-              bg: "gray.3",
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              width: "100%",
-              maxHeight: "100%",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            {data && (
-              <MediaObject
-                mediaURI={`${base_uri}${nft?.metadata?.media}`}
-                width={`100%`}
-                height={`100%`}
-                type={`image`}
-              />
-            )}
-          </AspectRatio>
-        </Box>
-        <Box
-          sx={{
-            mt: 0,
-            display: ["block", "block", "block", "inline-block"],
-            verticalAlign: "top",
-            margin: "auto",
-            width: ["100%", "70%", "70%", "30%"],
-            mb: [50, 0],
-          }}
-        >
-          
-          {!accountId && (
+    let nft = data?.nfts[0]
+    let history = nft?.history
+
+    // If nft don't exist
+    if (!loading && !nft) {
+        router.push('/explore')
+        return <></>
+    }
+
+    // If user own nft
+    if (nft && accountId) {
+        if (nft.owner?.id === accountId) {
+            router.push('/view/' + router.query.id || '')
+            return <></>
+        }
+    }
+
+    async function setBid(amount, resale) {
+        setIndexLoader(true)
+        try {
+            await contract.set_bid(
+                {
+                    tokenId: nft.id,
+                    bid: {
+                        amount: utils.format.parseNearAmount(amount),
+                        bidder: accountId,
+                        recipient: nft.owner?.id,
+                        sell_on_share: parseInt(resale) * 100,
+                        currency: `near`,
+                    },
+                },
+                MARKET_SET_BID_GAS,
+                utils.format.parseNearAmount(amount)
+            )
+        } catch (e) {
+            console.error(e)
+            setIndexLoader(false)
+            setAlertMessage(e.toString())
+        }
+    }
+    const base_uri = data?.nftContracts[0]?.metadata?.base_uri
+    const mint_royalty_amount =
+        data?.nftContracts[0]?.metadata?.mint_royalty_amount
+
+    return (
+        <Layout>
             <Box
-              sx={{
-                mb: 35,
-                variant: "text.h5",
-              }}
-            >
-              Please connect to add bids
-            </Box>
-          )}
-          <Box>
-            {data && (
-              <Metadata
-                data={{
-                  owner_id: nft?.owner?.id,
-                  metadata: nft?.metadata,
+                sx={{
+                    mt: 50,
                 }}
-                loading={false}
-                width={`100%`}
-                variant={2}
-              />
-            )}
-          </Box>
+            >
+                <Box
+                    sx={{
+                        display: ['block', 'block', 'block', 'inline-block'],
+                        width: ['100%', '70%', '70%', '50%'],
+                        mr: [0, 'auto', 'auto', '110px'],
+                        ml: [0, 'auto', 'auto', 0],
+                        mb: [2, 0],
+                        textAlign: 'center',
+                    }}
+                >
+                    <AspectRatio
+                        ratio={1}
+                        sx={{
+                            bg: 'gray.3',
+                            alignItems: 'center',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            width: '100%',
+                            maxHeight: '100%',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                        }}
+                    >
+                        {data && (
+                            <MediaObject
+                                mediaURI={`${base_uri}${nft?.metadata?.media}`}
+                                width={`100%`}
+                                height={`100%`}
+                                type={`image`}
+                            />
+                        )}
+                    </AspectRatio>
+                </Box>
+                <Box
+                    sx={{
+                        mt: 0,
+                        display: ['block', 'block', 'block', 'inline-block'],
+                        verticalAlign: 'top',
+                        margin: 'auto',
+                        width: ['100%', '70%', '70%', '30%'],
+                        mb: [50, 0],
+                    }}
+                >
+                    {!accountId && (
+                        <Box
+                            sx={{
+                                mb: 35,
+                                variant: 'text.h5',
+                            }}
+                        >
+                            Please connect to add bids
+                        </Box>
+                    )}
+                    <Box>
+                        {data && (
+                            <Metadata
+                                data={{
+                                    owner_id: nft?.owner?.id,
+                                    metadata: nft?.metadata,
+                                }}
+                                loading={false}
+                                width={`100%`}
+                                variant={2}
+                            />
+                        )}
+                    </Box>
 
-          <Box mt={2}>
-            <CreatorShare
-              address={HARDCODED_ROYALTY_ADDRESS}
-              share={HARDCODED_ROYALTY_SHARE}
-            />
-          </Box>
+                    <Box mt={2}>
+                        <CreatorShare
+                            address={HARDCODED_ROYALTY_ADDRESS}
+                            share={HARDCODED_ROYALTY_SHARE}
+                        />
+                    </Box>
 
-          {accountId &&
-              <BidCreate
-                  onBid={setBid}
-                  maxResale={100-mint_royalty_amount}
-              />
-          }
-          <List
-              data={[
-                { title: "Contract", content: nft?.contract?.id, link : `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`, copiable : true },
-                { title: "Token ID", content: nft?.id, link : null, copiable : true },
-                { title: "Media", content: "arweave link ↗", link : `${base_uri}${nft?.metadata?.media}`, copiable : false },
-                { title: "Animation", content: "arweave link ↗", link : `${base_uri}${nft?.metadata?.media_animation}`, copiable : false },
-              ]}
-              width={"100%"}
-          />
-          <History history = {history} />
-            
+                    {accountId && (
+                        <BidCreate
+                            onBid={setBid}
+                            maxResale={100 - mint_royalty_amount / 100}
+                        />
+                    )}
+                    <List
+                        data={[
+                            {
+                                title: 'Contract',
+                                content: nft?.contract?.id,
+                                link: `https://explorer.testnet.near.org/accounts/${nft?.contract?.id}`,
+                                copiable: true,
+                            },
+                            {
+                                title: 'Token ID',
+                                content: nft?.id,
+                                link: null,
+                                copiable: true,
+                            },
+                            {
+                                title: 'Media',
+                                content: 'arweave link ↗',
+                                link: `${base_uri}${nft?.metadata?.media}`,
+                                copiable: false,
+                            },
+                            {
+                                title: 'Animation',
+                                content: 'arweave link ↗',
+                                link: `${base_uri}${nft?.metadata?.media_animation}`,
+                                copiable: false,
+                            },
+                        ]}
+                        width={'100%'}
+                    />
+                    <History history={history} />
+                </Box>
+            </Box>
+        </Layout>
+    )
+}
 
-        </Box>
-
-      </Box>
-    </Layout>
-  );
-};
-
-export default SingleView;
+export default SingleView
