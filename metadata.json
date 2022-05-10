@@ -9,7 +9,7 @@
     "reference_hash": ""
   },
   "extra": {
-    "mint_price": "100000",
+    "mint_price": "1000000000000000000000000",
     "max_copies": 1024,
     "default_max_len_payout": 20,
     "mints_per_address": 1024,
@@ -17,9 +17,10 @@
     "mint_royalty_id": "bscs-x.testnet",
     "mint_royalty_amount": 500,
     "min_bid_amount": "10000000000000000000000",
-    "packages_script": "CQkJCSAgICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvcDUuanMvMS40LjAvcDUubWluLmpzIj48L3NjcmlwdD4K",
-    "render_script": "PHNjcmlwdD5jb25zdCBTSVpFPTMyO2NvbnN0IEhBTEZfU0laRT1TSVpFLzI7Y29uc3QgT05FPTE7Y29uc3QgU1BBQ0U9MDtjb25zdCBzY2hlbWE9WzEsMiwzLDQsNV07ZnVuY3Rpb24gZ2VuZXJhdGUoKXtjb25zdCBzZWVkPVNFRUQ7bGV0IGVuY29kZWRPdXRwdXQ9W107bGV0IGE9c2VlZDtsZXQgeD0wO2xldCB5PTA7bGV0IHY9MDtsZXQgdmFsdWU9MDtsZXQgbW9kPShhJTExKSs1O2ZvcihsZXQgaT0wO2k8U0laRTtpKz0xKXt5PTIqKGktSEFMRl9TSVpFKSsxO2lmKGElMz09MSl7eT0gLXl9ZWxzZSBpZihhJTM9PTIpe3k9TWF0aC5hYnMoeSl9eT15KmE7Zm9yKGxldCBqPTA7ajxTSVpFO2orPTEpe3g9Miooai1IQUxGX1NJWkUpKzE7aWYoYSUyPT0xKXt4PU1hdGguYWJzKHgpfXg9eCphO3Y9TWF0aC5hYnMoKHgqeSkvT05FKSVtb2Q7aWYodjw1KXt2YWx1ZT1zY2hlbWFbdl19ZWxzZXt2YWx1ZT1TUEFDRX1lbmNvZGVkT3V0cHV0LnB1c2godmFsdWUpfX1yZXR1cm4gSlNPTi5zdHJpbmdpZnkoe2luc3RydWN0aW9uczplbmNvZGVkT3V0cHV0fSl9ZnVuY3Rpb24gcmFuZG9tTnVtYmVyKG1pbixtYXgpe3JldHVybiBNYXRoLmZsb29yKE1hdGgucmFuZG9tKCkqKG1heC1taW4rMSkrbWluKX1jb25zdCBjb2xvcnM9WyIjMTAxMDEwIiwiI0Q3RDdENyIsIiNFRjg1MDkiLCIjM0MzOEVEIiwiIzM3ODk1OCIsIiNFREI0RUUiXTtsZXQgcGFyYW1zPUpTT04ucGFyc2UoZ2VuZXJhdGUoKSk7Y29uc3QgaW5zdHJ1Y3Rpb25zPXBhcmFtcy5pbnN0cnVjdGlvbnM7bGV0IGM9IiI7Y29uc3QgZGVzaWduRGltZW5zaW9uPXdpbmRvdy5pbm5lckhlaWdodDtjb25zdCBjYW52YXNTdGVwPVtkZXNpZ25EaW1lbnNpb24vKFNJWkUpLGRlc2lnbkRpbWVuc2lvbi8oU0laRSldO2NvbnN0IGNhbnZhc1RleHRTaXplPWRlc2lnbkRpbWVuc2lvbi8oU0laRSoxLjcpO2NvbnN0IGNhbnZhc1N0YXJ0PVswLDBdO2Z1bmN0aW9uIHNldHVwKCl7Y29uc3QgY2FudmFEaW1lbnNpb249bWluKHdpbmRvdy5pbm5lcldpZHRoLHdpbmRvdy5pbm5lckhlaWdodCk7Y3JlYXRlQ2FudmFzKGNhbnZhRGltZW5zaW9uLGNhbnZhRGltZW5zaW9uKTtiYWNrZ3JvdW5kKDApO25vTG9vcCgpO2lmKGluc3RydWN0aW9ucy5sZW5ndGg+MCl7dGV4dFNpemUoY2FudmFzVGV4dFNpemUpO2ZvcihsZXQgaT0wO2k8U0laRTtpKz0xKXtmb3IobGV0IGo9MDtqPFNJWkU7ais9MSl7Yz1pbnN0cnVjdGlvbnNbaitpKlNJWkVdO2xldCBjb2w9Y29sb3IoY29sb3JzW2NdKTtmaWxsKGNvbCk7bm9TdHJva2UoKTtzcXVhcmUoY2FudmFzU3RhcnRbMF0raipjYW52YXNTdGVwWzBdLGNhbnZhc1N0YXJ0WzFdK2kqY2FudmFzU3RlcFsxXSxkZXNpZ25EaW1lbnNpb24vU0laRSk7fX19fTwvc2NyaXB0Pg==",
-    "style_css": "ICAgIDxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+CiAgICAgIGJvZHkgewogICAgICAgIG1hcmdpbjogMDsKICAgICAgICBwYWRkaW5nOiAwOwogICAgICB9CiAgICAgIGNhbnZhcyB7CiAgICAgICAgcGFkZGluZzogMDsKICAgICAgICBtYXJnaW46IGF1dG87CiAgICAgICAgZGlzcGxheTogYmxvY2s7CiAgICAgICAgcG9zaXRpb246IGFic29sdXRlOwogICAgICAgIHRvcDogMDsKICAgICAgICBib3R0b206IDA7CiAgICAgICAgbGVmdDogMDsKICAgICAgICByaWdodDogMDsKICAgICAgfQogICAgPC9zdHlsZT4K",
-    "parameters": ""
+    "packages_script": "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js\"></script>",
+    "render_script": "<script>const SIZE=32,HALF_SIZE=SIZE/2,ONE=1,SPACE=0,schema=[1,2,3,4,5],PINK=\"#EDB4EE\",BLUE=\"#3C38ED\",BLACK=\"#101010\",GRAY=\"#D7D7D7\",GREEN=\"#378958\",ORANGE=\"#EF8509\",colors=[BLACK,GRAY,GREEN,ORANGE,BLUE,PINK],instructions=INSTRUCTIONS;function setup(){let t=\"\";const E=min(windowWidth,windowHeight);createCanvas(E,E);const o=E%SIZE,c=(E-o)/SIZE,r=o/2;if(noLoop(),background(220),translate(r,r),instructions.length>0)for(let E=0;E<SIZE;E++)for(let o=0;o<SIZE;o++){t=instructions[o+E*SIZE],stroke(colors[t]);let e=color(colors[t]);fill(e),0==E&&0==o?rect(E*c-r,o*c-r,c+r,c+r):0==E&&o==SIZE-1?rect(E*c-r,o*c,c+r,c+r):E==SIZE-1&&0==o?rect(E*c,o*c-r,c+r,c+r):E==SIZE-1&&o==SIZE-1?rect(E*c,o*c,c+r,c+r):0==o?rect(E*c,o*c-r,c,c+r):0==E?rect(E*c-r,o*c,c+r,c):E==SIZE-1?rect(E*c,o*c,c+r,c):o==SIZE-1?rect(E*c,o*c,c,c+r):square(E*c,o*c,c)}}</script>",
+    "style_css": "<style type='text/css'>body{margin:0;padding:0}canvas{padding:0;margin:auto;display:block;position:absolute;top:0;bottom:0;left:0;right:0}</style>",
+    "parameters": "'{\"instructions\":\"Array<1024, number>\"}'"
   }
 }
+
