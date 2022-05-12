@@ -9,7 +9,7 @@ dataSources:
     name: receipts
     source:
       account: 0_0_10.basics-t.testnet
-      startBlock: 89626327
+      startBlock: 89626328
     mapping:
       file: ./src/mapping.ts
       apiVersion: 0.0.5
