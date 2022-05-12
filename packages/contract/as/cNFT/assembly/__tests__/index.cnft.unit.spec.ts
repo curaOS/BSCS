@@ -28,7 +28,6 @@ import { AccountId } from '../types'
 import { nft_payout } from '../royalty_payout'
 import { Bid } from '../models/market'
 import { nft_metadata_extra } from '../metadata'
-import { asNEAR } from '../../../utils'
 
 const ONE_NEAR = '1000000000000000000000000'
 const ONE_TENTH_NEAR = '100000000000000000000000'
@@ -206,6 +205,7 @@ describe('- MARKET -', () => {
 
         bidOnToken('hello.testnet', '0', ONE_TENTH_NEAR, 'yellow.testnet')
 
+        VMContext.setAttached_deposit(u128.from(1))
         remove_bid('0')
 
         const bids = get_bids('0')
