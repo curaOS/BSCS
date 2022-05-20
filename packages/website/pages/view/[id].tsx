@@ -21,7 +21,6 @@ import { contractAddress } from '../../utils/config'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useRouter } from 'next/router'
 
-const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`) // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000025`) // 250 Tgas
 const YOCTO_NEAR = utils.format.parseNearAmount(`0.000000000000000000000001`)
 
@@ -112,20 +111,6 @@ const ViewToken = () => {
         }
     }
 
-    async function burnDesign() {
-        setIndexLoader(true)
-        try {
-            await contract.burn_design(
-                { token_id: nft?.id },
-                CONTRACT_BURN_GAS,
-                YOCTO_NEAR
-            )
-        } catch (e) {
-            setIndexLoader(false)
-            setAlertMessage(e.toString())
-        }
-    }
-
     async function acceptBid(bidder: string) {
         setIndexLoader(true)
         try {
@@ -202,10 +187,6 @@ const ViewToken = () => {
                             mb: [50, 0],
                         }}
                     >
-                        <Button onClick={burnDesign} variant="borderless">
-                            BURN
-                        </Button>
-
                         {bids && (
                             <Bidders
                                 bidders={bids?.reduce(
