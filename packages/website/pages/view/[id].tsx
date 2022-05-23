@@ -1,10 +1,9 @@
 // @ts-nocheck
-import { Box, AspectRatio, Button } from 'theme-ui'
+import { Box, AspectRatio } from 'theme-ui'
 import { utils } from 'near-api-js'
 import {
     useNFTContract,
     useNearHooksContainer,
-    useNFTViewMethod,
 } from '@cura/hooks'
 import {
     CreatorShare,
@@ -15,6 +14,7 @@ import {
 } from '@cura/components'
 import { useSetRecoilState } from 'recoil'
 import { useQuery, gql } from '@apollo/client'
+import { alpha } from '@theme-ui/color'
 
 import Layout from '../../containers/Layout'
 import { contractAddress } from '../../utils/config'
@@ -146,6 +146,7 @@ const ViewToken = () => {
                         ml: [0, 'auto', 'auto', 0],
                         mb: [2, 0],
                         textAlign: 'center',
+                        boxShadow: theme => `${alpha(theme.rawColors.primary, 0.1)(theme)} 0px 0px 40px`,
                     }}
                 >
                     <AspectRatio

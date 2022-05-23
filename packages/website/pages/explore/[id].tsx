@@ -13,6 +13,7 @@ import {
     History,
     List,
 } from '@cura/components'
+import { alpha } from '@theme-ui/color'
 
 import Layout from '../../containers/Layout'
 import { contractAddress } from '../../utils/config'
@@ -147,6 +148,7 @@ const SingleView = () => {
                         ml: [0, 'auto', 'auto', 0],
                         mb: [2, 0],
                         textAlign: 'center',
+                        boxShadow: theme => `${alpha(theme.rawColors.primary, 0.1)(theme)} 0px 0px 40px`,
                     }}
                 >
                     <AspectRatio

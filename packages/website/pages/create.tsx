@@ -7,6 +7,7 @@ import { utils } from 'near-api-js'
 import { useSetRecoilState } from 'recoil'
 import axios from 'axios'
 import { useState, createRef } from 'react'
+import { alpha } from '@theme-ui/color'
 
 import Layout from '../containers/Layout'
 import { contractAddress } from '../utils/config'
@@ -15,9 +16,7 @@ import { htmlToImg } from '../utils/html-to-img'
 import { gql, useQuery } from '@apollo/client'
 import { generate, randomNumber } from '../utils/generate'
 
-const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount(`0.00000000020`) // 200 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount(`0.00000000029`) // 300 Tgas
-const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount(`1`) // 1N
 
 const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 
@@ -71,7 +70,7 @@ const Create = () => {
 
         try {
             const randomSeed = randomNumber(0, 4096)
-            const result = await generate(randomSeed)
+            const result = generate(randomSeed)
 
             setSeed(randomSeed)
 
@@ -166,6 +165,7 @@ const Create = () => {
                         ml: [0, 'auto', 'auto', 0],
                         mb: [2, 0],
                         textAlign: 'center',
+                        boxShadow: theme => `${alpha(theme.rawColors.primary, 0.1)(theme)} 0px 0px 40px`,
                     }}
                 >
                     <AspectRatio
@@ -179,6 +179,7 @@ const Create = () => {
                             maxHeight: '100%',
                             marginLeft: 'auto',
                             marginRight: 'auto',
+
                         }}
                     >
                         {creativeCode && (
