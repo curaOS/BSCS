@@ -51,12 +51,14 @@ import { AccountId } from './types'
  * ```
  * @param tokenMetadata Metadata object of the minted token
  * @param token_royalty Royalty object of the minted token
+ * @param receiver_id Account that receives minted token
  * @return Minted token
  */
 @nearBindgen
-export function mint(
+export function nft_mint(
     tokenMetadata: TokenMetadata,
-    token_royalty: TokenRoyalty
+    token_royalty: TokenRoyalty,
+    receiver_id: string = context.sender,
 ): Token {
     assert_not_paused()
 
@@ -101,8 +103,8 @@ export function mint(
     token.id = tokenId
 
     /**@todo Not always sender is creator i guess */
-    token.creator_id = context.sender
-    token.owner_id = context.sender
+    token.creator_id = contract_extra.mint_royalty_id
+    token.owner_id = receiver_id
 
     token.approvals = new Map<string, number>()
     token.approvals.set(context.contractName, 1)
