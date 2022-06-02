@@ -2,7 +2,7 @@
 import { Box, AspectRatio, Button } from 'theme-ui'
 import { CreatorShare } from '@cura/components'
 import { combineHTML } from '../utils/combine-html'
-import { useNFTContract } from '@cura/hooks'
+import { useNFTContract, useNearHooksContainer } from '@cura/hooks'
 import { utils } from 'near-api-js'
 import { useSetRecoilState } from 'recoil'
 import axios from 'axios'
@@ -41,6 +41,7 @@ const GET_CONTRACT_METADATA = gql`
 
 const Create = () => {
     const { contract } = useNFTContract(contractAddress)
+    const { accountId } = useNearHooksContainer();
 
     const setIndexLoader = useSetRecoilState(indexLoaderState)
     const setAlertMessage = useSetRecoilState(alertMessageState)
@@ -127,7 +128,7 @@ const Create = () => {
                 percentage: Number(metadata?.mint_royalty_amount),
             }
 
-            await contract.mint(
+            await contract.nft_mint(
                 {
                     tokenMetadata: {
                         media: previewResponse.data.transaction.id,
@@ -139,6 +140,7 @@ const Create = () => {
                         ).toString(`base64`),
                     },
                     token_royalty: token_royalty,
+                    receiver_id: accountId,
                 },
                 CONTRACT_CLAIM_GAS,
                 metadata?.mint_price
