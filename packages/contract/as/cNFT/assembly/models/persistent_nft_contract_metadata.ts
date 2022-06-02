@@ -1,7 +1,6 @@
-import { storage} from 'near-sdk-as'
+import { storage } from 'near-sdk-as'
 import { ONE_NEAR } from '../../../utils'
 import { AccountId } from '../types'
-
 
 /** @hidden */
 const NFT_SPEC = 'nft-1.0.0'
@@ -12,10 +11,8 @@ const NFT_NAME = 'Nft'
 /** @hidden */
 const NFT_SYMBOL = 'NFT'
 
-
 @nearBindgen
 export class NFTContractMetadata {
-
     /** Current version of the contract */
     spec: string
 
@@ -40,7 +37,6 @@ export class NFTContractMetadata {
 
 @nearBindgen
 export class NFTContractExtra {
-
     /** Mint price of the tokens in contract */
     mint_price: string
 
@@ -89,10 +85,9 @@ export function defaultNFTContractMetadata(): NFTContractMetadata {
         icon: '',
         base_uri: '',
         reference: '',
-        reference_hash: ''
+        reference_hash: '',
     }
 }
-
 
 /**
  * @hidden
@@ -110,13 +105,12 @@ export function defaultNFTContractExtra(): NFTContractExtra {
         render_script: '',
         style_css: '',
         parameters: '',
-        min_bid_amount: '0'
+        min_bid_amount: '0',
     }
 }
 
 @nearBindgen
 export class PersistentNFTContractMetadata {
-
     /**
      * Prefix used to store and identify contract standard metadata in the storage
      */
@@ -126,7 +120,6 @@ export class PersistentNFTContractMetadata {
      * Prefix used to store and identify contract extra metadata in the storage
      */
     static STORAGE_KEY_EXTRA: string = 'nft_contract_metadata_extra'
-
 
     /**
      * Update standard metadata of the contract
@@ -147,7 +140,6 @@ export class PersistentNFTContractMetadata {
             contract_metadata
         )
     }
-
 
     /**
      * Update extra metadata of the contract

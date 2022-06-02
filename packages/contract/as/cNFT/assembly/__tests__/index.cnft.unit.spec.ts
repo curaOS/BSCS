@@ -12,7 +12,7 @@ import {
     nft_token,
     nft_supply_for_owner,
     nft_tokens_for_owner,
-    mint,
+    nft_mint,
     nft_metadata,
     init,
     nft_transfer,
@@ -38,6 +38,9 @@ const initContract = (): void => {
     let nft_extra_metadata = defaultNFTContractExtra()
 
     nft_extra_metadata.min_bid_amount = ONE_TENTH_NEAR
+    nft_extra_metadata.mint_payee_id = 'payee'
+    nft_extra_metadata.mint_royalty_id = 'address'
+    nft_extra_metadata.mint_royalty_amount = 2500
 
     init('cura.testnet', nft_contract_metadata, nft_extra_metadata)
 }
@@ -55,7 +58,7 @@ const mintToken = (accountId: AccountId): Token => {
     token_royalty.percentage = 2500
     token_royalty.split_between.set('address', 2500)
 
-    return mint(token_metadata, token_royalty)
+    return nft_mint(token_metadata, token_royalty)
 }
 
 describe('- CONTRACT -', () => {
@@ -148,10 +151,16 @@ describe('- CONTRACT -', () => {
         log(tokens)
     })
 
+    /** You can burn a token only if account sending the request
+     * is both the owner and creator of the token.
+     * On mint we set the creator id to the royalty id so only in
+     * the case token is minted by creator it can be burned
+     */
     it('xxx burn token', () => {
         initContract()
-        mintToken('hello.testnet')
-        const token = mintToken('hello.testnet')
+
+        mintToken('address')
+        const token = mintToken('address')
 
         burn_design(token.id)
 
