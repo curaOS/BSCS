@@ -14,10 +14,11 @@ const GET_NFTS = gql`
     nfts(skip: $offset, first: $limit) @connection(key: root){
       id
       owner {
-        id
-        }
+          id
+      }
         metadata {
-        media
+            media
+            title
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
@@ -38,6 +39,8 @@ const ExploreToken = () => {
         fetchPolicy: 'network-only',
         nextFetchPolicy: 'cache-first',
     })
+
+    console.log(data);
 
     const total_supply = parseInt(data?.nftContracts[0]?.total_supply)
     const base_uri = data?.nftContracts[0]?.metadata?.base_uri

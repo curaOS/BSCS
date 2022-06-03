@@ -18,7 +18,8 @@ const GET_OWNER_NFTS = gql`
     nfts(skip: $offset, first: $limit, where: { owner: $owner_id } ) @connection(key: $owner_id) {
       id
       metadata {
-        media
+          media
+          title
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {

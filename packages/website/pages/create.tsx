@@ -131,6 +131,7 @@ const Create = () => {
             await contract.nft_mint(
                 {
                     tokenMetadata: {
+                        title: `${accountId[0]}-${seed}`,
                         media: previewResponse.data.transaction.id,
                         media_animation: liveResponse.data.transaction.id,
                         extra: Buffer.from(
