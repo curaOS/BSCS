@@ -7614,15 +7614,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tests@workspace:packages/tests":
-  version: 0.0.0-use.local
-  resolution: "tests@workspace:packages/tests"
-  dependencies:
-    bn.js: ^5.2.0
-    near-api-js: ^0.44.2
-  languageName: unknown
-  linkType: soft
-
 "text-encoding-utf-8@npm:^1.0.2":
   version: 1.0.2
   resolution: "text-encoding-utf-8@npm:1.0.2"
