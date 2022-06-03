@@ -66,7 +66,7 @@ export default function Feed({entries, onLoadMore, totalSupply, base_uri, page})
                                     data={{
                                         owner_id: page === 'view' ? null : item.owner?.id,
                                         metadata: {
-                                            title: item.metadata?.title
+                                            title: item.metadata?.title || item.id
                                         }
                                     }}
                                     loading={false}
