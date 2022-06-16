@@ -8,8 +8,8 @@ dataSources:
     network: near-testnet
     name: receipts
     source:
-      account: 0_0_11.basics-t.testnet
-      startBlock: 91481130
+      account: 0_0_12.basics-t.testnet
+      startBlock: 92520475
     mapping:
       file: ./src/mapping.ts
       apiVersion: 0.0.5
