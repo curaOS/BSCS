@@ -54,7 +54,7 @@ class NftTransferArgs {
  * bid.currency = 'near'
  *
  *
- * const setted_bid = set_bid(
+ * const placed_bid = set_bid(
  *      "jenny911038",
  *      bid
  * );
@@ -69,6 +69,7 @@ export function set_bid(tokenId: string, bid: Bid): Bid {
     assert_not_paused()
 
     assert(bid.amount > u128.Zero, "Bid can't be zero")
+    assert(bid.currency.toLowerCase() == 'near', "Only NEAR allowed at the moment")
     assert_eq_attached_deposit(bid.amount)
     assert_token_exists(tokenId)
 
@@ -236,7 +237,6 @@ export function accept_bid(tokenId: string, bidder: string): void {
 
     const token = persistent_tokens.get(tokenId)
 
-    /* todo: change when adding approval management */
     assert_eq_token_owner(context.predecessor, token.owner_id)
 
     const bid = bids.get(bidder)

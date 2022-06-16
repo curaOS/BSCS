@@ -21,10 +21,13 @@ export class Token {
     metadata: TokenMetadata
 
     /** ID of the accounts, that can approve a transfer behalf of the owner */
-    approvals: Map<string, number>
+    approved_account_ids: Map<AccountId, u64>
 
     /** Number used for the next approval ID */
-    next_approval_id: number
+    next_approval_id: u64
+
+    /** Map of accounts to token payout percentage */
+    royalty: Map<AccountId, u32>
 }
 
 @nearBindgen

@@ -6,6 +6,7 @@ import { NftEventLogData, NftTransferLog, NftBurnLog } from './models/log'
 import { logging, context, ContractPromise } from "near-sdk-as";
 import { assert_one_yocto, assert_not_paused } from './utils/asserts'
 import { internal_nft_is_approved } from './approval'
+import { persistent_tokens_royalty } from "./models/persistent_tokens_royalty";
 
 /**
  * Get details of a single token
@@ -30,6 +31,10 @@ export function nft_token(token_id: TokenId): Token {
     // get metadata and add it to the token
     token.metadata = persistent_tokens_metadata.get(token_id)
 
+    // get royalty and add it to the token
+    let token_royalty = persistent_tokens_royalty.get(token_id)
+    token.royalty = token_royalty ? token_royalty.split_between : new Map()
+
     // return the token
     return token
 }
@@ -49,11 +54,42 @@ export function nft_token(token_id: TokenId): Token {
  *
  * @param token_id ID of the token that needs to transfer
  * @param receiver_id ID of the receiving account
+ * @param approval_id Approval ID number for the given `receiver_id`
+ * @param memo Optional memo to be attached to the transaction
  */
 @nearBindgen
-export function nft_transfer(token_id: TokenId, receiver_id: AccountId): void {
+export function nft_transfer(
+    token_id: TokenId,
+    receiver_id: AccountId,
+    approval_id: u64 = 0,
+    memo: string | null = null
+) : void {
     assert_not_paused()
 
+    internal_nft_transfer(
+      token_id,
+      receiver_id,
+      approval_id,
+      memo
+    )
+}
+
+/**
+ * Internal transfer function that doesn't go through standard transfer
+ *
+ * **Note:** This is used as an internal function.
+ *
+ * @param token_id ID of the token that needs to transfer
+ * @param receiver_id ID of the receiving account
+ * @param approval_id Approval ID number for the given `receiver_id`
+ * @param memo Optional memo to be attached to the transaction
+ */
+export function internal_nft_transfer(
+    token_id: TokenId,
+    receiver_id: AccountId,
+    approval_id: u64 = 0,
+    memo: string | null = null
+) : void {
     /* Exactly one yocto is required for the transfer */
 
     assert_one_yocto()
@@ -63,8 +99,8 @@ export function nft_transfer(token_id: TokenId, receiver_id: AccountId): void {
 
     if (token.owner_id != context.predecessor) {
         assert(
-            internal_nft_is_approved(token_id, context.predecessor, '1'),
-            "You don't have permission to perform this action"
+          internal_nft_is_approved(token_id, context.predecessor, 1),
+          "You don't have permission to perform this action"
         )
     }
     /* Assert owner is not receiver */
@@ -160,7 +196,7 @@ export function nft_transfer_call(
   receiver_id: AccountId,
   token_id: TokenId,
   msg: string,
-  approval_id: string = '',
+  approval_id: u64 = 0,
   memo: string = '',
 ): ContractPromise | null {
     assert(false, 'Transfer and call use case not currently supported.')
