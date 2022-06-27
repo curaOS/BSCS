@@ -62,8 +62,17 @@ const Create = () => {
     }
 
     const generatePreview = async () => {
-        const iframeHtml = iframeRef.current.contentWindow.document.body
-        return await htmlToImg(iframeHtml)
+        const iframeHtml = iframeRef.current.contentWindow.document.body;
+
+        // set dimension for canvas otherwise you end up having different screenshot sizes based on device
+        iframeRef.current.width = 1500 / window.devicePixelRatio;
+        iframeRef.current.height = 1500 / window.devicePixelRatio;
+        // // iframeRef.current.contentWindow.document.body.setAttribute('width', '1000'); // explicitly setting its unit 'px'
+        // // iframeRef.current.contentWindow.document.body.setAttribute('height', '1000');
+        iframeRef.current.contentWindow.document.getElementById('defaultCanvas0').style.width = `${1500 / window.devicePixelRatio}px`; // explicitly setting its unit 'px'
+        iframeRef.current.contentWindow.document.getElementById('defaultCanvas0').style.height = `${1500 / window.devicePixelRatio}px`;
+
+        return await htmlToImg(iframeHtml);
     }
 
     async function retrieveData() {
