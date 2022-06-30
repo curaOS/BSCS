@@ -1,0 +1,85 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <script>let INSTRUCTIONS = [0, 4, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 4, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 4, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 4, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 2, 4, 4, 2, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 4, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 4, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 4, 2, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 2, 4, 0, 4, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 2, 0, 4, 4, 0, 2, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 4, 0];</script>
+    <script>
+        const SIZE = 32;
+        const HALF_SIZE = SIZE / 2;
+        const ONE = 1;
+        const SPACE = 0;
+        const schema = [1, 2, 3, 4, 5];
+
+        const PINK = "#EDB4EE";
+        const BLUE = "#3C38ED";
+        const BLACK = "#101010";
+        const GRAY = "#D7D7D7";
+        const GREEN = "#378958";
+        const ORANGE = "#EF8509";
+
+        const colors = [BLACK, GRAY, GREEN, ORANGE, BLUE, PINK];
+
+        const instructions = INSTRUCTIONS;
+
+        function draw() {
+            let c = "";
+            const frameDimension = min(windowWidth, windowHeight);
+            createCanvas(frameDimension, frameDimension);
+            const extraSpace = frameDimension % SIZE;
+            const canvasDimension = frameDimension - extraSpace;
+            const canvasSquareSize = canvasDimension / SIZE;
+            const startOfDesign = extraSpace / 2;
+            noLoop();
+            background(220);
+            translate(startOfDesign, startOfDesign);
+            if (instructions.length > 0) {
+                for (let x = 0; x < SIZE; x++) {
+                    for (let y = 0; y < SIZE; y++) {
+                        c = instructions[y + x * SIZE];
+                        stroke(colors[c]);
+                        let col = color(colors[c]);
+                        fill(col);
+                        if (x == 0 && y == 0) {
+                            rect(x * canvasSquareSize - startOfDesign, y * canvasSquareSize - startOfDesign, canvasSquareSize + startOfDesign, canvasSquareSize + startOfDesign);
+                        } else if (x == 0 && y == SIZE - 1) {
+                            rect(x * canvasSquareSize - startOfDesign, y * canvasSquareSize, canvasSquareSize + startOfDesign, canvasSquareSize + startOfDesign);
+                        } else if (x == SIZE - 1 && y == 0) {
+                            rect(x * canvasSquareSize, y * canvasSquareSize - startOfDesign, canvasSquareSize + startOfDesign, canvasSquareSize + startOfDesign);
+                        } else if (x == SIZE - 1 && y == SIZE - 1) {
+                            rect(x * canvasSquareSize, y * canvasSquareSize, canvasSquareSize + startOfDesign, canvasSquareSize + startOfDesign);
+                        } else if (y == 0) {
+                            rect(x * canvasSquareSize, y * canvasSquareSize - startOfDesign, canvasSquareSize, canvasSquareSize + startOfDesign);
+                        } else if (x == 0) {
+                            rect(x * canvasSquareSize - startOfDesign, y * canvasSquareSize, canvasSquareSize + startOfDesign, canvasSquareSize);
+                        } else if (x == SIZE - 1) {
+                            rect(x * canvasSquareSize, y * canvasSquareSize, canvasSquareSize + startOfDesign, canvasSquareSize);
+                        } else if (y == SIZE - 1) {
+                            rect(x * canvasSquareSize, y * canvasSquareSize, canvasSquareSize, canvasSquareSize + startOfDesign);
+                        } else {
+                            square(x * canvasSquareSize, y * canvasSquareSize, canvasSquareSize);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        function windowResized() {
+            resizeCanvas(min(windowWidth, windowHeight), min(windowWidth, windowHeight));
+        }
+    </script>
+    <style type='text/css'>body {
+        margin: 0;
+        padding: 0
+    }
+    canvas {
+        padding: 0;
+        margin: auto;
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0
+    }</style>
+</head>
+</html>
