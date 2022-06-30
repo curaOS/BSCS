@@ -12,7 +12,6 @@ import { alpha } from '@theme-ui/color'
 import Layout from '../containers/Layout'
 import { contractAddress } from '../utils/config'
 import { alertMessageState, indexLoaderState } from '../state/recoil'
-import { htmlToImg } from '../utils/html-to-img'
 import { gql, useQuery } from '@apollo/client'
 import { generate, randomNumber } from '../utils/generate'
 
@@ -39,6 +38,9 @@ const GET_CONTRACT_METADATA = gql`
     }
 `
 
+const delay = time => new Promise((res) => setTimeout(res, time))
+
+
 const Create = () => {
     const { contract } = useNFTContract(contractAddress)
     const { accountId } = useNearHooksContainer();
@@ -50,6 +52,8 @@ const Create = () => {
     const [creativeCode, setCreativeCode] = useState(``)
 
     const iframeRef = createRef(null)
+    const aspectRatioRef = createRef(null)
+
 
     const { loading, data, error } = useQuery(GET_CONTRACT_METADATA)
     let metadata = data?.nftContracts[0]?.metadata
@@ -62,17 +66,15 @@ const Create = () => {
     }
 
     const generatePreview = async () => {
-        const iframeHtml = iframeRef.current.contentWindow.document.body;
+        aspectRatioRef.current.style.width = `${1400/window.devicePixelRatio}px`;
+        aspectRatioRef.current.style.height = `${1400/window.devicePixelRatio}px`;
 
-        // set dimension for canvas otherwise you end up having different screenshot sizes based on device
-        iframeRef.current.width = 1500 / window.devicePixelRatio;
-        iframeRef.current.height = 1500 / window.devicePixelRatio;
-        // // iframeRef.current.contentWindow.document.body.setAttribute('width', '1000'); // explicitly setting its unit 'px'
-        // // iframeRef.current.contentWindow.document.body.setAttribute('height', '1000');
-        iframeRef.current.contentWindow.document.getElementById('defaultCanvas0').style.width = `${1500 / window.devicePixelRatio}px`; // explicitly setting its unit 'px'
-        iframeRef.current.contentWindow.document.getElementById('defaultCanvas0').style.height = `${1500 / window.devicePixelRatio}px`;
+        const canvas = iframeRef.current.contentWindow.document.getElementById('defaultCanvas0');
 
-        return await htmlToImg(iframeHtml);
+        // Without this millisecond delay the iFrame doesn't resize and image stays small
+        await delay(1);
+
+        return canvas.toDataURL('image/png');
     }
 
     async function retrieveData() {
@@ -182,6 +184,7 @@ const Create = () => {
                 >
                     <AspectRatio
                         ratio={1}
+                        ref={aspectRatioRef}
                         sx={{
                             bg: 'gray.3',
                             alignItems: 'center',
@@ -191,7 +194,6 @@ const Create = () => {
                             maxHeight: '100%',
                             marginLeft: 'auto',
                             marginRight: 'auto',
-
                         }}
                     >
                         {creativeCode && (
