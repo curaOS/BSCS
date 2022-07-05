@@ -63,9 +63,13 @@ const GET_OWNER_NFT = gql`
       }
     }
     nftContracts(first: 1, where: { id: "${contractAddress}" }) {
-      metadata{
-        base_uri
-      }
+        metadata{
+            base_uri
+            mint_royalty_amount
+            mint_royalty_id {
+                id
+            }
+        }
     }
   }
 `
@@ -130,6 +134,9 @@ const ViewToken = () => {
     }
 
     const base_uri = data?.nftContracts[0]?.metadata?.base_uri
+    const mint_royalty_amount =
+        data?.nftContracts[0]?.metadata?.mint_royalty_amount
+    const mint_royalty_id = data?.nftContracts[0]?.metadata?.mint_royalty_id?.id
 
     return (
         <Layout requireAuth={true}>
@@ -205,8 +212,8 @@ const ViewToken = () => {
                         )}
 
                         <CreatorShare
-                            address={HARDCODED_ROYALTY_ADDRESS}
-                            share={HARDCODED_ROYALTY_SHARE}
+                            address={mint_royalty_id}
+                            share={mint_royalty_amount}
                         />
                         <List
                             data={[
