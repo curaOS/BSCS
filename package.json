@@ -16,11 +16,11 @@
     "deploy:subgraph": "yarn workspace subgraph deploy",
     "test:sandbox": "yarn workspace tests sandbox"
   },
-  "version": "0.0.14",
+  "version": "0.1.0",
   "config": {
-    "contractAddress": "0_0_14.basics-t.testnet",
-    "network": "testnet",
-    "masterAccount": "basics-t.testnet",
-    "graphAPI": "https://api.thegraph.com/subgraphs/name/curaos/cc-project"
+    "contractAddress": "basics.cura.near",
+    "network": "mainnet",
+    "masterAccount": "cura.near",
+    "graphAPI": "https://api.thegraph.com/subgraphs/name/curaos/basics-v1"
   }
 }
