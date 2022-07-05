@@ -8,6 +8,7 @@ import { useSetRecoilState } from 'recoil'
 import axios from 'axios'
 import { useState, createRef } from 'react'
 import { alpha } from '@theme-ui/color'
+import sha256 from 'js-sha256';
 
 import Layout from '../containers/Layout'
 import { contractAddress } from '../utils/config'
@@ -44,6 +45,7 @@ const delay = time => new Promise((res) => setTimeout(res, time))
 const Create = () => {
     const { contract } = useNFTContract(contractAddress)
     const { accountId } = useNearHooksContainer();
+
 
     const setIndexLoader = useSetRecoilState(indexLoaderState)
     const setAlertMessage = useSetRecoilState(alertMessageState)
@@ -144,6 +146,8 @@ const Create = () => {
                     tokenMetadata: {
                         title: `${accountId[0]}-${seed}`,
                         media: previewResponse.data.transaction.id,
+                        media_hash: sha256(preview),
+                        description: new Date().toISOString(),
                         media_animation: liveResponse.data.transaction.id,
                         extra: Buffer.from(
                             JSON.stringify({
