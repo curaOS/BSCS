@@ -21,9 +21,6 @@ import { alertMessageState, indexLoaderState } from '../../state/recoil'
 
 const MARKET_SET_BID_GAS = utils.format.parseNearAmount(`0.00000000020`) // 200 Tgas
 
-const HARDCODED_ROYALTY_ADDRESS = 'sample.address'
-const HARDCODED_ROYALTY_SHARE = `2500`
-
 const GET_SINGLE_NFT = gql`
   query getnft($token_id: String) {
     nfts(skip: 0, first: 1, where: { id: $token_id }) {
@@ -61,6 +58,9 @@ const GET_SINGLE_NFT = gql`
       metadata{
         base_uri
         mint_royalty_amount
+        mint_royalty_id {
+            id
+        }
       }
     }
   }
@@ -132,6 +132,7 @@ const SingleView = () => {
     const base_uri = data?.nftContracts[0]?.metadata?.base_uri
     const mint_royalty_amount =
         data?.nftContracts[0]?.metadata?.mint_royalty_amount
+    const mint_royalty_id = data?.nftContracts[0]?.metadata?.mint_royalty_id?.id
 
     return (
         <Layout>
@@ -210,8 +211,8 @@ const SingleView = () => {
 
                     <Box mt={2}>
                         <CreatorShare
-                            address={HARDCODED_ROYALTY_ADDRESS}
-                            share={HARDCODED_ROYALTY_SHARE}
+                            address={mint_royalty_id}
+                            share={mint_royalty_amount}
                         />
                     </Box>
 
