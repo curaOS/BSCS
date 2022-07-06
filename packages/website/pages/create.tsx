@@ -145,7 +145,7 @@ const Create = () => {
                 {
                     tokenMetadata: {
                         title: `${accountId[0]}-${seed}`,
-                        media: previewResponse.data.transaction.id,
+                        media: `https://arweave.net/${previewResponse.data.transaction.id}`,
                         media_hash: sha256(preview),
                         description: new Date().toISOString(),
                         media_animation: liveResponse.data.transaction.id,
