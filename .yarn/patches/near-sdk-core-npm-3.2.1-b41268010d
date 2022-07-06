@@ -1,0 +1,14 @@
+diff --git a/assembly/collections/persistentSet.ts b/assembly/collections/persistentSet.ts
+index 3f4385e00bfb793981d3c5180cb917f4c7c0d6d2..1fdf01815491f65cbfc95a8cf66b46e5c66722e7 100644
+--- a/assembly/collections/persistentSet.ts
++++ b/assembly/collections/persistentSet.ts
+@@ -90,6 +90,9 @@ export class PersistentSet<T> {
+     // update our accounting of items in the set
+     const swapKey = this._hashedItem(swapItem);
+     this._map.set(swapKey, index);
++
++    /**@todo this is an issue that needs to be resolved on near-sdk-as */
++    this._map.delete(key);
+   }
+ 
+   /**

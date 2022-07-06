@@ -22,5 +22,8 @@
     "network": "mainnet",
     "masterAccount": "cura.near",
     "graphAPI": "https://api.thegraph.com/subgraphs/name/curaos/basics-v1"
+  },
+  "resolutions": {
+    "near-sdk-core": "patch:near-sdk-core@npm:#.yarn/patches/near-sdk-core-npm-3.2.1-b41268010d"
   }
 }

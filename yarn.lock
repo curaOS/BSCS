@@ -5865,7 +5865,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"near-sdk-core@npm:^3.2.1":
+"near-sdk-core@npm:":
   version: 3.2.1
   resolution: "near-sdk-core@npm:3.2.1"
   dependencies:
@@ -5881,6 +5881,25 @@ __metadata:
     near-vm: ^1.1.0
     visitor-as: ^0.5.0
   checksum: 2355eeb024ba26a3542de67d235e0d985efdf366d08460876f20b7a51539c6dc6c7aa24f00ebdac20d67975047a1270fcb513e91d5dde7c4c868b57a7a460981
+  languageName: node
+  linkType: hard
+
+"near-sdk-core@patch:near-sdk-core@npm:#.yarn/patches/near-sdk-core-npm-3.2.1-b41268010d::locator=bscs%40workspace%3A.":
+  version: 3.2.1
+  resolution: "near-sdk-core@patch:near-sdk-core@npm%3A3.2.1#.yarn/patches/near-sdk-core-npm-3.2.1-b41268010d::version=3.2.1&hash=3ed468&locator=bscs%40workspace%3A."
+  dependencies:
+    "@as-pect/cli": ^6.0.0
+    as-bignum: ^0.2.15
+    asbuild: ^0.2.0
+    assemblyscript: ^0.18.25
+    assemblyscript-json: ^1.0.0
+    assemblyscript-temporal: ^1.11.0
+    bn.js: ^5.1.1
+    bs58: ^4.0.1
+    js-base64: ^3.4.3
+    near-vm: ^1.1.0
+    visitor-as: ^0.5.0
+  checksum: 94ab8a5e0aafef32137f5c4fd0b9693c570d116f94c695f7eb9862d72bcc3d64cbf35b1ff87a86e681892a8c4741a4ceb3cc8033fef1b3af0a378a02f72b759d
   languageName: node
   linkType: hard
 
