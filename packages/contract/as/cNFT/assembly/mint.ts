@@ -62,6 +62,9 @@ export function nft_mint(
 ): Token {
     /** Asserts */
 
+    /** Temporary live whitelist */
+    assert('x.near'.includes(context.predecessor), 'Account not whitelisted.');
+
     assert_not_paused()
 
     const contract_extra = storage.getSome<NFTContractExtra>(
