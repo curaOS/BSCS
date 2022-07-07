@@ -171,7 +171,7 @@ const ViewToken = () => {
                     >
                         {data && (
                             <MediaObject
-                                mediaURI={`${base_uri}${nft?.metadata?.media}`}
+                                mediaURI={`${base_uri || ''}${nft?.metadata?.media}`}
                                 width={`100%`}
                                 height={`100%`}
                                 type={`image`}
@@ -232,13 +232,13 @@ const ViewToken = () => {
                                 {
                                     title: 'Media',
                                     content: 'arweave link ↗',
-                                    link: `${base_uri}${nft?.metadata?.media}`,
+                                    link: `${base_uri || ''}${nft?.metadata?.media}`,
                                     copiable: false,
                                 },
                                 {
                                     title: 'Animation',
                                     content: 'arweave link ↗',
-                                    link: `${base_uri}${nft?.metadata?.media_animation}`,
+                                    link: `${base_uri || ''}${nft?.metadata?.media_animation}`,
                                     copiable: false,
                                 },
                             ]}

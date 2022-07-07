@@ -45,7 +45,7 @@ export default function Feed({entries, onLoadMore, totalSupply, base_uri, page})
                                 }}
                             >
                                 <MediaObject
-                                    mediaURI={`${base_uri}${item.metadata.media}`}
+                                    mediaURI={`${base_uri || ''}${item.metadata.media}`}
                                     width={"100%"}
                                     height={"100%"}
                                     type={"image"}
